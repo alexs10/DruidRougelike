@@ -84,6 +84,6 @@ public class Enemy : MovingObject, Turnable {
 
     public void TakeTurn(EndTurnCallback endTurnCallback) {
         MoveEnemy();
-        endTurnCallback(this, true, 5, MovingObject.SmoothMoveTime);
+        endTurnCallback(this, true, 5, 0);
     }
 }

@@ -39,9 +39,12 @@ public abstract class MovingObject : MonoBehaviour {
         while (sqrRemainingDistance > float.Epsilon) {
             Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
             rb2D.MovePosition(newPosition);
+			colider.offset = end - transform.position;
             sqrRemainingDistance = (transform.position - end).sqrMagnitude;
             yield return null;
         }
+		colider.offset = Vector3.zero;
+			
     }
 
     protected virtual void AttemptMove <T> (int xDir, int yDir)
