@@ -27,7 +27,6 @@ public class TurnKeeper : MonoBehaviour {
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-        Debug.Log("TurnKeeper");
         StartTurn();
     }
 
@@ -39,14 +38,11 @@ public class TurnKeeper : MonoBehaviour {
         if (nextTurn && HasTurnable()) {
             NextTurnable().TakeTurn(new EndTurnCallback(StandardEndTurnCallback));
             nextTurn = false;
-            Debug.Log("finished taketurn");
         }
     }
 
     private void StandardEndTurnCallback(Turnable target, bool isStillActive, int turnSpeed, int timeHangingMilliSeconds) {
-        Debug.Log("callback ahs been called");
-        Timer timer = new Timer((obj) => {
-            Debug.Log("    in the callback timer");
+        new Timer((obj) => {
             nextTurn = true;
             if (isStillActive)
                 AddToTurnables(turnSpeed, target);
@@ -58,7 +54,6 @@ public class TurnKeeper : MonoBehaviour {
     // Use this for initialization
 
     public void Register(Turnable turnable, int turnsInactive) {
-        Debug.Log("about to regisester to turn keeper");
         AddToTurnables(currentTurn + turnsInactive, turnable);
     }
 
@@ -79,9 +74,7 @@ public class TurnKeeper : MonoBehaviour {
 
 
     private Turnable NextTurnable() {
-        Debug.Log("about to get next turnable");
         while (currentTurnables == null || currentTurnables.Count == 0) {
-            Debug.Log("Current turn: " + currentTurn);
             turnables.TryGetValue(++currentTurn, out currentTurnables);
         }
         Turnable output = currentTurnables[0];

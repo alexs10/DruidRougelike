@@ -3,7 +3,7 @@ using System.Collections;
 
 //Enemy inherits from MovingObject, our base class for objects that can move, Player also inherits from this.
 public class Enemy : MovingObject, Turnable {
-    public int playerDamage;                            //The amount of food points to subtract from the player when attacking.
+    private int playerDamage = 1;                            //The amount of food points to subtract from the player when attacking.
 
 
     private Animator animator;                          //Variable of type Animator to store a reference to the enemy's Animator component.
@@ -13,16 +13,11 @@ public class Enemy : MovingObject, Turnable {
 
     //Start overrides the virtual Start function of the base class.
     protected override void Start() {
-        //Register this enemy with our instance of GameManager by adding it to a list of Enemy objects. 
-        //This allows the GameManager to issue movement commands.
         TurnKeeper.instance.Register(this,5);
 
-        //Get and store a reference to the attached Animator component.
         animator = GetComponent<Animator>();
 
-        //Find the Player GameObject using it's tag and store a reference to its transform component.
         target = GameObject.FindGameObjectWithTag("Player").transform;
-        //Call the start function of our base class MovingObject.
         base.Start();
     }
 
@@ -34,7 +29,6 @@ public class Enemy : MovingObject, Turnable {
         if (skipMove) {
             skipMove = false;
             return;
-
         }
 
         //Call the AttemptMove function from MovingObject.
@@ -64,18 +58,20 @@ public class Enemy : MovingObject, Turnable {
             xDir = target.position.x > transform.position.x ? 1 : -1;
 
         //Call the AttemptMove function and pass in the generic parameter Player, because Enemy is moving and expecting to potentially encounter a Player
-        AttemptMove<Player>(xDir, yDir);
+        AttemptMove<Health>(xDir, yDir);
     }
 
 
     //OnCantMove is called if Enemy attempts to move into a space occupied by a Player, it overrides the OnCantMove function of MovingObject 
     //and takes a generic parameter T which we use to pass in the component we expect to encounter, in this case Player
     protected override void OnCantMove<T>(T component) {
+		Debug.Log ("on cant move enemy");
         //Declare hitPlayer and set it to equal the encountered component.
-        Player hitPlayer = component as Player;
+        Health health = component as Health;
 
         //Call the LoseFood function of hitPlayer passing it playerDamage, the amount of foodpoints to be subtracted.
-        hitPlayer.TakeDamage(playerDamage);
+		Debug.Log("pd: " + playerDamage);
+        health.TakeDamage(playerDamage);
 
         //Set the attack trigger of animator to trigger Enemy attack animation.
         animator.SetTrigger("enemyAttack");

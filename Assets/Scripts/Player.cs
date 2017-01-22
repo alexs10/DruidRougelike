@@ -2,11 +2,11 @@
 using System.Collections;
 using System;
 
-public class Player : MovingObject, Turnable   {
+public class Player : MovingObject, Turnable, Observer   {
 
     public float restartLevelDelay = 1f;
     public int wallDamage = 1;
-    private int health;
+	private Health health;
     private Animator animator;
 
     private bool playersTurn = false;
@@ -17,11 +17,14 @@ public class Player : MovingObject, Turnable   {
 	protected override void Start () {
         base.Start();
         animator = GetComponent<Animator>();
-        Debug.Log("about to go balls deep");
         TurnKeeper.instance.Register(this, 1);
-        Debug.Log("wen balls deep");
 	}
-	
+
+	public void Awake() {
+		health = GetComponent<Health> ();
+		health.Register (this);
+	}
+
 	// Update is called once per frame
 	void Update () {
         if (!playersTurn) return;
@@ -62,7 +65,8 @@ public class Player : MovingObject, Turnable   {
         //Check if the tag of the trigger collided with is Food.
         else if (other.tag == "Food") {
             //Add pointsPerFood to the players current food total.
-            health += 10;
+			health.Heal(2);
+            //health += 10;
 
             //Disable the food object the player collided with.
             other.gameObject.SetActive(false);
@@ -71,7 +75,7 @@ public class Player : MovingObject, Turnable   {
         //Check if the tag of the trigger collided with is Soda.
         else if (other.tag == "Soda") {
             //Add pointsPerSoda to players food points total
-            health += 20;
+			health.Heal(5);
 
 
             //Disable the soda object the player collided with.
@@ -90,27 +94,22 @@ public class Player : MovingObject, Turnable   {
         animator.SetTrigger("playerChop");
     }
 
-    public void TakeDamage( int loss) {
-        animator.SetTrigger("playerHit");
-        health -= loss;
-        CheckIfGameOver();
-    }
-
     public void TakeTurn(EndTurnCallback endTurnCallback) {
-        Debug.Log("Taking my turn bby0");
         this.endTurnCallback = endTurnCallback;
         playersTurn = true;
     }
 
     private void EndTurn(int turnsInactive) {
-        Debug.Log("Ending turn bby0");
         playersTurn = false;
         endTurnCallback(this, true, 5, MovingObject.SmoothMoveTime);
     }
 
-    private void CheckIfGameOver() {
-        if (health <= 0) {
-            GameManager.instance.GameOver();
-        }
-    }
+	public void Notify() {
+		Debug.Log ("Player got hit");
+		animator.SetTrigger ("playerHit");
+		if (health.currentHealth <= 0) {
+			GameManager.instance.GameOver ();
+		}
+	}
+		
 }

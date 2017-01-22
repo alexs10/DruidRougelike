@@ -38,8 +38,12 @@ public abstract class MovingObject : MonoBehaviour {
         float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
         while (sqrRemainingDistance > float.Epsilon) {
             Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+
+			//put the colider at the end of the movement to make sure that enemies dont move into us
+			colider.offset = end - newPosition;
             rb2D.MovePosition(newPosition);
-			colider.offset = end - transform.position;
+
+	
             sqrRemainingDistance = (transform.position - end).sqrMagnitude;
             yield return null;
         }
