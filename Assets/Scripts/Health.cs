@@ -29,6 +29,7 @@ public class Health : MonoBehaviour, Observable {
 	}
 
 	public void Register(Observer o) {
+        Debug.Log("registered");
 		observers.Add (o);
 	}
 

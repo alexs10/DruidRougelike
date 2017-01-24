@@ -105,7 +105,6 @@ public class Player : MovingObject, Turnable, Observer   {
     }
 
 	public void Notify() {
-		Debug.Log ("Player got hit");
 		animator.SetTrigger ("playerHit");
 		if (health.currentHealth <= 0) {
 			GameManager.instance.GameOver ();
