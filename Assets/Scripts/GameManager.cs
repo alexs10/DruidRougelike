@@ -6,13 +6,15 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
     public BoardManager boardScript;
 
+
     [HideInInspector]
     public bool playersTurn = true;
 
     private int level = 3;
+    private GameState gameState;
 
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake () {
         if (instance == null)
         {
             instance = this;
@@ -25,8 +27,11 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManager>();
         InitGame();
-        StartGame();
 	}
+
+    void Start() {
+        StartGame();
+    }
 
     public void GameOver() {
 		Debug.Log ("GAME OVER **%*%*%*%*%*%*%*%*%*%*%*%*%*");
@@ -38,11 +43,12 @@ public class GameManager : MonoBehaviour {
     }
 
     void StartGame() {
-        //TurnKeeper.GetInstance().TakeTurn();
+        gameState = new MainState();
+        gameState.OnEnterState();
     }
 	
 	// Update is called once per frame
 	void Update () {
-	
+        gameState.Update();
 	}
 }

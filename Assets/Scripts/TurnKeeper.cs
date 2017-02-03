@@ -27,11 +27,14 @@ public class TurnKeeper : MonoBehaviour {
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-        StartTurn();
     }
 
-    public void StartTurn() {
+    public void StartTurning() {
         nextTurn = true;
+    }
+
+    public void StopTurning() {
+        nextTurn = false;
     }
 
     public void Update() {
