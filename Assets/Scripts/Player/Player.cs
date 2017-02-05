@@ -55,9 +55,7 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
 
         //ACTIONS
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            int turnDelay = actions["1"].Execute();
-            if (turnDelay > 0)
-                EndTurn(turnDelay);
+            actions["1"].Execute();
         }
     }
 
@@ -108,7 +106,7 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
         controller.setInactive(false);
     }
 
-    private void EndTurn(int turnsInactive) {
+    public void EndTurn(int turnsInactive) {
         controller.setInactive(true);
         endTurnCallback(this, true, 5, MovingObject.SmoothMoveTime);
     }

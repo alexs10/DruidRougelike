@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetingController : MonoBehaviour, Controllable {
+public class TargetingController : MonoBehaviour, Controllable, Observable {
 
     public GameObject targetSquarePrefab;
 
-    [HideInInspector]
-    public Transform target = null;
+    private List<Observer> observers;
+    private Transform target = null;
     private int targetingLayer;
     private PlayerController controller;
 
@@ -15,6 +15,8 @@ public class TargetingController : MonoBehaviour, Controllable {
 
 	// Use this for initialization
 	void Start () {
+        observers = new List<Observer>();
+
         this.controller = GameObject.Find("Player").GetComponent<PlayerController>();
         targetingLayer = LayerMask.GetMask("Targeting");
         activeSquares = new List<TargetSquare>();
@@ -57,10 +59,8 @@ public class TargetingController : MonoBehaviour, Controllable {
 
 
             if (hit) {
-                Debug.Log(hit.transform.name);
                 target = hit.transform;
                 StopTargeting();
-                //hit.collider.GetComponent<TargetSquare>().SetTargeted();
             } else {
                 Debug.Log("MISS");
             }
@@ -74,8 +74,32 @@ public class TargetingController : MonoBehaviour, Controllable {
 
     private void StopTargeting() {
         controller.ReturnState();
+        NotifyObservers();
+    }
+
+    public bool HasTarget() {
+        return target != null;
+    }
+
+    public Transform TakeTarget() {
+        Transform tempTarget = target;
+        target = null;
+        return tempTarget;
     }
 
 
+    public void Register(Observer o) {
+        observers.Add(o);
+    }
 
+    public void Deregister(Observer o) {
+        observers.Remove(o);
+    }
+
+    private void NotifyObservers() {
+        //This cannot be a foreach loop because concurancy garbage
+        for (int i = 0; i<observers.Count; i++) {
+            observers[i].Notify();
+        }
+    }
 }

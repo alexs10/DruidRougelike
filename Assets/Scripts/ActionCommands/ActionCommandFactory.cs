@@ -15,7 +15,8 @@ class ActionCommandFactory {
     public MeleeAttackActionCommand CreateMeleeAttack() {
         return new MeleeAttackActionCommand(2, 
             GameObject.Find("TargetingUI").GetComponent<TargetingController>(),
-            GameObject.Find("Player").GetComponent<PlayerController>());
+            GameObject.Find("Player").GetComponent<PlayerController>(),
+            GameObject.Find("Player").GetComponent<Player>());
     }
 }
 
