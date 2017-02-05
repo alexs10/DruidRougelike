@@ -34,7 +34,7 @@ class MeleeAttackActionCommand: ActionCommand, Observer {
             Vector2 rayPos = target.position;
             RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f, damagingLayer);
 
-            if (hit) {
+            if (hit && hit.collider.GetComponent<Enemy>() != null) {
                 hit.collider.GetComponent<Enemy>().TakeDamage(2);
                 Debug.Log("MELEE ATTACK: " + damage);
             }

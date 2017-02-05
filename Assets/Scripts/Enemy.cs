@@ -66,7 +66,21 @@ public class Enemy : MovingObject, Turnable {
         endTurnCallback(this, true, 5, 0);
     }
 
+    bool isActive = true;
+    public bool IsActive() {
+        return isActive;
+    }
+
     public void TakeDamage(int damage) {
         health -= damage;
+        if (health <= 0) {
+            Die();
+        }
+    }
+
+    public void Die() {
+        Debug.Log("Enemy is dead");
+        isActive = false;
+        Destroy(gameObject);
     }
 }

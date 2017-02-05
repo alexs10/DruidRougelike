@@ -39,13 +39,19 @@ public class TurnKeeper : MonoBehaviour {
 
     public void Update() {
         if (nextTurn && HasTurnable()) {
-            NextTurnable().TakeTurn(new EndTurnCallback(StandardEndTurnCallback));
-            nextTurn = false;
+            Debug.Log("starting turn");
+            Turnable nextTurnable;
+            if ((nextTurnable = NextTurnable()).IsActive()) {
+                nextTurnable.TakeTurn(new EndTurnCallback(StandardEndTurnCallback));
+                nextTurn = false;
+            }
+                
         }
     }
 
     private void StandardEndTurnCallback(Turnable target, bool isStillActive, int turnSpeed, int timeHangingMilliSeconds) {
         new Timer((obj) => {
+            Debug.Log("ending turn");
             nextTurn = true;
             if (isStillActive)
                 AddToTurnables(turnSpeed, target);

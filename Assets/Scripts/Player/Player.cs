@@ -106,6 +106,10 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
         controller.setInactive(false);
     }
 
+    public bool IsActive() {
+        return true;
+    }
+
     public void EndTurn(int turnsInactive) {
         controller.setInactive(true);
         endTurnCallback(this, true, 5, MovingObject.SmoothMoveTime);

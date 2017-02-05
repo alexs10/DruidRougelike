@@ -6,5 +6,6 @@ public delegate void EndTurnCallback(Turnable self, bool isStillActive, int turn
 
 public interface Turnable {
     void TakeTurn(EndTurnCallback endTurnCallback);
+    bool IsActive();
 }
 
