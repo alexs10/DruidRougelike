@@ -5,6 +5,9 @@ public class TargetingController : MonoBehaviour, Controllable, Observable {
 
     public GameObject targetSquarePrefab;
 
+    private int BOARDWIDTH = 8;
+    private int BOARDHEIGHT = 8;
+
     private List<Observer> observers;
     private Transform target = null;
     private int targetingLayer;
@@ -25,8 +28,8 @@ public class TargetingController : MonoBehaviour, Controllable, Observable {
     }
      
     public void initTargeting() {
-        for (int i = 0; i<8; i++) {
-            for (int j = 0; j<8; j++) {
+        for (int i = 0; i< BOARDHEIGHT; i++) {
+            for (int j = 0; j< BOARDWIDTH; j++) {
                 GameObject instance = Instantiate(targetSquarePrefab, new Vector2(i, j), Quaternion.identity) as GameObject;
                 instance.transform.SetParent(this.transform);
             }
@@ -34,6 +37,14 @@ public class TargetingController : MonoBehaviour, Controllable, Observable {
     }
 
     public void DefineValidTargets(List<Vector2> validTargets) {
+        for (int i = 0; i < BOARDHEIGHT; i++) {
+            for (int j = 0; j < BOARDWIDTH; j++) {
+                RaycastHit2D hit = Physics2D.Raycast(new Vector2(i, j), Vector2.zero, 0f, targetingLayer);
+                if (hit) {
+                    hit.collider.GetComponent<TargetSquare>().SetNontargetable();
+                }
+            }
+        }
         foreach (Vector2 target in validTargets) {
             RaycastHit2D hit = Physics2D.Raycast(target, Vector2.zero, 0f, targetingLayer);
             if (hit) {
@@ -53,7 +64,7 @@ public class TargetingController : MonoBehaviour, Controllable, Observable {
         foreach(Vector2 vector in targetingStrategy.GetTargets(Input.mousePosition)) {
             Vector2 rayPos = new Vector2(Camera.main.ScreenToWorldPoint(vector).x, Camera.main.ScreenToWorldPoint(vector).y);
             RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f, targetingLayer);
-            if(hit) {
+            if(hit && !hit.collider.GetComponent<TargetSquare>().IsNontargetable()) {
                 hit.collider.GetComponent<TargetSquare>().SetTargeted();
                 activeSquares.Add(hit.collider.GetComponent<TargetSquare>());
             }
@@ -67,7 +78,7 @@ public class TargetingController : MonoBehaviour, Controllable, Observable {
             RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f, targetingLayer);
 
 
-            if (hit) {
+            if (hit && !hit.collider.GetComponent<TargetSquare>().IsNontargetable()) {
                 target = hit.transform;
                 StopTargeting();
             } else {
@@ -77,13 +88,25 @@ public class TargetingController : MonoBehaviour, Controllable, Observable {
 
         }
         if (Input.GetKey(KeyCode.Escape)) {
-            controller.ReturnState();
+            StopTargeting();
         }
     }
 
     private void StopTargeting() {
+        Reset();
         controller.ReturnState();
         NotifyObservers();
+    }
+
+    private void Reset() {
+        for (int i = 0; i < BOARDHEIGHT; i++) {
+            for (int j = 0; j < BOARDWIDTH; j++) {
+                RaycastHit2D hit = Physics2D.Raycast(new Vector2(i, j), Vector2.zero, 0f, targetingLayer);
+                if (hit) {
+                    hit.collider.GetComponent<TargetSquare>().SetDefault();
+                }
+            }
+        }
     }
 
     public bool HasTarget() {

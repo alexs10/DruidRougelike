@@ -14,9 +14,13 @@ public class TargetSquare : MonoBehaviour {
 	void Start () {
         colider = GetComponent<BoxCollider2D>();
         spriteRender = GetComponent <SpriteRenderer>();
-        SetNontargetable();
+        SetDefault();
 	}
 	
+    public bool IsNontargetable() {
+        return spriteRender.color == nontargetableColor;
+    }
+
 	public void SetTargeted() {
         spriteRender.color = targetColor;
     }
