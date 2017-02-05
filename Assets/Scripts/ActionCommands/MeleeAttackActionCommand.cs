@@ -1,6 +1,6 @@
 ﻿
 using UnityEngine;
-
+using System.Collections.Generic;
 
 class MeleeAttackActionCommand: ActionCommand, Observer {
     private int damage;
@@ -21,6 +21,7 @@ class MeleeAttackActionCommand: ActionCommand, Observer {
     }
 
     public int Execute() {
+        targetController.DefineValidTargets(GetValidTargets());
         playerController.ChangeState(targetController);
         targetController.Register(this);
         return 2;
@@ -42,6 +43,16 @@ class MeleeAttackActionCommand: ActionCommand, Observer {
         } else {
             //do nothing
         }
+    }
+
+    private List<Vector2> GetValidTargets() {
+        List<Vector2> validTargets = new List<Vector2>();
+        for (int i = (int)player.transform.position.x - 1; i < (int)player.transform.position.x + 2; i++) {
+            for (int j = (int)player.transform.position.y - 1; j < (int)player.transform.position.y + 2; j++) {
+                validTargets.Add(new Vector2(i, j));
+            }
+        }
+        return validTargets;
     }
 
 }

@@ -33,6 +33,15 @@ public class TargetingController : MonoBehaviour, Controllable, Observable {
         }
     }
 
+    public void DefineValidTargets(List<Vector2> validTargets) {
+        foreach (Vector2 target in validTargets) {
+            RaycastHit2D hit = Physics2D.Raycast(target, Vector2.zero, 0f, targetingLayer);
+            if (hit) {
+                hit.collider.GetComponent<TargetSquare>().SetDefault();
+            }
+        }
+    }
+
     public void ControlUpdate() {
         
         //Unselect each previously selected targetSquare

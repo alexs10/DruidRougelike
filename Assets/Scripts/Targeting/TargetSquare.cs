@@ -14,7 +14,7 @@ public class TargetSquare : MonoBehaviour {
 	void Start () {
         colider = GetComponent<BoxCollider2D>();
         spriteRender = GetComponent <SpriteRenderer>();
-        SetDefault();
+        SetNontargetable();
 	}
 	
 	public void SetTargeted() {
