@@ -23,9 +23,9 @@ GameObject:
   - component: {fileID: 95000011777800112}
   - component: {fileID: 61000013086524022}
   - component: {fileID: 50000012863298044}
-  - component: {fileID: 114000011653364674}
   - component: {fileID: 114000010570581120}
   - component: {fileID: 114959956022735082}
+  - component: {fileID: 114074622798783096}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 0
---- !u!114 &114000011653364674
+--- !u!114 &114074622798783096
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -118,13 +118,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013863266438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46b9a5278bd90764bb0ffcd05f35c1af, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d4571066d287304d818f3bf5a1305ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveTime: 0.1
   blockingLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   restartLevelDelay: 1
   wallDamage: 1
 --- !u!114 &114959956022735082
@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c57e27ab233fa24d8e88028bd21da5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inactive: 0
 --- !u!212 &212000011784753970
 SpriteRenderer:
   m_ObjectHideFlags: 1
