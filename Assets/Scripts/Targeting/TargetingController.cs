@@ -99,6 +99,7 @@ public class TargetingController : MonoBehaviour, Controllable, Observable {
     }
 
     private void Reset() {
+        activeSquares.Clear();
         for (int i = 0; i < BOARDHEIGHT; i++) {
             for (int j = 0; j < BOARDWIDTH; j++) {
                 RaycastHit2D hit = Physics2D.Raycast(new Vector2(i, j), Vector2.zero, 0f, targetingLayer);
