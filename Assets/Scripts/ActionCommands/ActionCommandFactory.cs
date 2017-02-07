@@ -25,5 +25,9 @@ class ActionCommandFactory {
 			GameObject.Find ("Player").GetComponent<PlayerController> (),
 			GameObject.Find ("Player").GetComponent<Player> ());
 	}
+
+	public NullActionCommand CreateNullAction() {
+		return new NullActionCommand ();
+	}
 }
 
