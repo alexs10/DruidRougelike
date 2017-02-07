@@ -9,7 +9,7 @@ public abstract class MovingObject : MonoBehaviour {
     private Rigidbody2D rb2D;
     private float inverseMoveTime;
 
-    public static int SmoothMoveTime = 200;
+    public static int SmoothMoveTime = 250;
 
 	// Use this for initialization
 	protected virtual void Start () {
