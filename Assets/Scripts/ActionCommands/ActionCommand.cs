@@ -4,6 +4,6 @@ using System.Linq;
 using System.Text;
 
 interface ActionCommand {
-    int Execute();
+    void Execute();
 }
 

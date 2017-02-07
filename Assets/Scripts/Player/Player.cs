@@ -24,6 +24,7 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
         this.actionCommandFactory = ActionCommandFactory.GetInstance();
         actions = new Dictionary<string, ActionCommand>();
         actions.Add("1", actionCommandFactory.CreateMeleeAttack());
+		actions.Add ("2", actionCommandFactory.CreateKeyAction (Color.magenta));
 
         controller = GetComponent<PlayerController>();
 
@@ -54,9 +55,11 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
         }
 
         //ACTIONS
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            actions["1"].Execute();
-        }
+		if (Input.GetKeyDown (KeyCode.Alpha1)) {
+			actions ["1"].Execute ();
+		} else if (Input.GetKeyDown (KeyCode.Alpha2)) {
+			actions ["2"].Execute ();
+		}
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
