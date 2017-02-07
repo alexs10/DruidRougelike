@@ -24,7 +24,7 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
         this.actionCommandFactory = ActionCommandFactory.GetInstance();
         actions = new Dictionary<string, ActionCommand>();
         actions.Add("1", actionCommandFactory.CreateMeleeAttack());
-		actions.Add ("2", actionCommandFactory.CreateKeyAction (Color.magenta));
+		actions.Add ("2", actionCommandFactory.CreateKeyAction (Color.red));
 
         controller = GetComponent<PlayerController>();
 
@@ -61,6 +61,10 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
 			actions ["2"].Execute ();
 		}
     }
+
+	public void EquipAction(ActionCommand action, string key) {
+		actions [key] = action;
+	}
 
     private void OnTriggerEnter2D(Collider2D other) {
         //Check if the tag of the trigger collided with is Exit.

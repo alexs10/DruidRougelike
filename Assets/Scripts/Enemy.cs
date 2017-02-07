@@ -29,7 +29,6 @@ public class Enemy : MovingObject, Turnable {
             skipMove = false;
             return;
         }
-        Debug.Log("Enemy pos = " + transform.position);
 
         base.AttemptMove<T>(xDir, yDir);
 
