@@ -10,7 +10,7 @@ public class Pickup : MonoBehaviour {
 	private SpriteRenderer sprite;
 	void Start() {
 		//hardcoded for now
-		this.item = ActionCommandFactory.GetInstance().CreateKeyAction(Color.magenta);
+		item = PickupDictionary.GetInstance().Get(itemName);
 		sprite = GetComponent<SpriteRenderer> ();
 	}
 
