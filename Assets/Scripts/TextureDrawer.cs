@@ -14,13 +14,12 @@ public class TextureDrawer : MonoBehaviour {
         texture = new Texture2D(1, 1);
         texture.SetPixel(0, 0, Color.red);
         texture.Apply();
+        
+
 	}
 
     private void OnGUI() {
-        GUI.DrawTexture(new Rect(transform.position, box.size), texture);
+        GUI.DrawTexture(new Rect(transform.position*32, box.size*32), texture);
     }
-    // Update is called once per frame
-    void Update () {
-		
-	}
+
 }

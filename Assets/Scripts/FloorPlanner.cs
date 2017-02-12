@@ -32,6 +32,7 @@ public class FloorPlanner : MonoBehaviour {
             //Add a rigid body for seperation physics
             Rigidbody2D rb2d = templateRoom.AddComponent<Rigidbody2D>();
             rb2d.freezeRotation = true;
+            rb2d.gravityScale = 0;
 
             //Add a box collider with a random size
             BoxCollider2D box = templateRoom.AddComponent<BoxCollider2D>();
@@ -63,19 +64,25 @@ public class FloorPlanner : MonoBehaviour {
     }
 
     private Vector2 GetRandomPointInCircle() {
-        return Random.insideUnitCircle* INITIAL_ROOM_RADIUS;
+        Vector2 randomRad = Random.insideUnitCircle* INITIAL_ROOM_RADIUS;
+        return new Vector2(Mathf.Floor(randomRad.x), Mathf.Floor(randomRad.y));
     }
 
     IEnumerator CheckFloorStopMoving() {
         print("checking... ");
-        Rigidbody[] GOS = FindObjectsOfType(typeof(Rigidbody)) as Rigidbody[];
+        List<Rigidbody2D> templateRooms = new List<Rigidbody2D>();
+        for (int i = 0; i < level.childCount; i++) {
+            templateRooms.Add(level.GetChild(i).GetComponent<Rigidbody2D>());
+        }
         bool allSleeping = false;
 
         while (!allSleeping) {
             allSleeping = true;
-            print("objects still moving");
-            foreach (Rigidbody GO in GOS) {
-                if (!GO.IsSleeping()) {
+            print(templateRooms.Count);
+
+            foreach (Rigidbody2D templateRoom in templateRooms) {
+                if (!templateRoom.IsSleeping()) {
+                    print("objects still moving");
                     allSleeping = false;
                     yield return null;
                     break;
