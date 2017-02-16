@@ -18,8 +18,8 @@ public class BoardManager : MonoBehaviour {
         } 
     }
 
-    public int columns = 8;
-    public int rows = 8;
+    public int columns = 12;
+    public int rows = 12;
     public Count wallCount = new Count(5, 9);
     public Count foodCount = new Count(1, 5);
     public GameObject exit;                                         //Prefab to spawn for exit.
@@ -32,7 +32,7 @@ public class BoardManager : MonoBehaviour {
     private Transform boardHolder;
     private List<Vector2> gridPositions = new List<Vector2>();
 
-    void initGridPositions()
+	void initGridPositions(int columns, int rows)
     {
         gridPositions.Clear();
 
@@ -45,14 +45,15 @@ public class BoardManager : MonoBehaviour {
         }
     }
 
-    void initBoard()
+	void initBoard(int columns, int rows)
     {
         boardHolder = new GameObject("Board").transform;
-        for (int i=-1; i<columns + 1; i++)
+        for (int i=0; i<columns; i++)
         {
-            for (int j=-1; j<rows+1; j++)
+            for (int j=0; j<rows; j++)
             {
-                GameObject toInstantiate = (i == -1 || j == -1 || i == columns || j == rows ) ?
+				Debug.Log ("i = " + i + " j = " + j);
+                GameObject toInstantiate = (i == 0 || j == 0 || i == columns-1 || j == rows-1 ) ?
                     outerWallTiles[Random.Range(0, outerWallTiles.Length)] :
                     floorTiles[Random.Range(0, floorTiles.Length)];
                 GameObject instance = Instantiate(toInstantiate, new Vector2(i, j), Quaternion.identity) as GameObject;
@@ -84,17 +85,22 @@ public class BoardManager : MonoBehaviour {
 
     public void setup(int level)
     {
-        initBoard();
-        initGridPositions();
+        initBoard(10, 10);
+        initGridPositions(10, 10);
 
         int enemyCount = (int)Math.Log(level, 2f);
 
         layoutObjectsAtRandom(foodTiles, foodCount.min, foodCount.max);
         layoutObjectsAtRandom(wallTiles, wallCount.min, wallCount.max);
         layoutObjectsAtRandom(enemyTiles, enemyCount, enemyCount);
-        Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
+        //Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);
 
     }
+
+	public void BuildRoom(Vector2 offset, Vector2 size) {
+		
+	}
+
     // Use this for initialization
     void Start () {
 	
