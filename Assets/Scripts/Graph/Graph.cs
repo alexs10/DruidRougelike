@@ -6,7 +6,7 @@ using System.Text;
 
 public abstract class Graph<T> {
     private WeightStrategy<T> weightStrategy;
-    protected List<Node<T>> nodes;
+    public List<Node<T>> nodes;
     public Graph(WeightStrategy<T> weightStrategy, List<Node<T>> nodes) {
         this.nodes = InitNodes(nodes);
         this.weightStrategy = weightStrategy;
@@ -45,7 +45,7 @@ public abstract class Graph<T> {
 
     private void RelaxEdges(Dictionary<Node<T>, NodeWeightElement> dict, Node<T> relaxer) {
         foreach (Node<T> adj in relaxer.GetAdjacent()) {
-            if (dict[adj].weight > GetWeight(relaxer, adj)) {
+			if (dict.ContainsKey(adj) && dict[adj].weight > GetWeight(relaxer, adj)) {
                 dict[adj] = new NodeWeightElement(GetWeight(relaxer, adj), relaxer);
             }
         }

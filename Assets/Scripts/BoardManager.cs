@@ -32,30 +32,34 @@ public class BoardManager : MonoBehaviour {
     private Transform boardHolder;
     private List<Vector2> gridPositions = new List<Vector2>();
 
-	void initGridPositions(int columns, int rows)
+	void initGridPositions(int columns, int rows, int xOffset, int yOffset)
     {
         gridPositions.Clear();
 
-        for (int i=1; i<columns-1; i++)
+		for (int i=1+xOffset; i<columns+xOffset-1; i++)
         {
-            for (int j=1; j<rows-1; j++)
+			for (int j=1+xOffset; j<rows+xOffset-1; j++)
             {
                 gridPositions.Add(new Vector2(i, j));
             }
         }
     }
 
-	void initBoard(int columns, int rows)
+	void initBoard(int columns, int rows, int xOffset, int yOffset)
     {
+		Debug.Log("Creating board at: " + xOffset + ", " + yOffset + " with size(" + columns +  ", " + rows + ")");
         boardHolder = new GameObject("Board").transform;
-        for (int i=0; i<columns; i++)
+		for (int i=xOffset; i<columns+xOffset; i++)
         {
-            for (int j=0; j<rows; j++)
+			for (int j=yOffset; j<rows+yOffset; j++)
             {
-				Debug.Log ("i = " + i + " j = " + j);
-                GameObject toInstantiate = (i == 0 || j == 0 || i == columns-1 || j == rows-1 ) ?
-                    outerWallTiles[Random.Range(0, outerWallTiles.Length)] :
-                    floorTiles[Random.Range(0, floorTiles.Length)];
+//				Debug.Log ("i = " + i + " j = " + j);
+//                GameObject toInstantiate = (i == 0 || j == 0 || i == columns-1 || j == rows-1 ) ?
+//                    outerWallTiles[Random.Range(0, outerWallTiles.Length)] :
+//                    floorTiles[Random.Range(0, floorTiles.Length)];
+
+				GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+
                 GameObject instance = Instantiate(toInstantiate, new Vector2(i, j), Quaternion.identity) as GameObject;
                 instance.transform.SetParent(boardHolder);
             }
@@ -85,8 +89,8 @@ public class BoardManager : MonoBehaviour {
 
     public void setup(int level)
     {
-        initBoard(10, 10);
-        initGridPositions(10, 10);
+        //initBoard(10, 10);
+        //initGridPositions(10, 10);
 
         int enemyCount = (int)Math.Log(level, 2f);
 
@@ -97,8 +101,19 @@ public class BoardManager : MonoBehaviour {
 
     }
 
-	public void BuildRoom(Vector2 offset, Vector2 size) {
-		
+	public void BuildRoom(float xOffset, float yOffset, float width, float height) {
+		//Debug.Log (((int)width % 2 == 0 ? 1 : 0));
+		//int xOffset = (int)xCenter - (int)width / 2 + ((int)width % 2 == 0 ? 0 : 0);
+		//int yOffset = (int)yCenter - (int)height / 2 + ((int)height % 2 == 0 ? 0 : 0);
+
+		initBoard ((int)width, (int)height, (int)xOffset, (int)yOffset);
+		initGridPositions ((int)width, (int)height, (int)xOffset, (int)yOffset);
+
+		int enemyCount = (int)Math.Log(4f, 2f);
+
+		//layoutObjectsAtRandom(foodTiles, foodCount.min, foodCount.max);
+		//layoutObjectsAtRandom(wallTiles, wallCount.min, wallCount.max);
+		//layoutObjectsAtRandom(enemyTiles, enemyCount, enemyCount);
 	}
 
     // Use this for initialization

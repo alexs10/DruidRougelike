@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FloorPlanner : MonoBehaviour {
+public class FloorPlanner : MonoBehaviour, Observable {
     private const int TOTAL_ROOM_COUNT = 40;
     private const int MIN_ROOM_SIZE = 3;
     private const int MAX_ROOM_SIZE = 15;
@@ -10,17 +10,40 @@ public class FloorPlanner : MonoBehaviour {
     private const int AREA_THRESHOLD = 100;
     private Transform level;
 
+	private List<Observer> observers;
+
+	public Graph<TemplateRoom> floorGraph;
+
+	void Awake() {
+		observers = new List<Observer> ();
+	}
+
 	// Use this for initialization
 	void Start () {
-        Random.InitState(300);
-        CreateFloor();
-        StartCoroutine(CheckFloorStopMoving());
+		//observers = new List<Observer> ();
+        Random.InitState(1337);
+        //CreateFloor();
+        //StartCoroutine(CheckFloorStopMoving());
         //wait for floor to stop moving
 
 	}
 
+	public void PlanFloor() {
+		CreateFloor ();
+		StartCoroutine (CheckFloorStopMoving ());
+	}
+
     void ContinueRoomGen() {
         List<TemplateRoom> mainRooms = FindMainRooms();
+		List<Node<TemplateRoom>> graphNodes = new List<Node<TemplateRoom>> ();
+		foreach (TemplateRoom room in mainRooms) {
+			graphNodes.Add (new Node<TemplateRoom> (room));
+		}
+		Graph<TemplateRoom> mainRoomGraphConnected = new ConnectedGraph<TemplateRoom> (new DistanceWeightStrategy<TemplateRoom> (), graphNodes);
+		floorGraph = mainRoomGraphConnected.MinimumSpanningTree ();
+		foreach (Observer observer in observers) {
+			observer.Notify ();
+		}
     }
 	
 	void CreateFloor() {
@@ -37,6 +60,7 @@ public class FloorPlanner : MonoBehaviour {
             //Add a box collider with a random size
             BoxCollider2D box = templateRoom.AddComponent<BoxCollider2D>();
             box.size = GetRandomRoomSize();
+			box.offset = box.size / 2;
 
             //so I can see the boxes in testing
             //templateRoom.AddComponent<TextureDrawer>();
@@ -96,4 +120,14 @@ public class FloorPlanner : MonoBehaviour {
         print("All objects sleeping");
         ContinueRoomGen();
     }
+
+	public void Register(Observer o) {
+		observers.Add(o);
+	}
+
+	public void Deregister(Observer o) {
+		observers.Remove (o);
+	}
+
+
 }

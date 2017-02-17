@@ -5,11 +5,9 @@ using UnityEngine;
 public class TemplateRoom : MonoBehaviour, Cartesian {
 
     BoxCollider2D box;
-    Dictionary<GraphNode, int> adjacentGraphNodes;
     // Use this for initialization
     void Start() {
         box = GetComponent<BoxCollider2D>();
-        adjacentGraphNodes = new Dictionary<GraphNode, int>();
     }
 
     // Update is called once per frame
