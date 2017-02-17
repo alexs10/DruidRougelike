@@ -89,8 +89,8 @@ public class BoardManager : MonoBehaviour {
 
     public void setup(int level)
     {
-        //initBoard(10, 10);
-        //initGridPositions(10, 10);
+        initBoard(10, 10, 0, 0);
+        initGridPositions(10, 10, 0, 0);
 
         int enemyCount = (int)Math.Log(level, 2f);
 
