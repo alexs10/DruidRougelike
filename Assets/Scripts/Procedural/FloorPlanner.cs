@@ -86,8 +86,8 @@ public class FloorPlanner : MonoBehaviour, Observable {
     
 
     private Vector2 GetRandomRoomSize() {
-        return new Vector2(Mathf.Floor(Random.value * (MAX_ROOM_SIZE - MIN_ROOM_SIZE) + MIN_ROOM_SIZE),
-                Mathf.Floor(Random.value * (MAX_ROOM_SIZE - MIN_ROOM_SIZE) + MIN_ROOM_SIZE));
+        return new Vector2(Mathf.Floor(Random.value * (MAX_ROOM_SIZE - MIN_ROOM_SIZE) + MIN_ROOM_SIZE) + .1f,
+                Mathf.Floor(Random.value * (MAX_ROOM_SIZE - MIN_ROOM_SIZE) + MIN_ROOM_SIZE) + .1f);
     }
 
     private Vector2 GetRandomPointInCircle() {

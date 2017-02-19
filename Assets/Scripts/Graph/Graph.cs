@@ -7,12 +7,13 @@ using System.Text;
 public abstract class Graph<T> {
     private WeightStrategy<T> weightStrategy;
     public List<Node<T>> nodes;
-    public Graph(WeightStrategy<T> weightStrategy, List<Node<T>> nodes) {
-        this.nodes = InitNodes(nodes);
+    public List<Edge<T>> edges;
+    public Graph(WeightStrategy<T> weightStrategy, List<Node<T>> nodes, List<Edge<T>> edges) {
+        InitNodesAndEdges(nodes, edges, out this.nodes, out this.edges);
         this.weightStrategy = weightStrategy;
     }
 
-    protected abstract List<Node<T>> InitNodes(List<Node<T>> nodes);
+    protected abstract void InitNodesAndEdges(List<Node<T>> nodes, List<Edge<T>> edges, out List<Node<T>> outNodes, out List<Edge<T>> outEdges);
 
     public float GetWeight(Node<T> a, Node<T> b) {
         return weightStrategy.CalcuateWeight(a, b);
@@ -27,6 +28,7 @@ public abstract class Graph<T> {
         }
 
         List<Node<T>> mstNodes = new List<Node<T>>();
+        List<Edge<T>> mstEdges = new List<Edge<T>>();
 
         //Add our seed to deal with edge cases
         mstNodes.Add(nodes[0]);
@@ -36,10 +38,10 @@ public abstract class Graph<T> {
 
         while (dict.Count > 0) {
             RelaxEdges(dict, relaxer);
-            relaxer = ExtractMin(mstNodes, dict);
+            relaxer = ExtractMin(mstNodes, mstEdges, dict);
         }
 
-        return new SimpleGraph<T>(weightStrategy, mstNodes);
+        return new SimpleGraph<T>(weightStrategy, mstNodes, mstEdges);
 
     }
 
@@ -51,7 +53,7 @@ public abstract class Graph<T> {
         }
     }
 
-    private Node<T> ExtractMin(List<Node<T>> targetGraph, Dictionary<Node<T>, NodeWeightElement> freeNodes) {
+    private Node<T> ExtractMin(List<Node<T>> targetNodes, List<Edge<T>> targetEdges, Dictionary<Node<T>, NodeWeightElement> freeNodes) {
         float min = Int32.MaxValue;
         Node<T> fromNode = null;
         Node<T> minNode = null;
@@ -63,9 +65,8 @@ public abstract class Graph<T> {
             }
         }
         //Add the new node to the graph
-        minNode.AddAdjacent(fromNode);
-        fromNode.AddAdjacent(minNode);
-        targetGraph.Add(minNode);
+        targetEdges.Add(new Edge<T>(fromNode, minNode, GetWeight(fromNode, minNode)));
+        targetNodes.Add(minNode);
 
         //remove node from freeNodes
         freeNodes.Remove(minNode);

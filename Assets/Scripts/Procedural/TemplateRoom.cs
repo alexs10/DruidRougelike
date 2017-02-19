@@ -19,6 +19,13 @@ public class TemplateRoom : MonoBehaviour, Cartesian {
         return (int)box.size.x * (int)box.size.y;
     }
 
+    public void GetBounds(out float left, out float right, out float top, out float bottom) {
+        left    = transform.position.x - box.size.x / 2;
+        right   = transform.position.x + box.size.x / 2;
+        top     = transform.position.y + box.size.y / 2;
+        bottom  = transform.position.y - box.size.y / 2;
+    }
+
     public Vector2 GetCoordinates() {
         return new Vector2(
             transform.position.x + box.size.x / 2,

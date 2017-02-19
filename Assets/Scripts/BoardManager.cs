@@ -101,6 +101,19 @@ public class BoardManager : MonoBehaviour {
 
     }
 
+    public void BuildVerticleHallway(float x, float yTop, float yBottom) {
+        Debug.Log("Bottom: " + yBottom);
+        Debug.Log("Top + " + yTop);
+        Transform hallWay = new GameObject("Hallway").transform;
+        for (float j = yBottom; j <= yTop; j++) {
+            GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+
+            GameObject instance = Instantiate(toInstantiate, new Vector2(x, j), Quaternion.identity) as GameObject;
+            instance.transform.SetParent(hallWay);
+        }
+
+    }
+
 	public void BuildRoom(float xOffset, float yOffset, float width, float height) {
 		//Debug.Log (((int)width % 2 == 0 ? 1 : 0));
 		//int xOffset = (int)xCenter - (int)width / 2 + ((int)width % 2 == 0 ? 0 : 0);
