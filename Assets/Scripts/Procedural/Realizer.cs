@@ -32,6 +32,21 @@ public class Realizer : MonoBehaviour {
                 float intersect = FindIntersection(aBottom, aTop, bBottom, bTop);
                 bm.BuildHorizontalHallway(intersect, (aRight > bRight ? bRight : aRight), (aRight < bRight ? bLeft : aLeft) - 1);
 
+            } else {
+                Debug.Log("Creating compound Hallway");
+                float intersectX = FindIntersection(aLeft, aRight, aLeft, aRight);
+                float intersectY = FindIntersection(bBottom, bTop, bBottom, bTop);
+
+                Debug.Log("Interesct x: " + intersectX + " Intersect Y: " + intersectY);
+                float leftEnd = (bRight < intersectX ? bRight : intersectX);
+                float rightEnd = (bLeft > intersectX ? bLeft : intersectX);
+                float bottomEnd = (aTop < intersectY ? aTop : intersectY);
+                float topEnd = (aBottom > intersectY ? aBottom : intersectY);
+
+                Debug.Log("left: " + leftEnd + " right: " + rightEnd + " bottom: " + bottomEnd + " top: " + topEnd);
+                bm.BuildHorizontalHallway(intersectY, leftEnd, rightEnd);
+                bm.BuildVerticleHallway(intersectX, bottomEnd, topEnd);
+
             }
         } 
 		foreach (Node<TemplateRoom> node in rooms.nodes) {
