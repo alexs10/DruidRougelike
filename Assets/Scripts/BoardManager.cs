@@ -101,17 +101,25 @@ public class BoardManager : MonoBehaviour {
 
     }
 
-    public void BuildVerticleHallway(float x, float yTop, float yBottom) {
-        Debug.Log("Bottom: " + yBottom);
-        Debug.Log("Top + " + yTop);
+    public void BuildVerticleHallway(float x, float yBottom, float yTop) {
+        BuildHallway(x, yBottom, yTop, true);
+
+    }
+
+    public void BuildHorizontalHallway(float y, float xLeft, float xRight) {
+        BuildHallway(y, xLeft, xRight, false);
+    }
+
+    private void BuildHallway(float constant, float min, float max, bool verticle) {
         Transform hallWay = new GameObject("Hallway").transform;
-        for (float j = yBottom; j <= yTop; j++) {
+        for (float j = min; j <= max; j++) {
             GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
 
-            GameObject instance = Instantiate(toInstantiate, new Vector2(x, j), Quaternion.identity) as GameObject;
+            Vector2 loaction = verticle ? new Vector2(constant, j) : new Vector2(j, constant);
+
+            GameObject instance = Instantiate(toInstantiate, loaction, Quaternion.identity) as GameObject;
             instance.transform.SetParent(hallWay);
         }
-
     }
 
 	public void BuildRoom(float xOffset, float yOffset, float width, float height) {

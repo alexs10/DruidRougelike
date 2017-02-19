@@ -20,21 +20,20 @@ public class Realizer : MonoBehaviour {
             RoomB.GetBounds(out bLeft, out bRight, out bTop, out bBottom);
 
             //check if they overlap on x
-            if (aLeft <= bRight && bLeft <= aRight) {
+            if (IsOverlaping(aLeft, aRight, bLeft, bRight)) {
                 Debug.Log("Hallway intersection x");
                 // find the x overlap
-                float intersect = aLeft;
-                while (intersect < bLeft && intersect > bRight) {
-                    intersect++;
-                }
+                float intersect = FindIntersection(aLeft, aRight, bLeft, bRight);
+                //Debug.Log("Creating hallway at x=" + intersect + "from " + ((aTop < bTop ? bBottom : aBottom) - 1) + " to " + (aTop > bTop ? bTop : aTop));
+                // create hallway -1 is so we dont overlap with the room
+                bm.BuildVerticleHallway(intersect, (aTop > bTop ? bTop : aTop), (aTop < bTop ? bBottom : aBottom) - 1);
 
-                //fin
-                Debug.Log("Creating hallway at x=" + intersect + "from " + (aTop > bTop ? aBottom : bBottom) + " to " + (aTop < bTop ? bTop : aTop));
-                // create hallway
-                bm.BuildVerticleHallway(intersect, (aTop < bTop ? bTop : aTop), (aTop > bTop ? aBottom : bBottom));
+            } else if (IsOverlaping(aBottom, aTop, bBottom, bTop)) {
+                float intersect = FindIntersection(aBottom, aTop, bBottom, bTop);
+                bm.BuildHorizontalHallway(intersect, (aRight > bRight ? bRight : aRight), (aRight < bRight ? bLeft : aLeft) - 1);
 
             }
-        }
+        } 
 		foreach (Node<TemplateRoom> node in rooms.nodes) {
 			TemplateRoom room = node.GetSubject ();
 			bm.BuildRoom (room.transform.position.x, 
@@ -43,4 +42,14 @@ public class Realizer : MonoBehaviour {
 				room.GetComponent<BoxCollider2D> ().size.y);
 		}
 	}
+
+    private bool IsOverlaping(float aLow, float aHigh, float bLow, float bHigh) {
+        return aLow < bHigh && bLow < aHigh; 
+    }
+
+    private float FindIntersection(float aLow, float aHigh, float bLow, float bHigh) {
+        float intersectLow = aLow < bLow ? bLow : aLow;
+        float intersectHigh = aHigh > bHigh ? bHigh : aHigh;
+        return Mathf.Floor(Random.Range(intersectLow, intersectHigh));
+    }
 }

@@ -20,10 +20,11 @@ public class TemplateRoom : MonoBehaviour, Cartesian {
     }
 
     public void GetBounds(out float left, out float right, out float top, out float bottom) {
-        left    = transform.position.x - box.size.x / 2;
-        right   = transform.position.x + box.size.x / 2;
-        top     = transform.position.y + box.size.y / 2;
-        bottom  = transform.position.y - box.size.y / 2;
+        Debug.Log("Position: " + transform.position +  " Box: " + box.size);
+        left    = Mathf.Floor(transform.position.x);
+        right = Mathf.Floor(transform.position.x + box.size.x);
+        top = Mathf.Floor(transform.position.y + box.size.y) ;
+        bottom = Mathf.Floor(transform.position.y);
     }
 
     public Vector2 GetCoordinates() {
