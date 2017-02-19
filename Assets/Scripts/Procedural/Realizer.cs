@@ -44,8 +44,8 @@ public class Realizer : MonoBehaviour {
                 float topEnd = (aBottom > intersectY ? aBottom : intersectY);
 
                 Debug.Log("left: " + leftEnd + " right: " + rightEnd + " bottom: " + bottomEnd + " top: " + topEnd);
-                bm.BuildHorizontalHallway(intersectY, leftEnd, rightEnd);
-                bm.BuildVerticleHallway(intersectX, bottomEnd, topEnd);
+                bm.BuildHorizontalHallway(intersectY, leftEnd, rightEnd - 1);
+                bm.BuildVerticleHallway(intersectX, bottomEnd, topEnd - 1);
 
             }
         } 
