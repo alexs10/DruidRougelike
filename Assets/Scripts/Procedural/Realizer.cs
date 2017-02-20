@@ -19,7 +19,7 @@ public class Realizer : MonoBehaviour {
             TemplateRoom room = node.GetSubject();
             room.Accept(creationVisitor);
 
-            creationVisitor.FillWithWalls();
+            //creationVisitor.FillWithWalls();
         }
 	}
 
