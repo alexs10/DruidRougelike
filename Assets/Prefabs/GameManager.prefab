@@ -36,7 +36,7 @@ Transform:
   m_GameObject: {fileID: 1000011997711212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -68,24 +68,15 @@ MonoBehaviour:
   columns: 8
   rows: 8
   wallCount:
-    min: 5
-    max: 9
+    min: 8
+    max: 10
   foodCount:
-    min: 1
+    min: 2
     max: 5
   exit: {fileID: 1000011105815968, guid: 6831fbcfde2a5774fa35a84099c83cda, type: 2}
   floorTiles:
-  - {fileID: 1000013253966928, guid: 27aa031039467734ab9ed77f78c70272, type: 2}
   - {fileID: 1000011387526282, guid: 8a4dfe809b1431a4586054a13dbb852b, type: 2}
-  - {fileID: 1000013509440618, guid: 57d78a479e0cb2244b3070d083a35af3, type: 2}
-  - {fileID: 1000012283281214, guid: eac10479e2edf9645aea5b70eb3452ca, type: 2}
-  - {fileID: 1000012528764676, guid: 6b46d3ae72fd5c24e88d88f39d1eeab4, type: 2}
-  - {fileID: 1000012419325176, guid: 5354aae8fb38d3f4692baf33ee84c183, type: 2}
-  - {fileID: 1000013178938358, guid: 439709bbcde01b54bb07cce6337fed1c, type: 2}
-  - {fileID: 1000011187430710, guid: e7fce07c5a8d55141b260af967458320, type: 2}
-  - {fileID: 1000014012065454, guid: 4a8f494a7e0f1ff42b40871af51e8bb3, type: 2}
   wallTiles:
-  - {fileID: 1000011117651180, guid: 209a06431e9f5464ba1fa8948c3e338e, type: 2}
   - {fileID: 1000013010110340, guid: 887b2557813a0824f837e2faa4c600c0, type: 2}
   - {fileID: 1000010379939228, guid: 96cf671ec8fe4a14aa70dd9643dfd4be, type: 2}
   foodTiles:
