@@ -19,5 +19,6 @@ public class Edge<T> {
     }
 
     public Edge(Node<T> node1, Node<T> node2) : this(node1, node2, 1f) { }
+
 }
 

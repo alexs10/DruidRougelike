@@ -32,6 +32,10 @@ public class BoardManager : MonoBehaviour {
     private Transform boardHolder;
     private List<Vector2> gridPositions = new List<Vector2>();
 
+    private List<Vector2> unusedPositions = new List<Vector2>();
+
+    private float xLeft = 0, xRight = 0, yBottom = 0, yTop = 0;
+
 	void initGridPositions(int columns, int rows, int xOffset, int yOffset)
     {
         gridPositions.Clear();
@@ -59,9 +63,41 @@ public class BoardManager : MonoBehaviour {
 //                    floorTiles[Random.Range(0, floorTiles.Length)];
 
 				GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
-
-                GameObject instance = Instantiate(toInstantiate, new Vector2(i, j), Quaternion.identity) as GameObject;
+                Vector2 location = new Vector2(i, j);
+                GameObject instance = Instantiate(toInstantiate, location, Quaternion.identity) as GameObject;
                 instance.transform.SetParent(boardHolder);
+                UsePosition(location);
+            }
+        }
+    }
+
+    void UsePosition(Vector2 position) {
+        //expand horizontal bound 
+        if (position.x < xLeft) {
+            Expand(position.x, xLeft - 1, yBottom, yTop);
+            xLeft = position.x;
+        } else if (position.x > xRight) {
+            Expand(xRight + 1, position.x, yBottom, yTop);
+            xRight = position.x;
+        }
+
+        //expand vertically
+        if (position.y < yBottom) {
+            Expand(xLeft, xRight, position.y, yBottom - 1);
+            yBottom = position.y;
+        }
+        else if (position.x > yTop) {
+            Expand(xLeft, xRight, yTop + 1, position.y);
+            yTop = position.y;
+        }
+
+        unusedPositions.Remove(position);
+    }
+
+    void Expand(float xLeft, float xRight, float yBottom, float yTop) {
+        for (float i = xLeft; i <= xRight; i++) {
+            for (float j = yBottom; j <= yTop; j++) {
+                unusedPositions.Add(new Vector2(i, j));
             }
         }
     }
@@ -115,10 +151,12 @@ public class BoardManager : MonoBehaviour {
         for (float j = min; j <= max; j++) {
             GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
 
-            Vector2 loaction = verticle ? new Vector2(constant, j) : new Vector2(j, constant);
+            Vector2 location = verticle ? new Vector2(constant, j) : new Vector2(j, constant);
 
-            GameObject instance = Instantiate(toInstantiate, loaction, Quaternion.identity) as GameObject;
+            GameObject instance = Instantiate(toInstantiate, location, Quaternion.identity) as GameObject;
             instance.transform.SetParent(hallWay);
+
+            UsePosition(location);
         }
     }
 
@@ -137,13 +175,13 @@ public class BoardManager : MonoBehaviour {
 		//layoutObjectsAtRandom(enemyTiles, enemyCount, enemyCount);
 	}
 
-    // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public void FillWithWalls() {
+        Debug.Log("left: " + xLeft + " right: " + xRight + " bottom: " + yBottom + " top: " + yTop);
+        Transform walls = new GameObject("Walls").transform;
+        foreach (Vector2 unusedPosition in unusedPositions) {
+            GameObject toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
+            GameObject instance = Instantiate(toInstantiate, unusedPosition, Quaternion.identity) as GameObject;
+            instance.transform.SetParent(walls);
+        }
+    }
 }

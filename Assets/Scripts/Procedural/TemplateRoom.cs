@@ -33,4 +33,8 @@ public class TemplateRoom : MonoBehaviour, Cartesian {
             transform.position.y + box.size.y / 2);
     }
 
+    public void Accept(ITemplateVisitor visitor) {
+        visitor.Visit(this);
+    }
+
 }
