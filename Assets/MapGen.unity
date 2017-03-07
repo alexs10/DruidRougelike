@@ -267,3 +267,4 @@ MonoBehaviour:
   - {fileID: 1000013253966928, guid: 27aa031039467734ab9ed77f78c70272, type: 2}
   outerWallTiles:
   - {fileID: 1000013188434470, guid: 29b1f3a13b14dbe4da5df4afbc6b2b41, type: 2}
+  player: {fileID: 1000013863266438, guid: bcd982a2f43637b4fbb9a7836cf6bd8d, type: 2}

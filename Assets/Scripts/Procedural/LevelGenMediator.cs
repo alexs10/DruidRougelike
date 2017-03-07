@@ -16,6 +16,9 @@ public class LevelGenMediator : MonoBehaviour, Observer {
 
 	public void Notify() {
 		Debug.Log ("LEVEL GEN MED WAS NOTIFIED");
+        //lets add stuff to all the template rooms
+        floorPlanner.floorGraph.nodes[0].GetSubject().AddRoomElement(new PlayerSpawn());
+
 		realizer.Realize (floorPlanner.floorGraph);
 	}
 }
