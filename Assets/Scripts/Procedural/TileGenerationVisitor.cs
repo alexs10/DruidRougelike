@@ -52,7 +52,7 @@ public class TileGenerationVisitor: MonoBehaviour, ITemplateVisitor {
     }
 
     public void Visit(PlayerSpawn playerSpawn) {
-        GameObject instance = Instantiate(player, currentPosition.Vector2(), Quaternion.identity) as GameObject;
+        GameObject.Find("Player").transform.position = new Vector2(currentPosition.x, currentPosition.y);
     }
 
 

@@ -109,6 +109,7 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
     }
 
     public void TakeTurn(EndTurnCallback endTurnCallback) {
+        Debug.Log("PLAYER TAKING TURN *%*%*%*%*%*%*%**%*%*%*%*%**%*%*%*");
         this.endTurnCallback = endTurnCallback;
         controller.setInactive(false);
     }

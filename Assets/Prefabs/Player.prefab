@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 50000012863298044}
   - component: {fileID: 114000010570581120}
   - component: {fileID: 114959956022735082}
-  - component: {fileID: 114074622798783096}
+  - component: {fileID: 114941035103424724}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013863266438}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -500, y: -500, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 0
---- !u!114 &114074622798783096
+--- !u!114 &114941035103424724
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -118,13 +118,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013863266438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d4571066d287304d818f3bf5a1305ad, type: 3}
+  m_Script: {fileID: 11500000, guid: 46b9a5278bd90764bb0ffcd05f35c1af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveTime: 0.1
   blockingLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   restartLevelDelay: 1
   wallDamage: 1
 --- !u!114 &114959956022735082
