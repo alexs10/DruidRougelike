@@ -30,6 +30,7 @@ public class TurnKeeper : MonoBehaviour {
     }
 
     public void StartTurning() {
+        Debug.Log("Starting turns 000000000000000000000000000000");
         nextTurn = true;
     }
 

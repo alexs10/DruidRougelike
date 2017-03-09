@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour {
     private Controllable defaultState;
     private Controllable currentState;
 
-    public bool inactive = false;
+    public bool inactive = true;
 	// Use this for initialization
 	void Start () {
         defaultState = GetComponent<Player>();

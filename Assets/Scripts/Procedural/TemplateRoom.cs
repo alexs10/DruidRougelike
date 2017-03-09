@@ -5,8 +5,12 @@ using UnityEngine;
 public class TemplateRoom : MonoBehaviour, Cartesian {
 
     BoxCollider2D box;
+
+    public List<ITemplateElement> roomElements;
+
     // Use this for initialization
     void Start() {
+        roomElements = new List<ITemplateElement>();
         box = GetComponent<BoxCollider2D>();
     }
 
@@ -35,6 +39,10 @@ public class TemplateRoom : MonoBehaviour, Cartesian {
 
     public void Accept(ITemplateVisitor visitor) {
         visitor.Visit(this);
+    }
+
+    public void AddRoomElement(ITemplateElement roomElement) {
+        roomElements.Add(roomElement);
     }
 
 }
