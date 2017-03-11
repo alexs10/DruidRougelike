@@ -23,6 +23,14 @@ public class TemplateRoom : MonoBehaviour, Cartesian {
         return (int)box.size.x * (int)box.size.y;
     }
 
+    public int GetWidth() {
+        return (int)box.size.x;
+    }
+
+    public int GetHeight() {
+        return (int)box.size.y;
+    }
+
     public void GetBounds(out float left, out float right, out float top, out float bottom) {
         Debug.Log("Position: " + transform.position +  " Box: " + box.size);
         left    = Mathf.Floor(transform.position.x);

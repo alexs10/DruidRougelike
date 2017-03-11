@@ -25,7 +25,15 @@ public class LevelGenMediator : MonoBehaviour, Observer, Observable {
 	public void Notify() {
 		Debug.Log ("LEVEL GEN MED WAS NOTIFIED");
         //lets add stuff to all the template rooms
+        //change this to traverse the rooms and add stuff in then
+
+        //this will cause a bug with players spawning in walls
         floorPlanner.floorGraph.nodes[0].GetSubject().AddRoomElement(new PlayerSpawn());
+        IRoomPlanner roomPlanner = new PlainsRoomPlanner();
+
+        foreach(Node<TemplateRoom> node in floorPlanner.floorGraph.nodes) {
+            roomPlanner.Plan(node.GetSubject(), 2);
+        }
 
 		realizer.Realize (floorPlanner.floorGraph);
 
