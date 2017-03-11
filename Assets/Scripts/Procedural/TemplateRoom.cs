@@ -8,9 +8,12 @@ public class TemplateRoom : MonoBehaviour, Cartesian {
 
     public List<ITemplateElement> roomElements;
 
+    public Dictionary<TemplateRoom, Position> doorLocations;
+
     // Use this for initialization
     void Start() {
         roomElements = new List<ITemplateElement>();
+        doorLocations = new Dictionary<TemplateRoom, Position>();
         box = GetComponent<BoxCollider2D>();
     }
 
@@ -51,6 +54,15 @@ public class TemplateRoom : MonoBehaviour, Cartesian {
 
     public void AddRoomElement(ITemplateElement roomElement) {
         roomElements.Add(roomElement);
+    }
+
+    public class Position {
+        public int x, y;
+        public Position(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
     }
 
 }

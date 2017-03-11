@@ -9,11 +9,10 @@ public class Realizer : MonoBehaviour {
 	}
 
 
-	public void Realize(Graph<TemplateRoom> rooms) {
-        foreach (Edge<TemplateRoom> edge in rooms.edges) {
-                TemplateHallway hallway = new TemplateHallway(edge.node1.GetSubject(), edge.node2.GetSubject());
-                hallway.Accept(creationVisitor);
-            }
+	public void Realize(Graph<TemplateRoom> rooms, List<TemplateHallway> hallways) {
+        foreach (TemplateHallway hallway in hallways) {
+            hallway.Accept(creationVisitor);
+        }
 
         foreach (Node<TemplateRoom> node in rooms.nodes) {
             TemplateRoom room = node.GetSubject();

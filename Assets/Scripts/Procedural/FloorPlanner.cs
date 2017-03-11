@@ -13,6 +13,7 @@ public class FloorPlanner : MonoBehaviour, Observable {
 	private List<Observer> observers;
 
 	public Graph<TemplateRoom> floorGraph;
+    public List<TemplateHallway> hallways;
 
 	void Awake() {
 		observers = new List<Observer> ();
@@ -41,6 +42,14 @@ public class FloorPlanner : MonoBehaviour, Observable {
 		}
 		Graph<TemplateRoom> mainRoomGraphConnected = new ConnectedGraph<TemplateRoom> (new DistanceWeightStrategy<TemplateRoom> (), graphNodes);
 		floorGraph = mainRoomGraphConnected.MinimumSpanningTree ();
+
+        //lay out the hallways
+        hallways = new List<TemplateHallway>();
+        foreach (Edge<TemplateRoom> edge in floorGraph.edges) {
+            TemplateHallway hallway = new TemplateHallway(edge.node1.GetSubject(), edge.node2.GetSubject());
+            hallways.Add(hallway);
+        }
+
 		foreach (Observer observer in observers) {
 			observer.Notify ();
 		}

@@ -35,7 +35,7 @@ public class LevelGenMediator : MonoBehaviour, Observer, Observable {
             roomPlanner.Plan(node.GetSubject(), 2);
         }
 
-		realizer.Realize (floorPlanner.floorGraph);
+		realizer.Realize (floorPlanner.floorGraph, floorPlanner.hallways);
 
         foreach(Observer o in observers) {
             o.Notify();
