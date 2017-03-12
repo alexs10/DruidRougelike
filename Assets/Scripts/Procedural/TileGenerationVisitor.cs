@@ -73,8 +73,8 @@ public class TileGenerationVisitor: MonoBehaviour, ITemplateVisitor {
 
         //First create a large list of all locations
         List<Position> wallPositions = new List<Position>();
-        for ( int i = xLeft; i <= xRight; i++) {
-            for (int j = yBottom; j <= yTop; j++)
+        for ( int i = xLeft - 5; i <= xRight + 5; i++) {
+            for (int j = yBottom - 5; j <= yTop + 5; j++)
             {
                 wallPositions.Add(new Position(i, j));
             }

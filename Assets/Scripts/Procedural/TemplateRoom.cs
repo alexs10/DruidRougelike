@@ -10,11 +10,29 @@ public class TemplateRoom : MonoBehaviour, Cartesian {
 
     public Dictionary<TemplateRoom, Position> doorLocations;
 
+    private List<Position> gridPositions = new List<Position>();
+
+    void InitGridPositions(int columns, int rows) {
+        gridPositions.Clear();
+
+        for (int i = 1; i < columns - 1; i++) {
+            for (int j = 1; j < rows - 1; j++) {
+                gridPositions.Add(new Position(i, j));
+            }
+        }
+    }
+
+    public void AddDoor(Position doorLocation, TemplateRoom leadsTo) {
+        doorLocations.Add(leadsTo, doorLocation);
+    }
+
+
     // Use this for initialization
     void Start() {
         roomElements = new List<ITemplateElement>();
         doorLocations = new Dictionary<TemplateRoom, Position>();
         box = GetComponent<BoxCollider2D>();
+        InitGridPositions((int)box.size.x, ((int)box.size.y));
     }
 
     // Update is called once per frame
@@ -56,13 +74,14 @@ public class TemplateRoom : MonoBehaviour, Cartesian {
         roomElements.Add(roomElement);
     }
 
-    public class Position {
-        public int x, y;
-        public Position(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
+    public Position RandomUnusedPosition() {
+        int index = Random.Range(0, gridPositions.Count);
+        Position returnIndex = gridPositions[index];
+        gridPositions.RemoveAt(index);
+        return returnIndex;
     }
+
+
+
 
 }

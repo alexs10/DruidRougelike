@@ -11,6 +11,8 @@ public class TemplateHallway {
         roomA.GetBounds(out aLeft, out aRight, out aTop, out aBottom);
         roomB.GetBounds(out bLeft, out bRight, out bTop, out bBottom);
 
+        Position doorA, doorB;
+
         //check if they overlap on x
         if (IsOverlaping(aLeft, aRight, bLeft, bRight)) {
             Debug.Log("Hallway intersection x");
@@ -18,12 +20,33 @@ public class TemplateHallway {
             float intersect = FindIntersection(aLeft, aRight, bLeft, bRight);
             //Debug.Log("Creating hallway at x=" + intersect + "from " + ((aTop < bTop ? bBottom : aBottom) - 1) + " to " + (aTop > bTop ? bTop : aTop));
             // create hallway -1 is so we dont overlap with the room
-            BuildVerticleHallway(intersect, (aTop > bTop ? bTop : aTop), (aTop < bTop ? bBottom : aBottom) - 1);
+            float bottom = (aTop > bTop ? bTop : aTop);
+            float top = (aTop < bTop ? bBottom : aBottom) - 1;
+
+            BuildVerticleHallway(intersect, bottom, top);
+            
+            if (aTop > bTop) {
+                doorA = new Position(intersect, top + 1);
+                doorB = new Position(intersect, bottom - 1);
+            } else {
+                doorB = new Position(intersect, top + 1);
+                doorA = new Position(intersect, bottom - 1);
+            }
 
         }
         else if (IsOverlaping(aBottom, aTop, bBottom, bTop)) {
             float intersect = FindIntersection(aBottom, aTop, bBottom, bTop);
-            BuildHorizontalHallway(intersect, (aRight > bRight ? bRight : aRight), (aRight < bRight ? bLeft : aLeft) - 1);
+            float left = (aRight > bRight ? bRight : aRight);
+            float right = (aRight < bRight ? bLeft : aLeft) - 1;
+            BuildHorizontalHallway(intersect, left, right);
+
+            if (aRight > bRight) {
+                doorA = new Position(right + 1, intersect);
+                doorB = new Position(left - 1, intersect);
+            } else {
+                doorB = new Position(right + 1, intersect);
+                doorA = new Position(left - 1, intersect);
+            }
 
         }
         else {
@@ -41,7 +64,22 @@ public class TemplateHallway {
             BuildHorizontalHallway(intersectY, leftEnd, rightEnd);
             BuildVerticleHallway(intersectX, bottomEnd, topEnd);
 
+            if (aTop > bTop) {
+                doorA = new Position(intersectX, topEnd + 1);
+            } else {
+                doorA = new Position(intersectX, bottomEnd - 1);
+            }
+
+            if (bRight > aRight) {
+                doorB = new Position(rightEnd + 1, intersectY);
+            } else {
+                doorB = new Position(leftEnd - 1, intersectY);
+            }
+
         }
+
+        roomA.AddDoor(doorA, roomB);
+        roomB.AddDoor(doorB, roomA);
     }
 
     public List<Vector2> GetPositions() {
