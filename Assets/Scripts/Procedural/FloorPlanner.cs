@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FloorPlanner : MonoBehaviour, Observable {
-    private const int TOTAL_ROOM_COUNT = 40;
+    private const int TOTAL_ROOM_COUNT = 100;
     private const int MIN_ROOM_SIZE = 3;
     private const int MAX_ROOM_SIZE = 15;
     private const int INITIAL_ROOM_RADIUS = 25;
