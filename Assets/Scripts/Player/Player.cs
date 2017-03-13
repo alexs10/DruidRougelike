@@ -95,6 +95,15 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
             //Disable the soda object the player collided with.
             other.gameObject.SetActive(false);
         }
+
+		else if (other.tag == "Flower") {
+			//Add pointsPerFlower to players food points total
+			health.Heal(5);
+
+
+			//Disable the flower object the player collided with.
+			other.gameObject.SetActive(false);
+		}
     }
 
     protected override void OnCantMove<T>(T component) {

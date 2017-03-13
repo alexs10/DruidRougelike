@@ -15,6 +15,7 @@ public class Health : MonoBehaviour, Observable {
 		currentHealth += heal;
 		if (currentHealth > maxHealth)
 			currentHealth = maxHealth;
+		alert (); 
 	}
 	public void TakeDamage(int damage) {
 		currentHealth -= damage;

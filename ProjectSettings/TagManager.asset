@@ -8,6 +8,7 @@ TagManager:
   - Exit
   - Enemy
   - Soda
+  - Flower
   layers:
   - Default
   - TransparentFX

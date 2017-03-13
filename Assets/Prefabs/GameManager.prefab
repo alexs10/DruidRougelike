@@ -71,7 +71,7 @@ MonoBehaviour:
     min: 8
     max: 10
   foodCount:
-    min: 2
+    min: 3
     max: 5
   exit: {fileID: 1000011105815968, guid: 6831fbcfde2a5774fa35a84099c83cda, type: 2}
   floorTiles:
@@ -82,7 +82,9 @@ MonoBehaviour:
   foodTiles:
   - {fileID: 1000011382639660, guid: 8b65cff170d50334f9407e9f0c517228, type: 2}
   - {fileID: 1000011386160236, guid: 7f42485ecfc1065499c040b836864990, type: 2}
+  - {fileID: 1385127498334610, guid: 6b567977a588ef746815342fd229d3fd, type: 2}
   enemyTiles:
   - {fileID: 1000013012647996, guid: 49377e85ff8a5474c99e0240641138d0, type: 2}
+  - {fileID: 1000011991955660, guid: 4942b1cd02ae0924da4f9ee5859227e9, type: 2}
   outerWallTiles:
   - {fileID: 1000013691421882, guid: d250e40f8bbce0d4fa20e16864f9de4d, type: 2}
