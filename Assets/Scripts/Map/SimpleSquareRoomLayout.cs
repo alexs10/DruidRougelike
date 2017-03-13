@@ -1,0 +1,105 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+namespace Assets.Scripts.Map {
+    class SimpleSquareRoomLayout : RoomLayout{
+
+        private List<Position> gridPositions = new List<Position>();  //A list of possible locations to place tiles.
+
+        private int wallMin = 5;
+        private int wallMax = 9;
+        private int columns;
+        private int rows;
+
+        public SimpleSquareRoomLayout(AreaFactory factory, int width, int height) : base(factory) {
+            this.columns = width;
+            this.rows = height;
+            InitialiseGrid();
+            BoardSetup();
+            LayoutAtRandom(wallPositions, wallMin, wallMax);
+        }
+
+
+        void InitialiseGrid() {
+            for (int x = 1; x < columns - 1; x++) {
+                for (int y = 1; y < rows - 1; y++) {
+                    gridPositions.Add(new Position(x, y));
+                }
+            }
+        }
+
+        void BoardSetup() {
+            for (int x = -1; x < columns + 1; x++) {
+                for (int y = -1; y < rows + 1; y++) {
+                    floorPositions.Add(new Position(x, y));
+
+                    if (x == -1 || x == columns || y == -1 || y == rows)
+                        outerWallPositions.Add(new Position(x, y));
+                }
+            }
+        }
+
+        void LayoutAtRandom(List<Position> targetList, int min, int max) {
+            int count = Random.Range(min, max+1);
+            
+            for (int i = 0; i < count; i++) {
+                targetList.Add(RandomUnusedPosition());
+            }
+            
+        }
+
+        Position RandomUnusedPosition() {
+            int index = Random.Range(0, gridPositions.Count);
+            Position returnIndex = gridPositions[index];
+            gridPositions.RemoveAt(index);
+            return returnIndex;
+        }
+
+        #region DOORS
+        public override void AddDoorNorth(Room destination) {
+            doorPositions.Add(new Position(columns / 2, rows));
+            doorDesinations.Add(destination);
+        }
+
+        public override void AddDoorSouth(Room destination) {
+            doorPositions.Add(new Position(columns / 2, -1));
+            doorDesinations.Add(destination);
+        }
+
+        public override void AddDoorEast(Room destination) {
+            doorPositions.Add(new Position(columns, rows / 2));
+            doorDesinations.Add(destination);
+        }
+
+        public override void AddDoorWest(Room destination) {
+            doorPositions.Add(new Position(-1, rows / 2));
+            doorDesinations.Add(destination);
+        }
+
+        public override void AddDoorNorth(Room destination, Key key) {
+            AddDoorNorth(destination);
+            lockPositions.Add(new Position(columns / 2, rows - 1));
+            lockKeys.Add(key);
+        }
+
+        public override void AddDoorSouth(Room destination, Key key) {
+            AddDoorSouth(destination);
+            lockPositions.Add(new Position(columns / 2, 0));
+            lockKeys.Add(key);
+        }
+
+        public override void AddDoorEast(Room destination, Key key) {
+            AddDoorEast(destination);
+            lockPositions.Add(new Position(columns - 1, rows / 2));
+            lockKeys.Add(key);
+        }
+
+        public override void AddDoorWest(Room destination, Key key) {
+            AddDoorWest(destination);
+            lockPositions.Add(new Position(0, rows / 2));
+            lockKeys.Add(key);
+        }
+
+        #endregion
+    }
+}

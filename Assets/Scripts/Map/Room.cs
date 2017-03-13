@@ -6,11 +6,12 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts.Map {
-    class Room {
+    public class Room {
 		//true difficulty = difficulty/maxDifficulty
 		private static float MAX_DIFFICULTY = 1;
 		private float difficulty;
 
+        public RoomLayout layout;
         public List<Key> keyCode;
 
         public Hallway north;
