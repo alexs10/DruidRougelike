@@ -14,20 +14,20 @@ namespace Assets.Scripts.Map {
         public RoomLayout layout;
         public List<Key> keyCode;
 
-        public Hallway north;
-        public Hallway south;
-        public Hallway east;
-        public Hallway west;
+        public Hallway north = null;
+        public Hallway south = null;
+        public Hallway east = null;
+        public Hallway west = null;
 
         public int x, y;
 
-        public Room(int x, int y, float difficulty, List<Key> keyCode) {
-            if (difficulty < 0f || difficulty > 1f)
-                throw new ArgumentOutOfRangeException("difficulty");
-
+        public Room(int x, int y, float difficulty, List<Key> keyCode, ILayoutFactory layoutFactory) {
             this.x = x;
             this.y = y;
             this.keyCode = keyCode;
+
+            //TODO: paramterize
+            layout = layoutFactory.createLayout();
 
 			this.difficulty = difficulty;
 			if (difficulty > MAX_DIFFICULTY) {
@@ -100,10 +100,10 @@ namespace Assets.Scripts.Map {
 		public List<Position> FindOpenAdjacencies() {
 			List<Position> output = new List<Position>();
 
-			if (north != null && y < Map.MapConfig.HEIGHT - 1) output.Add(new Position(x, y + 1));
-			if (south != null && y > 0) output.Add(new Position(x, y - 1));
-			if (east != null && x < Map.MapConfig.WIDTH - 1) output.Add(new Position(x + 1, y));
-			if (west != null && x > 0) output.Add(new Position(x - 1, y));
+			if (north == null && y < Map.MapConfig.HEIGHT - 1) output.Add(new Position(x, y + 1));
+			if (south == null && y > 0) output.Add(new Position(x, y - 1));
+			if (east == null && x < Map.MapConfig.WIDTH - 1) output.Add(new Position(x + 1, y));
+			if (west == null && x > 0) output.Add(new Position(x - 1, y));
 
             return output;
         }

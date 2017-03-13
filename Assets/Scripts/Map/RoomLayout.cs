@@ -46,6 +46,9 @@ namespace Assets.Scripts.Map {
             for (int i = 0; i < doorPositions.Count; i++) {
                 areaFactory.createDoor(doorDesinations[i], doorPositions[i]);
             }
+            for (int i = 0; i < lockPositions.Count; i++) {
+                areaFactory.createLock(lockKeys[i].keyString, lockPositions[i]);
+            }
         }
 	}
 

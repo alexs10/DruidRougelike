@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Assets.Scripts.Map {
     class SimpleSquareRoomLayout : RoomLayout{
 
-        private List<Position> gridPositions = new List<Position>();  //A list of possible locations to place tiles.
+        private List<Position> gridPositions;
 
         private int wallMin = 5;
         private int wallMax = 9;
@@ -21,6 +21,7 @@ namespace Assets.Scripts.Map {
 
 
         void InitialiseGrid() {
+            gridPositions = new List<Position>();
             for (int x = 1; x < columns - 1; x++) {
                 for (int y = 1; y < rows - 1; y++) {
                     gridPositions.Add(new Position(x, y));

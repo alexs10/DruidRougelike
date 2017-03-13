@@ -4,12 +4,11 @@ using System.Collections.Generic;
 
 public class Player : MovingObject, Turnable, Observer, Controllable   {
 
-    public float restartLevelDelay = 1f;
+    public float restartLevelDelay = 0.1f;
     public int wallDamage = 1;
 	private Health health;
     private Animator animator;
 
-    private bool playersTurn = false;
     private EndTurnCallback endTurnCallback = null;
     private ActionCommandFactory actionCommandFactory; 
     private Dictionary<string, ActionCommand> actions;
@@ -27,8 +26,6 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
 		actions.Add ("2", actionCommandFactory.CreateKeyAction (Color.red));
 
         controller = GetComponent<PlayerController>();
-
-        TurnKeeper.instance.Register(this, 1);
 	}
 
 	public void Awake() {
@@ -38,7 +35,7 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
 
 	// Update is called once per frame
 	public void ControlUpdate () {
-        //if (!playersTurn) return;
+        if (!GameManager.instance.playersTurn) return;
 
         int horizontal = 0;
         int vertical = 0;
@@ -51,7 +48,7 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
         }
         if (horizontal != 0 || vertical != 0) {
             AttemptMove<Wall>(horizontal, vertical);
-            EndTurn(5);
+            EndTurn();
         }
 
         //ACTIONS
@@ -67,32 +64,18 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
 	}
 
     private void OnTriggerEnter2D(Collider2D other) {
-        //Check if the tag of the trigger collided with is Exit.
         if (other.tag == "Exit") {
-            //Invoke the Restart function to start the next level with a delay of restartLevelDelay (default 1 second).
             Invoke("Restart", restartLevelDelay);
-
-            //Disable the player object since level is over.
             enabled = false;
         }
 
-        //Check if the tag of the trigger collided with is Food.
         else if (other.tag == "Food") {
-            //Add pointsPerFood to the players current food total.
 			health.Heal(2);
-            //health += 10;
-
-            //Disable the food object the player collided with.
             other.gameObject.SetActive(false);
         }
 
-        //Check if the tag of the trigger collided with is Soda.
         else if (other.tag == "Soda") {
-            //Add pointsPerSoda to players food points total
 			health.Heal(5);
-
-
-            //Disable the soda object the player collided with.
             other.gameObject.SetActive(false);
         }
     }
@@ -118,9 +101,8 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
         return true;
     }
 
-    public void EndTurn(int turnsInactive) {
-        controller.setInactive(true);
-        endTurnCallback(this, true, 5, MovingObject.SmoothMoveTime);
+    public void EndTurn() {
+        GameManager.instance.playersTurn = false;
     }
 
 	public void Notify() {

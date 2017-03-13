@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Assets.Scripts.Map {
-    class Hallway {
+    public class Hallway {
         public Room roomA;
         public Room roomB;
         public Key key;

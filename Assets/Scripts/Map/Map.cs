@@ -16,8 +16,8 @@ namespace Assets.Scripts.Map {
 		private float maxDifficulty;
 
 
-        public Map(int width, int height) {
-            rooms = new Room[width, height];
+        public Map() {
+            rooms = new Room[MapConfig.WIDTH, MapConfig.HEIGHT];
             GenerateMap();
         }
 
@@ -25,6 +25,7 @@ namespace Assets.Scripts.Map {
 			InitMapGen ();
 			CreateHomeRoom ();
 			for (int i = 1; i < MapConfig.ROOM_COUNT; i++) {
+                Debug.Log(i);
 				AdjustKeyLevel (i);
 				CreateRoomInOpenAdjacency ();
 			}
@@ -44,10 +45,12 @@ namespace Assets.Scripts.Map {
 
 		private void CreateHomeRoom() {
 			AddRoom (MapConfig.HOME_X, MapConfig.HOME_Y, 0f, currentKeyCode);
+            currentRoom = rooms[MapConfig.HOME_X, MapConfig.HOME_Y];
 		}
 
 		private void AdjustKeyLevel(int roomCount) {
 			if (roomCount/MapConfig.KEY_LEVEL_COUNT != (roomCount - 1)/MapConfig.KEY_LEVEL_COUNT) {
+                Debug.Log(keyIndex);
 				currentKeyCode.Add (MapConfig.KEY_SET [keyIndex++]);
 				keyLevelDifficulty = maxDifficulty + MapConfig.KEY_LEVEL_DIFFICULTY_INC;
 			}
@@ -80,21 +83,25 @@ namespace Assets.Scripts.Map {
         }
 
 		private void AddRoom(int x, int y, float difficulty, List<Key> keyCode) {
-			rooms [x, y] = new Room (x, y, difficulty, keyCode);
-			UpdateOpenRooms (rooms [x, y]);
-			UpdateOpenRooms (rooms [x+1, y]);
-			UpdateOpenRooms (rooms [x-1, y]);
-			UpdateOpenRooms (rooms [x, y+1]);
-			UpdateOpenRooms (rooms [x, y-1]);
+			rooms [x, y] = new Room (x, y, difficulty, keyCode, new SimpleLayoutFactory("Forrest", 10, 10));
 
-			if (difficulty > maxDifficulty) {
+			UpdateOpenRooms (x, y);
+			UpdateOpenRooms (x+1, y);
+			UpdateOpenRooms (x-1, y);
+			UpdateOpenRooms (x, y+1);
+			UpdateOpenRooms (x, y-1);
+            if (difficulty > maxDifficulty) {
 				maxDifficulty = difficulty;
 			}
 		}
 
-		private void UpdateOpenRooms(Room room) {
-			if (room == null)
+		private void UpdateOpenRooms(int x, int y) {
+			if (x < 0 || x >= MapConfig.WIDTH || y < 0 || y >= MapConfig.HEIGHT)
 				return;
+            Room room = rooms[x, y];
+            if (room == null)
+                return;
+
 			if (room.HasOpenAdjacency ()) {
 				if (!roomsWithOpenAdjacencies.Contains (room))
 					roomsWithOpenAdjacencies.Add (room);
@@ -108,7 +115,7 @@ namespace Assets.Scripts.Map {
 			public static int WIDTH = 10;
 			public static int HEIGHT = 10;
 			public static int ROOM_COUNT = 25;
-			public static int KEY_LEVEL_COUNT = 4;
+			public static int KEY_LEVEL_COUNT = 7;
 			public static int HOME_X = 0;
 			public static int HOME_Y = 0;
 

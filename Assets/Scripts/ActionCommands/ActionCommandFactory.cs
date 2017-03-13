@@ -23,7 +23,7 @@ class ActionCommandFactory {
 		return new KeyActionCommand (color,
 			GameObject.Find ("TargetingUI").GetComponent<TargetingController> (),
 			GameObject.Find ("Player").GetComponent<PlayerController> (),
-			GameObject.Find ("Player").GetComponent<Player> ());
+            GameObject.Find("Player").GetComponent<Player>());
 	}
 
 	public NullActionCommand CreateNullAction() {
