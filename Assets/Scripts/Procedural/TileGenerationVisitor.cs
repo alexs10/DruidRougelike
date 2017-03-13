@@ -5,14 +5,18 @@ using System.Collections.Generic;
 
 public class TileGenerationVisitor: MonoBehaviour, ITemplateVisitor {
 
-    public GameObject[] floorTiles;                                 //Array of floor prefabs.                                
+    public GameObject[] floorTiles;                                 //Array of floor prefabs.               
+    public GameObject[] wallTiles;                 
     public GameObject[] outerWallTiles;                             //Array of outer tile prefabs.
     public GameObject player;
 
     private List<Position> usedPositions = new List<Position>();
 
     private int xLeft = 0, xRight = 0, yBottom = 0, yTop = 0;
+
     private Position currentPosition = new Position(0, 0);
+    private Transform currentParent;
+    
      
     public void Visit(TemplateHallway hallway) {
         Transform hallWay = new GameObject("Hallway").transform;
@@ -27,7 +31,7 @@ public class TileGenerationVisitor: MonoBehaviour, ITemplateVisitor {
     }
 
     public void Visit(TemplateRoom room) {
-        Transform mainRoom = new GameObject("MainRoom").transform;
+        currentParent = new GameObject("MainRoom").transform;
 
         float left, right, bottom, top;
         room.GetBounds(out left, out right, out top, out bottom);
@@ -40,7 +44,7 @@ public class TileGenerationVisitor: MonoBehaviour, ITemplateVisitor {
                 GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
                 Vector2 location = new Vector2(i, j);
                 GameObject instance = Instantiate(toInstantiate, location, Quaternion.identity) as GameObject;
-                instance.transform.SetParent(mainRoom);
+                instance.transform.SetParent(currentParent);
                 UsePosition(location);
             }
         }
@@ -55,6 +59,12 @@ public class TileGenerationVisitor: MonoBehaviour, ITemplateVisitor {
         GameObject.Find("Player").transform.position = new Vector2(currentPosition.x, currentPosition.y);
     }
 
+    public void Visit(TemplateWall wall) {
+        GameObject toInstantiate = wallTiles[Random.Range(0, floorTiles.Length)];
+        Vector2 location = new Vector2(currentPosition.x + wall.GetX(), currentPosition.y + wall.GetY());
+        GameObject instance = Instantiate(toInstantiate, location, Quaternion.identity) as GameObject;
+        instance.transform.SetParent(currentParent);
+    }
 
     public void FillWithWalls() {
         Debug.Log("Size: " + usedPositions.Count + "Sqrt(Size): " + Mathf.Sqrt(usedPositions.Count));
@@ -63,8 +73,8 @@ public class TileGenerationVisitor: MonoBehaviour, ITemplateVisitor {
 
         //First create a large list of all locations
         List<Position> wallPositions = new List<Position>();
-        for ( int i = xLeft; i <= xRight; i++) {
-            for (int j = yBottom; j <= yTop; j++)
+        for ( int i = xLeft - 5; i <= xRight + 5; i++) {
+            for (int j = yBottom - 5; j <= yTop + 5; j++)
             {
                 wallPositions.Add(new Position(i, j));
             }
