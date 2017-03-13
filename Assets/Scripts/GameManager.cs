@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;
     public BoardManager boardScript;
 
+	private List<Enemy> enemyList;
+	private bool enemiesMoving;
+	private bool doingSetup = true;
 
     [HideInInspector]
     public bool playersTurn = true;

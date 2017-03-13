@@ -7,7 +7,10 @@ using UnityEngine;
 
 namespace Assets.Scripts.Map {
     class Room {
-        public float difficulty;
+		//true difficulty = difficulty/maxDifficulty
+		private static float MAX_DIFFICULTY = 1;
+		private float difficulty;
+
         public List<Key> keyCode;
 
         public Hallway north;
@@ -23,9 +26,12 @@ namespace Assets.Scripts.Map {
 
             this.x = x;
             this.y = y;
-            this.difficulty = difficulty;
             this.keyCode = keyCode;
 
+			this.difficulty = difficulty;
+			if (difficulty > MAX_DIFFICULTY) {
+				MAX_DIFFICULTY = difficulty;
+			}
         }
 
         public void Attach(Room otherRoom) {
@@ -55,6 +61,14 @@ namespace Assets.Scripts.Map {
             
         }
 
+		public float GetDifficulty() {
+			return difficulty / MAX_DIFFICULTY;
+		}
+
+		public float GetRawDifficulty() {
+			return difficulty;
+		}
+
         private bool IsAdjacent(Room otherRoom) {
             return IsNorth(otherRoom) || IsSouth(otherRoom) || IsEast(otherRoom) || IsWest(otherRoom);
         }
@@ -76,22 +90,22 @@ namespace Assets.Scripts.Map {
         }
 
         public bool HasOpenAdjacency() {
-            return north == null || south == null || east == null || west == null;
+			return 	(north == null && y < Map.MapConfig.HEIGHT - 1) || 
+				(south == null && y > 0 ) || 
+				(east == null && x < Map.MapConfig.WIDTH - 1) || 
+				(west == null && x > 0);
         }
 
-        public List<Direction> FindOpenAdjacencies() {
-            List<Direction> output = new List<Direction>();
+		public List<Position> FindOpenAdjacencies() {
+			List<Position> output = new List<Position>();
 
-            if (north != null) output.Add(Direction.North);
-            if (south != null) output.Add(Direction.South);
-            if (east != null) output.Add(Direction.East);
-            if (west != null) output.Add(Direction.West);
+			if (north != null && y < Map.MapConfig.HEIGHT - 1) output.Add(new Position(x, y + 1));
+			if (south != null && y > 0) output.Add(new Position(x, y - 1));
+			if (east != null && x < Map.MapConfig.WIDTH - 1) output.Add(new Position(x + 1, y));
+			if (west != null && x > 0) output.Add(new Position(x - 1, y));
 
             return output;
         }
 
-        public enum Direction {
-            North, South, East, West
-        }
     }
 }
