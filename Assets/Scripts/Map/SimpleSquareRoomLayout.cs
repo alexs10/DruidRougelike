@@ -32,10 +32,10 @@ namespace Assets.Scripts.Map {
         void BoardSetup() {
             for (int x = -1; x < columns + 1; x++) {
                 for (int y = -1; y < rows + 1; y++) {
-                    floorPositions.Add(new Position(x, y));
-
                     if (x == -1 || x == columns || y == -1 || y == rows)
                         outerWallPositions.Add(new Position(x, y));
+                    else
+                        floorPositions.Add(new Position(x, y));
                 }
             }
         }
@@ -58,21 +58,25 @@ namespace Assets.Scripts.Map {
 
         #region DOORS
         public override void AddDoorNorth(Room destination) {
+            outerWallPositions.RemoveAll(w => w.x == columns / 2 && w.y == rows);
             doorPositions.Add(new Position(columns / 2, rows));
             doorDesinations.Add(destination);
         }
 
         public override void AddDoorSouth(Room destination) {
+            outerWallPositions.RemoveAll(w => w.x == columns / 2 && w.y == -1);
             doorPositions.Add(new Position(columns / 2, -1));
             doorDesinations.Add(destination);
         }
 
         public override void AddDoorEast(Room destination) {
+            outerWallPositions.RemoveAll(w => w.x == columns && w.y == rows / 2);
             doorPositions.Add(new Position(columns, rows / 2));
             doorDesinations.Add(destination);
         }
 
         public override void AddDoorWest(Room destination) {
+            outerWallPositions.RemoveAll(w => w.x == -1 && w.y == rows / 2);
             doorPositions.Add(new Position(-1, rows / 2));
             doorDesinations.Add(destination);
         }

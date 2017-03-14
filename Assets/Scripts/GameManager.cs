@@ -7,9 +7,11 @@ using Assets.Scripts.Map;
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;
+    private Room currentRoom = null;
+    private Vector2 playerSpawn = new Vector2(0, 0);
     public float turnDelay = 0.5f;
     public float levelStartDelay = 2f;
-    [HideInInspector] public bool playersTurn = true;
+    [HideInInspector] public bool playersTurn = false;
 
     private BoardManager boardScript;
     private List<Enemy> enemyList;
@@ -23,18 +25,22 @@ public class GameManager : MonoBehaviour {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+            boardScript = GetComponent<BoardManager>();
+            enemyList = new List<Enemy>();
+
+            map = new Map();
+            Debug.Log("GameManager");
+
         } else if (instance != this)
         {
             Destroy(gameObject);
         }
-        Debug.Log("GameManager");
 
-        DontDestroyOnLoad(gameObject);
-        boardScript = GetComponent<BoardManager>();
-        enemyList = new List<Enemy>();
 
-        map = new Map();
-	}
+
+        
+    }
 
     public void Start() {
         InitGame();
@@ -56,12 +62,24 @@ public class GameManager : MonoBehaviour {
         enabled = false;
     }
 
+    public void ChangeRoom(Room room) {
+        if (room.x < currentRoom.x) {
+            playerSpawn = room.layout.
+        }
+    }
+
     void InitGame() {
         doingSetup = true;
 
         //TODO: transition stuff
         Invoke("HideLevelImage", levelStartDelay);
-        map.currentRoom.layout.BuildRoom();
+        if (currentRoom == null) {
+            Debug.Log("going to room 0");
+            map.currentRoom.layout.BuildRoom();
+        } else {
+            Debug.Log("some other room");
+            currentRoom.layout.BuildRoom();
+        }
     }
 
     void HideLevelImage() {
@@ -70,8 +88,13 @@ public class GameManager : MonoBehaviour {
         doingSetup = false;
     }
 
+    public bool IsPlayersTurn() {
+        return playersTurn && !doingSetup;
+    }
+
     // Update is called once per frame
     void Update () {
+
         if (playersTurn || enemiesMoving || doingSetup) {
             return;
         }

@@ -26,7 +26,6 @@ namespace Assets.Scripts.Map {
             this.y = y;
             this.keyCode = keyCode;
 
-            //TODO: paramterize
             layout = layoutFactory.createLayout();
 
 			this.difficulty = difficulty;
@@ -36,6 +35,7 @@ namespace Assets.Scripts.Map {
         }
 
         public void Attach(Room otherRoom) {
+            Debug.Log("ATTACH");
             if (!Hallway.IsValidHallway(this, otherRoom)) {
                 Debug.Log("Hallway cannot be created between two rooms");
                 return;
@@ -47,15 +47,23 @@ namespace Assets.Scripts.Map {
             if (IsNorth(otherRoom)) {
                 this.north = hallway;
                 otherRoom.south = hallway;
+                layout.AddDoorNorth(otherRoom);
+                otherRoom.layout.AddDoorSouth(this);
             } else if (IsSouth(otherRoom)) {
                 this.south = hallway;
                 otherRoom.north = hallway;
+                layout.AddDoorSouth(otherRoom);
+                otherRoom.layout.AddDoorNorth(this);
             } else if (IsEast(otherRoom)) {
                 this.east = hallway;
                 otherRoom.west = hallway;
+                layout.AddDoorEast(otherRoom);
+                otherRoom.layout.AddDoorWest(this);
             } else if (IsWest(otherRoom)) {
                 this.west = hallway;
                 otherRoom.east = hallway;
+                layout.AddDoorWest(otherRoom);
+                otherRoom.layout.AddDoorEast(this);
             } else {
                 throw new ArgumentException();
             }

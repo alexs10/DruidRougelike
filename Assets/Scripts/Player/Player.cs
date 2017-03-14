@@ -35,7 +35,8 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
 
 	// Update is called once per frame
 	public void ControlUpdate () {
-        if (!GameManager.instance.playersTurn) return;
+
+        if (!GameManager.instance.IsPlayersTurn()) return;
 
         int horizontal = 0;
         int vertical = 0;
@@ -65,7 +66,6 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Exit") {
-            Invoke("Restart", restartLevelDelay);
             enabled = false;
         }
 

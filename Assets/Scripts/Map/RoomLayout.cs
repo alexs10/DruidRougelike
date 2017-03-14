@@ -31,9 +31,9 @@ namespace Assets.Scripts.Map {
         public abstract void AddDoorWest(Room destination);
 
         public void BuildRoom() {
-            areaFactory.clearBoard();
+            areaFactory.ClearBoard();
 
-            Random.InitState(GetHashCode());
+            //Random.InitState(GetHashCode());
             foreach(Position pos in wallPositions) {
                 areaFactory.createWall(Random.Range(0, 1000), pos);
             }

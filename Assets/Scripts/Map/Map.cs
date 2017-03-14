@@ -68,7 +68,7 @@ namespace Assets.Scripts.Map {
 				difficulty = keyLevelDifficulty;
 			}
 
-			AddRoom (chosenPosition.x, chosenPosition.y, difficulty, currentKeyCode);
+			AddRoom (chosenPosition.x, chosenPosition.y, difficulty, currentKeyCode, chosenRoom);
 		}
 
 		private void PlaceKeys() {
@@ -83,7 +83,7 @@ namespace Assets.Scripts.Map {
         }
 
 		private void AddRoom(int x, int y, float difficulty, List<Key> keyCode) {
-			rooms [x, y] = new Room (x, y, difficulty, keyCode, new SimpleLayoutFactory("Forrest", 10, 10));
+			rooms [x, y] = new Room (x, y, difficulty, keyCode, new SimpleLayoutFactory("Forrest", 8, 8));
 
 			UpdateOpenRooms (x, y);
 			UpdateOpenRooms (x+1, y);
