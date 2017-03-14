@@ -2,14 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Player : MovingObject, Turnable, Observer, Controllable   {
+public class Player : MovingObject,  Observer, Controllable   {
 
     public float restartLevelDelay = 0.1f;
     public int wallDamage = 1;
 	private Health health;
     private Animator animator;
 
-    private EndTurnCallback endTurnCallback = null;
     private ActionCommandFactory actionCommandFactory; 
     private Dictionary<string, ActionCommand> actions;
 
@@ -89,12 +88,6 @@ public class Player : MovingObject, Turnable, Observer, Controllable   {
 
         //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
         animator.SetTrigger("playerChop");
-    }
-
-    public void TakeTurn(EndTurnCallback endTurnCallback) {
-        Debug.Log("PLAYER TAKING TURN *%*%*%*%*%*%*%**%*%*%*%*%**%*%*%*");
-        this.endTurnCallback = endTurnCallback;
-        controller.setInactive(false);
     }
 
     public bool IsActive() {

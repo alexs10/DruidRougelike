@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour {
     public float levelStartDelay = 1f;
     [HideInInspector] public bool playersTurn = false;
 
-    private BoardManager boardScript;
     private GameObject levelImage;
     private List<Enemy> enemyList;
 	private bool enemiesMoving;
@@ -27,7 +26,6 @@ public class GameManager : MonoBehaviour {
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            boardScript = GetComponent<BoardManager>();
             enemyList = new List<Enemy>();
 
             map = new Map();
