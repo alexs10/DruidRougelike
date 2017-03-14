@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Map {
-    class Map {
+    public class Map {
         public Room[,] rooms;
 		public Room currentRoom;
 
@@ -106,7 +106,7 @@ namespace Assets.Scripts.Map {
 
 		private void AddRoom(int x, int y, float difficulty, List<Key> keyCode) {
             Debug.Log("Adding room at: " + x + ", " + y);
-			rooms [x, y] = new Room (x, y, difficulty, keyCode, new SimpleLayoutFactory("Forrest", 8, 8));
+			rooms [x, y] = new Room (x, y, difficulty, keyCode, new SimpleLayoutFactory("Forrest", 12, 8));
 
 			UpdateOpenRooms (x, y);
 			UpdateOpenRooms (x+1, y);

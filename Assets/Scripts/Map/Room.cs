@@ -21,6 +21,8 @@ namespace Assets.Scripts.Map {
 
         public int x, y;
 
+        public bool isRevealed = false;
+
         public Room(int x, int y, float difficulty, List<Key> keyCode, ILayoutFactory layoutFactory) {
             this.x = x;
             this.y = y;
@@ -83,19 +85,19 @@ namespace Assets.Scripts.Map {
         }
 
         private bool IsNorth(Room otherRoom) {
-            return this.y - otherRoom.y == 1 && this.x - otherRoom.x == 0;
-        }
-
-        private bool IsSouth(Room otherRoom) {
             return this.y - otherRoom.y == -1 && this.x - otherRoom.x == 0;
         }
 
+        private bool IsSouth(Room otherRoom) {
+            return this.y - otherRoom.y == 1 && this.x - otherRoom.x == 0;
+        }
+
         private bool IsEast(Room otherRoom) {
-            return this.x - otherRoom.x == 1 && this.y - otherRoom.y == 0;
+            return this.x - otherRoom.x == -1 && this.y - otherRoom.y == 0;
         }
 
         private bool IsWest(Room otherRoom) {
-            return this.x - otherRoom.x == -1 && this.y - otherRoom.y == 0;
+            return this.x - otherRoom.x == 1 && this.y - otherRoom.y == 0;
         }
 
         public bool HasOpenAdjacency() {

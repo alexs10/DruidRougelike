@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
 	private bool enemiesMoving;
 	private bool doingSetup = true;
 
-    private Map map;
+    public Map map;
 
     // Use this for initialization
     void Awake () {
@@ -79,10 +79,12 @@ public class GameManager : MonoBehaviour {
         if (currentRoom == null) {
             Debug.Log("going to room 0");
             map.currentRoom.layout.BuildRoom();
+            currentRoom = map.currentRoom;
         } else {
             Debug.Log("some other room");
             currentRoom.layout.BuildRoom();
         }
+        currentRoom.isRevealed = true;
     }
 
     void HideLevelImage() {
