@@ -1,36 +1,59 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using Assets.Scripts.Map;
 
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;
-    public BoardManager boardScript;
+    public Room currentRoom = null;
+    private Vector2 playerSpawn = new Vector2(0, 0);
+    public float turnDelay = 0.5f;
+    public float levelStartDelay = 1f;
+    [HideInInspector] public bool playersTurn = false;
 
+    private GameObject levelImage;
+    private List<Enemy> enemyList;
+	private bool enemiesMoving;
+	private bool doingSetup = true;
 
-    [HideInInspector]
-    public bool playersTurn = true;
-
-    private int level = 3;
-    private GameState gameState;
+    public Map map;
 
     // Use this for initialization
     void Awake () {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+            enemyList = new List<Enemy>();
+
+            map = new Map();
+            Debug.Log("GameManager");
+
         } else if (instance != this)
         {
             Destroy(gameObject);
         }
-        Debug.Log("GameManager");
 
-        DontDestroyOnLoad(gameObject);
-        boardScript = GetComponent<BoardManager>();
+
+
+        
+    }
+
+    public void Start() {
         InitGame();
-	}
+    }
 
-    void Start() {
-        StartGame();
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    static public void CallbackInitialization() {
+        //register the callback to be called everytime the scene is loaded
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    //This is called each time a scene is loaded.
+    static private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1) {
+        //instance.level++;
+        instance.InitGame();
     }
 
     public void GameOver() {
@@ -38,17 +61,70 @@ public class GameManager : MonoBehaviour {
         enabled = false;
     }
 
-    void InitGame() {
-        boardScript.setup(level);
+    public void ChangeRoom(Room room) {
+        
     }
 
-    void StartGame() {
-        gameState = new MainState();
-        gameState.OnEnterState();
+    void InitGame() {
+        doingSetup = true;
+
+        levelImage = GameObject.Find("TransitionImage");
+        levelImage.SetActive(true);
+        Invoke("HideLevelImage", levelStartDelay);
+
+        enemyList.Clear();
+
+        if (currentRoom == null) {
+            Debug.Log("going to room 0");
+            map.currentRoom.layout.BuildRoom();
+            currentRoom = map.currentRoom;
+        } else {
+            Debug.Log("some other room");
+            currentRoom.layout.BuildRoom();
+        }
+        currentRoom.isRevealed = true;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        gameState.Update();
-	}
+
+    void HideLevelImage() {
+        levelImage.SetActive(false);
+
+        doingSetup = false;
+    }
+
+    public bool IsPlayersTurn() {
+        return playersTurn && !doingSetup;
+    }
+
+    // Update is called once per frame
+    void Update () {
+
+        if (playersTurn || enemiesMoving || doingSetup) {
+            return;
+        }
+
+        StartCoroutine(MoveEnemies());
+    }
+
+    public void AddEnemyToList(Enemy enemy) {
+        enemyList.Add(enemy);
+    }
+
+    //Coroutine to move enemies in sequence.
+    IEnumerator MoveEnemies() {
+        Debug.Log("EnemyTurn");
+        enemiesMoving = true;
+
+        yield return new WaitForSeconds(turnDelay);
+
+        if (enemyList.Count == 0) {
+            yield return new WaitForSeconds(turnDelay);
+        }
+
+        for (int i = 0; i < enemyList.Count; i++) {
+            enemyList[i].MoveEnemy();
+            yield return new WaitForSeconds(enemyList[i].moveTime);
+        }
+        playersTurn = true;
+        enemiesMoving = false;
+    }
 }

@@ -23,7 +23,7 @@ public class KeyActionCommand: TargetedActionCommand {
 			Debug.Log ("Just tried to unlock");
 		}
 
-		player.EndTurn (2);
+        GameManager.instance.playersTurn = false;
 	}
 
 	protected override List<Vector2> GetValidTargets() {

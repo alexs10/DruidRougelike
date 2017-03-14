@@ -24,7 +24,7 @@ class MeleeAttackActionCommand: TargetedActionCommand {
 			Debug.Log("MELEE ATTACK: " + damage);
 		}
 
-		player.EndTurn(2);
+        GameManager.instance.playersTurn = false;
 	}
 
 	protected override List<Vector2> GetValidTargets() {

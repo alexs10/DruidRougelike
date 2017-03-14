@@ -5,14 +5,14 @@ public abstract class TargetedActionCommand: ActionCommand, Observer {
 
 	private TargetingController targetingController;
 	private PlayerController playerController;
-	protected Player player;
+    protected Player player;
 
 	public TargetedActionCommand (	TargetingController targetingController,
 		PlayerController playerController,
-		Player player) {
+        Player player) {
 		this.targetingController = targetingController;
 		this.playerController = playerController;
-		this.player = player;
+        this.player = player;
 	}
 
 	public void Execute() {
