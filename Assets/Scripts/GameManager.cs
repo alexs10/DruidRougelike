@@ -10,10 +10,11 @@ public class GameManager : MonoBehaviour {
     public Room currentRoom = null;
     private Vector2 playerSpawn = new Vector2(0, 0);
     public float turnDelay = 0.5f;
-    public float levelStartDelay = 2f;
+    public float levelStartDelay = 1f;
     [HideInInspector] public bool playersTurn = false;
 
     private BoardManager boardScript;
+    private GameObject levelImage;
     private List<Enemy> enemyList;
 	private bool enemiesMoving;
 	private bool doingSetup = true;
@@ -69,8 +70,10 @@ public class GameManager : MonoBehaviour {
     void InitGame() {
         doingSetup = true;
 
-        //TODO: transition stuff
+        levelImage = GameObject.Find("TransitionImage");
+        levelImage.SetActive(true);
         Invoke("HideLevelImage", levelStartDelay);
+
         enemyList.Clear();
 
         if (currentRoom == null) {
@@ -83,7 +86,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void HideLevelImage() {
-        //levelImage.SetActive(false);
+        levelImage.SetActive(false);
 
         doingSetup = false;
     }
