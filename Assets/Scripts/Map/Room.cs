@@ -118,6 +118,17 @@ namespace Assets.Scripts.Map {
             return output;
         }
 
+        public List<Position> FindClosedAdjacencies() {
+            List<Position> output = new List<Position>();
+
+            if (north != null) output.Add(new Position(x, y + 1));
+            if (south != null) output.Add(new Position(x, y - 1));
+            if (east != null) output.Add(new Position(x + 1, y));
+            if (west != null) output.Add(new Position(x - 1, y));
+
+            return output;
+        }
+
         public void SpawnEnemies() {
             layout.AddEnemies(GetDifficulty());
         }
