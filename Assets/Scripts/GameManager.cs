@@ -7,7 +7,7 @@ using Assets.Scripts.Map;
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;
-    private Room currentRoom = null;
+    public Room currentRoom = null;
     private Vector2 playerSpawn = new Vector2(0, 0);
     public float turnDelay = 0.5f;
     public float levelStartDelay = 2f;
@@ -63,9 +63,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void ChangeRoom(Room room) {
-        if (room.x < currentRoom.x) {
-            playerSpawn = room.layout.
-        }
+        
     }
 
     void InitGame() {

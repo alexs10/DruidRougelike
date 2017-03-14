@@ -220,8 +220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnDelay: 0.1
-  levelStartDelay: 2
-  playersTurn: 1
+  levelStartDelay: 0.5
+  playersTurn: 0
 --- !u!224 &307204904
 RectTransform:
   m_ObjectHideFlags: 0
@@ -296,8 +296,7 @@ MonoBehaviour:
   outerWallTiles:
   - {fileID: 1000013691421882, guid: d250e40f8bbce0d4fa20e16864f9de4d, type: 2}
   - {fileID: 1000013188434470, guid: 29b1f3a13b14dbe4da5df4afbc6b2b41, type: 2}
-  lockTiles:
-  - {fileID: 1264494853906966, guid: 9e5b3003daad4c44abbf92a796875d55, type: 2}
+  lockTiles: []
   doorTiles:
   - {fileID: 1794063211626502, guid: fda53b2105d2a9049b9003f272985689, type: 2}
 --- !u!1001 &573772074

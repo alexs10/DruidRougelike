@@ -57,9 +57,10 @@ namespace Assets.Scripts.Map {
 		}
 
 		private void CreateRoomInOpenAdjacency() {
-			Room chosenRoom = roomsWithOpenAdjacencies [Random.Range (0, roomsWithOpenAdjacencies.Count)]; 
-			List<Position> availablePositions = chosenRoom.FindOpenAdjacencies ();
-			Position chosenPosition = availablePositions [Random.Range (0, availablePositions.Count)];
+            Debug.Log("Room with open adj count: " + roomsWithOpenAdjacencies.Count);
+			Room chosenRoom = roomsWithOpenAdjacencies [Random.Range (0, roomsWithOpenAdjacencies.Count - 1)];
+            List<Position> availablePositions = FindAvailableAdjPositions(chosenRoom.x, chosenRoom.y);
+			Position chosenPosition = availablePositions [Random.Range (0, availablePositions.Count - 1)];
 
 			float difficulty;
 			if (chosenRoom.keyCode == currentKeyCode) {
@@ -70,6 +71,19 @@ namespace Assets.Scripts.Map {
 
 			AddRoom (chosenPosition.x, chosenPosition.y, difficulty, currentKeyCode, chosenRoom);
 		}
+
+        private List<Position> FindAvailableAdjPositions(int x, int y) {
+            List<Position> output = new List<Position>();
+            if (x > 0 && rooms[x - 1, y] == null)
+                output.Add(new Position(x - 1, y));
+            if (x < MapConfig.WIDTH - 1 && rooms[x + 1, y] == null)
+                output.Add(new Position(x + 1, y));
+            if (y > 0 && rooms[x, y - 1] == null)
+                output.Add(new Position(x, y - 1));
+            if (y < MapConfig.HEIGHT - 1 && rooms[x, y + 1] == null)
+                output.Add(new Position(x, y + 1));
+            return output; 
+        }
 
 		private void PlaceKeys() {
 			//TODO implement this method
@@ -83,6 +97,7 @@ namespace Assets.Scripts.Map {
         }
 
 		private void AddRoom(int x, int y, float difficulty, List<Key> keyCode) {
+            Debug.Log("Adding room at: " + x + ", " + y);
 			rooms [x, y] = new Room (x, y, difficulty, keyCode, new SimpleLayoutFactory("Forrest", 8, 8));
 
 			UpdateOpenRooms (x, y);
@@ -102,7 +117,7 @@ namespace Assets.Scripts.Map {
             if (room == null)
                 return;
 
-			if (room.HasOpenAdjacency ()) {
+			if (FindAvailableAdjPositions(room.x, room.y).Count > 0) {
 				if (!roomsWithOpenAdjacencies.Contains (room))
 					roomsWithOpenAdjacencies.Add (room);
 			} else {
