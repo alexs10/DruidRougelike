@@ -71,6 +71,8 @@ public class GameManager : MonoBehaviour {
 
         //TODO: transition stuff
         Invoke("HideLevelImage", levelStartDelay);
+        enemyList.Clear();
+
         if (currentRoom == null) {
             Debug.Log("going to room 0");
             map.currentRoom.layout.BuildRoom();

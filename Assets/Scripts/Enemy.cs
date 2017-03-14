@@ -2,7 +2,7 @@
 using System.Collections;
 
 //Enemy inherits from MovingObject, our base class for objects that can move, Player also inherits from this.
-public class Enemy : MovingObject, Turnable {
+public class Enemy : MovingObject {
     private int playerDamage = 1;                            //The amount of food points to subtract from the player when attacking.
 
 
@@ -15,8 +15,8 @@ public class Enemy : MovingObject, Turnable {
 
 
     protected override void Start() {
-        TurnKeeper.instance.Register(this,5);
-
+        //TurnKeeper.instance.Register(this,5);
+        GameManager.instance.AddEnemyToList(this);
         animator = GetComponent<Animator>();
 
         target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -58,11 +58,6 @@ public class Enemy : MovingObject, Turnable {
 
         animator.SetTrigger("enemyAttack");
 
-    }
-
-    public void TakeTurn(EndTurnCallback endTurnCallback) {
-        MoveEnemy();
-        endTurnCallback(this, true, 5, 0);
     }
 
     bool isActive = true;

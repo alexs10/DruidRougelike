@@ -29,6 +29,7 @@ namespace Assets.Scripts.Map {
 				AdjustKeyLevel (i);
 				CreateRoomInOpenAdjacency ();
 			}
+            PlaceEnemies();
 			PlaceKeys ();
         }
 
@@ -83,6 +84,13 @@ namespace Assets.Scripts.Map {
             if (y < MapConfig.HEIGHT - 1 && rooms[x, y + 1] == null)
                 output.Add(new Position(x, y + 1));
             return output; 
+        }
+
+        private void PlaceEnemies() {
+            foreach (Room room in rooms) {
+                if (room != null)
+                    room.SpawnEnemies();
+            }
         }
 
 		private void PlaceKeys() {

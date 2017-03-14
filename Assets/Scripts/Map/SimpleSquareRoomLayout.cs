@@ -19,6 +19,9 @@ namespace Assets.Scripts.Map {
             LayoutAtRandom(wallPositions, wallMin, wallMax);
         }
 
+        public override void AddEnemies(float difficulty) {
+            LayoutAtRandom(enemyPositions, (int)Mathf.Floor(difficulty * 3f), (int)Mathf.Floor(difficulty * 5f));
+        }
 
         void InitialiseGrid() {
             gridPositions = new List<Position>();
@@ -41,7 +44,7 @@ namespace Assets.Scripts.Map {
         }
 
         void LayoutAtRandom(List<Position> targetList, int min, int max) {
-            int count = Random.Range(min, max+1);
+            int count = Random.Range(min, max);
             
             for (int i = 0; i < count; i++) {
                 targetList.Add(RandomUnusedPosition());

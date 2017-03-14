@@ -116,5 +116,8 @@ namespace Assets.Scripts.Map {
             return output;
         }
 
+        public void SpawnEnemies() {
+            layout.AddEnemies(GetDifficulty());
+        }
     }
 }
