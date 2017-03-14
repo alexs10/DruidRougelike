@@ -24,7 +24,7 @@ public class Door : MonoBehaviour {
             Debug.Log("Destination is " + destination.x + "," + destination.y);
             Invoke("Restart", restartLevelDelay);
             GameManager.instance.currentRoom = destination;
-            other.GetComponent<Player>().enabled = false;
+            other.GetComponent<PlayerController>().enabled = false  ;
         }
     }
 
