@@ -132,5 +132,24 @@ namespace Assets.Scripts.Map {
         public void SpawnEnemies() {
             layout.AddEnemies(GetDifficulty());
         }
+
+		public Position GetPlayerPosition(Direction fromDirection) {
+			switch (fromDirection) {
+			case Direction.NORTH:
+				return layout.GetPlayerPositionSouth();
+				break;
+			case Direction.SOUTH:
+				return layout.GetPlayerPositionNorth();
+				break;
+			case Direction.EAST:
+				return layout.GetPlayerPositionWest();
+				break;
+			case Direction.WEST: 
+				return layout.GetPlayerPositionEast();
+				break;
+			}
+
+			return new Position (0, 0);
+		}
     }
 }

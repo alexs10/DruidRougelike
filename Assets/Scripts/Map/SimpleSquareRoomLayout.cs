@@ -11,6 +11,11 @@ namespace Assets.Scripts.Map {
         private int columns;
         private int rows;
 
+		private Position playerPositionSouth = new Position(0, 0);
+		private Position playerPositionNorth = new Position(0, 0);
+		private Position playerPositionEast = new Position(0, 0);
+		private Position playerPositionWest = new Position(0, 0);
+
         public SimpleSquareRoomLayout(AreaFactory factory, int width, int height) : base(factory) {
             this.columns = width;
             this.rows = height;
@@ -59,29 +64,59 @@ namespace Assets.Scripts.Map {
             return returnIndex;
         }
 
+		#region PLAYER POSITION
+		public override Position GetPlayerPositionNorth ()
+		{
+			return playerPositionNorth;
+		}
+
+		public override Position GetPlayerPositionSouth ()
+		{
+			return playerPositionSouth;
+		}
+
+		public override Position GetPlayerPositionEast ()
+		{
+			return playerPositionEast;
+		}
+
+		public override Position GetPlayerPositionWest ()
+		{
+			return playerPositionWest;
+		}
+		#endregion
+
         #region DOORS
         public override void AddDoorNorth(Room destination) {
             outerWallPositions.RemoveAll(w => w.x == columns / 2 && w.y == rows);
             doorPositions.Add(new Position(columns / 2, rows));
             doorDesinations.Add(destination);
+			doorDirections.Add (Direction.NORTH);
+			playerPositionNorth = new Position (columns / 2, rows - 1);
         }
 
         public override void AddDoorSouth(Room destination) {
             outerWallPositions.RemoveAll(w => w.x == columns / 2 && w.y == -1);
             doorPositions.Add(new Position(columns / 2, -1));
             doorDesinations.Add(destination);
+			doorDirections.Add (Direction.SOUTH);
+			playerPositionSouth = new Position (columns / 2, 0);
         }
 
         public override void AddDoorEast(Room destination) {
             outerWallPositions.RemoveAll(w => w.x == columns && w.y == rows / 2);
             doorPositions.Add(new Position(columns, rows / 2));
             doorDesinations.Add(destination);
+			doorDirections.Add (Direction.EAST);
+			playerPositionEast = new Position (columns - 1, rows / 2);
         }
 
         public override void AddDoorWest(Room destination) {
             outerWallPositions.RemoveAll(w => w.x == -1 && w.y == rows / 2);
             doorPositions.Add(new Position(-1, rows / 2));
             doorDesinations.Add(destination);
+			doorDirections.Add (Direction.WEST);		
+			playerPositionWest = new Position (0, rows / 2);
         }
 
         public override void AddDoorNorth(Room destination, Key key) {

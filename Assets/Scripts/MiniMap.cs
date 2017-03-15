@@ -79,7 +79,7 @@ public class MiniMap : MonoBehaviour {
                 Room room = map.rooms[i, j];
 
                 if (room != null) {
-                    if (room == GameManager.instance.currentRoom) {
+					if (room == GameManager.instance.CurrentRoom()) {
                         DrawRoom(i, j, currentRoomStyle);
                         DrawHallways(room, discoveredRoomStyle);
                     } else if (room.isRevealed == true ) {

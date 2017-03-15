@@ -9,21 +9,21 @@ public class Door : MonoBehaviour {
 
     BoxCollider2D box;
     Room destination;
+	Direction direction = Direction.NORTH;
 
     void Awake() {
         box = GetComponent<BoxCollider2D>();
     }
 
-    public void SetDestination(Room destination) {
-        Debug.Log("setting dest to " + destination.x + "," + destination.y);
+	public void SetDestination(Room destination, Direction direction) {
         this.destination = destination;
+		this.direction = direction;
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Player") {
-            Debug.Log("Destination is " + destination.x + "," + destination.y);
             Invoke("Restart", restartLevelDelay);
-            GameManager.instance.currentRoom = destination;
+			GameManager.instance.ChangeRoom(destination, direction);
             other.GetComponent<PlayerController>().enabled = false  ;
         }
     }

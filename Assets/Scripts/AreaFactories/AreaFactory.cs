@@ -48,10 +48,10 @@ public class AreaFactory : MonoBehaviour {
 
     }
 
-    public void createDoor(Assets.Scripts.Map.Room room, Position pos) {
+    public void createDoor(Assets.Scripts.Map.Room room, Direction dir, Position pos) {
         GameObject door = doorTiles[0];
         GameObject realDoor = DoInstantiate(door, pos) as GameObject;
-        realDoor.GetComponent<Door>().SetDestination(room);
+        realDoor.GetComponent<Door>().SetDestination(room, dir);
     }
 
     private GameObject DoInstantiate(GameObject toInstantiate, Position pos) {

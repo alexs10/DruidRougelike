@@ -7,11 +7,12 @@ using Assets.Scripts.Map;
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;
-    public Room currentRoom = null;
-    private Vector2 playerSpawn = new Vector2(0, 0);
     public float turnDelay = 0.5f;
     public float levelStartDelay = 1f;
     [HideInInspector] public bool playersTurn = false;
+
+	private Room currentRoom = null;
+	private Position playerSpawn = new Position(0, 0);
 
     private GameObject levelImage;
     private List<Enemy> enemyList;
@@ -61,9 +62,14 @@ public class GameManager : MonoBehaviour {
         enabled = false;
     }
 
-    public void ChangeRoom(Room room) {
-        
+	public void ChangeRoom(Room room, Direction direction) {
+		currentRoom = room;
+		playerSpawn = room.GetPlayerPosition (direction);
     }
+
+	public Room CurrentRoom() {
+		return currentRoom;
+	}
 
     void InitGame() {
         doingSetup = true;
@@ -82,6 +88,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("some other room");
             currentRoom.layout.BuildRoom();
         }
+		GameObject.Find ("Player").transform.position = new Vector2(playerSpawn.x, playerSpawn.y);
         currentRoom.isRevealed = true;
     }
 
