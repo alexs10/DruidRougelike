@@ -17,6 +17,6 @@ public class HUD : MonoBehaviour, Observer {
 	
 	public void Notify() {
         Debug.Log("boooyyyy");
-        healthText.text = "Health: " + playerHealth.currentHealth;
+		healthText.text = "Health: " + playerHealth.currentHealth + "/10";
     }
 }

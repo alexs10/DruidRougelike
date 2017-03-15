@@ -372,12 +372,17 @@ Prefab:
     - target: {fileID: 224936631307935582, guid: 9896ff0d2644dd348b06a37f5db6a5f0,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -600
+      value: -670
       objectReference: {fileID: 0}
     - target: {fileID: 224936631307935582, guid: 9896ff0d2644dd348b06a37f5db6a5f0,
         type: 2}
       propertyPath: m_AnchoredPosition.y
       value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 114795628886372016, guid: 9896ff0d2644dd348b06a37f5db6a5f0,
+        type: 2}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9896ff0d2644dd348b06a37f5db6a5f0, type: 2}
