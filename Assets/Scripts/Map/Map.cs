@@ -25,7 +25,6 @@ namespace Assets.Scripts.Map {
 			InitMapGen ();
 			CreateHomeRoom ();
 			for (int i = 1; i < MapConfig.ROOM_COUNT; i++) {
-                Debug.Log(i);
 				AdjustKeyLevel (i);
 				CreateRoomInOpenAdjacency ();
 			}
@@ -51,15 +50,14 @@ namespace Assets.Scripts.Map {
 
 		private void AdjustKeyLevel(int roomCount) {
 			if (roomCount/MapConfig.KEY_LEVEL_COUNT != (roomCount - 1)/MapConfig.KEY_LEVEL_COUNT) {
-                Debug.Log(keyIndex);
+				Debug.Log ("KEY LEVEL UP");
 				currentKeyCode.Add (MapConfig.KEY_SET [keyIndex++]);
 				keyLevelDifficulty = maxDifficulty + MapConfig.KEY_LEVEL_DIFFICULTY_INC;
 			}
 		}
 
 		private void CreateRoomInOpenAdjacency() {
-            Debug.Log("Room with open adj count: " + roomsWithOpenAdjacencies.Count);
-			Room chosenRoom = roomsWithOpenAdjacencies [Random.Range (0, roomsWithOpenAdjacencies.Count - 1)];
+            Room chosenRoom = roomsWithOpenAdjacencies [Random.Range (0, roomsWithOpenAdjacencies.Count - 1)];
             List<Position> availablePositions = FindAvailableAdjPositions(chosenRoom.x, chosenRoom.y);
 			Position chosenPosition = availablePositions [Random.Range (0, availablePositions.Count - 1)];
 
@@ -106,7 +104,7 @@ namespace Assets.Scripts.Map {
 
 		private void AddRoom(int x, int y, float difficulty, List<Key> keyCode) {
             Debug.Log("Adding room at: " + x + ", " + y);
-			rooms [x, y] = new Room (x, y, difficulty, keyCode, new SimpleLayoutFactory("Forrest", 12, 8));
+			rooms [x, y] = new Room (x, y, difficulty, CopyKeyCode(), new SimpleLayoutFactory("Forrest", 12, 8));
 
 			UpdateOpenRooms (x, y);
 			UpdateOpenRooms (x+1, y);
@@ -134,6 +132,14 @@ namespace Assets.Scripts.Map {
 			}
 		}
 
+		private List<Key> CopyKeyCode() {
+			List<Key> output = new List<Key> ();
+			foreach (Key key in currentKeyCode) {
+				output.Add (key);
+			}
+			return output;
+		}
+
 		public static class MapConfig {
 			public static int WIDTH = 10;
 			public static int HEIGHT = 10;
@@ -145,7 +151,7 @@ namespace Assets.Scripts.Map {
 			public static float STD_DIFFICULTY_INC = 1f;
 			public static float KEY_LEVEL_DIFFICULTY_INC = -2f;
 
-			public static Key[] KEY_SET = {new Key("red"), new Key("blue"), new Key("green"), new Key("yellow") };
+			public static Key[] KEY_SET = {new Key("red"), new Key("blue"), new Key("green"), new Key("magenta") };
 		}
     }
 }
