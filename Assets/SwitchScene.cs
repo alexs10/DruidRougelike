@@ -6,7 +6,7 @@ public class SwitchScene : MonoBehaviour
 {
 	public void loadGame()
 	{
-		Application.LoadLevel ("Test"); 
+		Application.LoadLevel ("MapGen"); 
 	}
 
 }
