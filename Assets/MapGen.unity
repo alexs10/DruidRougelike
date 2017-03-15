@@ -723,6 +723,16 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114037624156693992, guid: 7be9924f0f2bd6b488a2b4ef8322837b,
+        type: 2}
+      propertyPath: BOARDWIDTH
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114037624156693992, guid: 7be9924f0f2bd6b488a2b4ef8322837b,
+        type: 2}
+      propertyPath: BOARDHEIGHT
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7be9924f0f2bd6b488a2b4ef8322837b, type: 2}
   m_IsPrefabParent: 0
