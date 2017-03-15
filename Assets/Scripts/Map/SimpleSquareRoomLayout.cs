@@ -24,9 +24,13 @@ namespace Assets.Scripts.Map {
             LayoutAtRandom(wallPositions, wallMin, wallMax);
         }
 
-        public override void AddEnemies(float difficulty) {
+        /*public override void AddEnemies(float difficulty) {
             LayoutAtRandom(enemyPositions, (int)Mathf.Floor(difficulty * 3f), (int)Mathf.Floor(difficulty * 5f));
-        }
+        }*/ 
+
+		public override void AddEnemies(float difficulty) {
+		LayoutAtRandom(enemyPositions, (int)Mathf.Floor(difficulty * 8f), (int)Mathf.Floor(difficulty * 10f));
+	} 
 
         void InitialiseGrid() {
             gridPositions = new List<Position>();
