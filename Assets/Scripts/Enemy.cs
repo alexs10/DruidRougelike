@@ -75,6 +75,7 @@ public class Enemy : MovingObject {
     public void Die() {
         Debug.Log("Enemy is dead");
         isActive = false;
+		GameManager.instance.RemoveEnemy (this);
         Destroy(gameObject);
     }
 }

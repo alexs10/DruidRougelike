@@ -5,7 +5,7 @@ public class TargetingController : MonoBehaviour, Controllable, Observable {
 
     public GameObject targetSquarePrefab;
 
-    private int BOARDWIDTH = 8;
+    private int BOARDWIDTH = 12;
     private int BOARDHEIGHT = 8;
 
     private List<Observer> observers;
@@ -28,8 +28,8 @@ public class TargetingController : MonoBehaviour, Controllable, Observable {
     }
      
     public void initTargeting() {
-        for (int i = 0; i< BOARDHEIGHT; i++) {
-            for (int j = 0; j< BOARDWIDTH; j++) {
+		for (int i = 0; i< BOARDWIDTH; i++) {
+			for (int j = 0; j< BOARDHEIGHT; j++) {
                 GameObject instance = Instantiate(targetSquarePrefab, new Vector2(i, j), Quaternion.identity) as GameObject;
                 instance.transform.SetParent(this.transform);
             }
@@ -37,8 +37,8 @@ public class TargetingController : MonoBehaviour, Controllable, Observable {
     }
 
     public void DefineValidTargets(List<Vector2> validTargets) {
-        for (int i = 0; i < BOARDHEIGHT; i++) {
-            for (int j = 0; j < BOARDWIDTH; j++) {
+        for (int i = 0; i < BOARDWIDTH; i++) {
+            for (int j = 0; j < BOARDHEIGHT; j++) {
                 RaycastHit2D hit = Physics2D.Raycast(new Vector2(i, j), Vector2.zero, 0f, targetingLayer);
                 if (hit) {
                     hit.collider.GetComponent<TargetSquare>().SetNontargetable();
@@ -100,8 +100,8 @@ public class TargetingController : MonoBehaviour, Controllable, Observable {
 
     private void Reset() {
         activeSquares.Clear();
-        for (int i = 0; i < BOARDHEIGHT; i++) {
-            for (int j = 0; j < BOARDWIDTH; j++) {
+        for (int i = 0; i < BOARDWIDTH; i++) {
+            for (int j = 0; j < BOARDHEIGHT; j++) {
                 RaycastHit2D hit = Physics2D.Raycast(new Vector2(i, j), Vector2.zero, 0f, targetingLayer);
                 if (hit) {
                     hit.collider.GetComponent<TargetSquare>().SetDefault();

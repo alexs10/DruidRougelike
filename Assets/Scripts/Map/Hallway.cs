@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts.Map {
     public class Hallway {
@@ -27,9 +28,12 @@ namespace Assets.Scripts.Map {
                     this.key = key;
                 }
             }
-            
-
         }
+
+		public bool HasKey() {
+			Debug.Log ("Asize: " + roomA.keyCode.Count + " Bsize: " + roomB.keyCode.Count);
+			return key != null;
+		}
 
         public Room OtherEnd(Room self) {
             if (self == roomA) {

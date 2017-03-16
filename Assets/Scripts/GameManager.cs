@@ -116,6 +116,10 @@ public class GameManager : MonoBehaviour {
         enemyList.Add(enemy);
     }
 
+	public void RemoveEnemy(Enemy enemy) {
+		enemyList.Remove (enemy);
+	}
+
     //Coroutine to move enemies in sequence.
     IEnumerator MoveEnemies() {
         Debug.Log("EnemyTurn");

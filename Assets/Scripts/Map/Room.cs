@@ -37,7 +37,6 @@ namespace Assets.Scripts.Map {
         }
 
         public void Attach(Room otherRoom) {
-            Debug.Log("ATTACH");
             if (!Hallway.IsValidHallway(this, otherRoom)) {
                 Debug.Log("Hallway cannot be created between two rooms");
                 return;
@@ -46,27 +45,52 @@ namespace Assets.Scripts.Map {
 
 
             Hallway hallway = new Hallway(this, otherRoom);
+			bool createLock = hallway.HasKey ();
+			if (createLock) {
+				Debug.Log("CREATING A " + hallway.key.keyString + " LOCK AT: " + otherRoom.x + ", " + otherRoom.y);
+			}
             if (IsNorth(otherRoom)) {
                 this.north = hallway;
                 otherRoom.south = hallway;
-                layout.AddDoorNorth(otherRoom);
-                otherRoom.layout.AddDoorSouth(this);
+				if (createLock) {
+					layout.AddDoorNorth (otherRoom, hallway.key);
+					otherRoom.layout.AddDoorSouth (this, hallway.key);
+				} else {
+					layout.AddDoorNorth(otherRoom);
+					otherRoom.layout.AddDoorSouth(this);
+				}
+                
             } else if (IsSouth(otherRoom)) {
                 this.south = hallway;
                 otherRoom.north = hallway;
-                layout.AddDoorSouth(otherRoom);
-                otherRoom.layout.AddDoorNorth(this);
+				if (createLock) {
+					layout.AddDoorSouth (otherRoom, hallway.key);
+					otherRoom.layout.AddDoorNorth (this, hallway.key);
+				} else {
+					layout.AddDoorSouth(otherRoom);
+					otherRoom.layout.AddDoorNorth(this);
+				}
             } else if (IsEast(otherRoom)) {
                 this.east = hallway;
-                otherRoom.west = hallway;
-                layout.AddDoorEast(otherRoom);
-                otherRoom.layout.AddDoorWest(this);
+				otherRoom.west = hallway;
+				if (createLock) {
+					layout.AddDoorEast (otherRoom, hallway.key);
+					otherRoom.layout.AddDoorWest (this, hallway.key);
+				} else {
+					layout.AddDoorEast(otherRoom);
+					otherRoom.layout.AddDoorWest(this);
+				}
             } else if (IsWest(otherRoom)) {
                 this.west = hallway;
                 otherRoom.east = hallway;
-                layout.AddDoorWest(otherRoom);
-                otherRoom.layout.AddDoorEast(this);
-            } else {
+				if (createLock) {
+					layout.AddDoorWest (otherRoom, hallway.key);
+					otherRoom.layout.AddDoorEast (this, hallway.key);
+				} else {
+					layout.AddDoorWest(otherRoom);
+					otherRoom.layout.AddDoorEast(this);
+				}            
+			} else {
                 throw new ArgumentException();
             }
             
