@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
 
+	bool paused = false;
 	// Use this for initialization
 	void Start () {
 		
@@ -18,12 +19,21 @@ public class PauseMenu : MonoBehaviour {
 
 
 	public void PauseGame() {
-		SceneManager.LoadScene ("Pause-menu", LoadSceneMode.Additive);
+		//SceneManager.LoadScene ("Pause-menu", LoadSceneMode.Additive);
+		Time.timeScale = 0.0f; 
+		paused = true; 
 	}
 
-	public void ResumeGame() {
-		//SceneManager.SetActiveScene(SceneManager.GetSceneByName("MapGen"));
-		SceneManager.UnloadSceneAsync ("Pause-menu");
+	public void OnGUI()
+	{
+		if (paused == true) {
 
-	}
+			if (GUI.Button (new Rect((Screen.width/2)-150,200,300,50), "Click me to unpause")) 
+				{
+				Time.timeScale = 1.0f; 
+				paused = false; 
+			} 
+		}
+
+	} 
 }
