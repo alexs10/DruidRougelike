@@ -21,8 +21,10 @@ public class PauseMenu : MonoBehaviour {
 			Font myFont = (Font)Resources.Load ("Fonts/PressStart2P-Regular", typeof(Font)); 
 			pauseButtonStyle.font = myFont; 
 			pauseButtonStyle.fontSize = 14;
+			pauseButtonStyle.normal.textColor = Color.black; 
+			pauseButtonStyle.hover.textColor = Color.white; 
 
-			if (GUI.Button (new Rect((Screen.width/2)-150,200,300,50), "Click me to unpause", pauseButtonStyle)) 
+			if (GUI.Button (new Rect((Screen.width/2)-150,200,300,50), "Resume Game", pauseButtonStyle)) 
 				{
 				Time.timeScale = 1.0f; 
 				paused = false; 
