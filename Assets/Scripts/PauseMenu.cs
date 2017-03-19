@@ -28,7 +28,11 @@ public class PauseMenu : MonoBehaviour {
 	{
 		if (paused == true) {
 
-			if (GUI.Button (new Rect((Screen.width/2)-150,200,300,50), "Click me to unpause")) 
+			GUIStyle pauseButtonStyle = new GUIStyle (GUI.skin.button); 
+			Font myFont = (Font)Resources.Load ("Fonts/PressStart2P-Regular", typeof(Font)); 
+			pauseButtonStyle.font = myFont; 
+			pauseButtonStyle.fontSize = 14; 
+			if (GUI.Button (new Rect((Screen.width/2)-150,200,300,50), "Click me to unpause", pauseButtonStyle)) 
 				{
 				Time.timeScale = 1.0f; 
 				paused = false; 
