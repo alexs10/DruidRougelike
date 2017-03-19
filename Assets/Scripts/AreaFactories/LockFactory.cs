@@ -8,14 +8,14 @@ public class LockFactory {
 	public LockFactory () {
 		lockDictionary = new Dictionary<string, createLockDelegate> ();
 		lockDictionary.Add ("red", coloredLock(Color.red));
-		lockDictionary.Add ("blue", coloredLock (Color.blue));
+		lockDictionary.Add ("blue", coloredLock (Color.cyan));
 		lockDictionary.Add ("green", coloredLock (Color.green));
 		lockDictionary.Add ("magenta", coloredLock (Color.magenta));
 	}
 
 	private createLockDelegate coloredLock(Color color) {
 		return () => {
-			GameObject prefab = Resources.Load ("Lock") as GameObject;
+			GameObject prefab = Resources.Load ("LockArt") as GameObject;
 			prefab.GetComponent<Lock> ().color = color;
 			return prefab;
 		};
