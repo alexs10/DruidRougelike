@@ -15,6 +15,9 @@ namespace Assets.Scripts.Map {
 		private float keyLevelDifficulty;
 		private float maxDifficulty;
 
+		private Room maxDifficultyCurrentLevel;
+		private float difficultyThresh = 0;
+		private List<Room> keyRooms;
 
         public Map() {
             rooms = new Room[MapConfig.WIDTH, MapConfig.HEIGHT];
@@ -38,6 +41,7 @@ namespace Assets.Scripts.Map {
 		private void InitMapGen() {
 			roomsWithOpenAdjacencies = new List<Room> ();
 			currentKeyCode = new List<Key> ();
+			keyRooms = new List<Room> ();
 			roomCount = 0;
 			keyLevelDifficulty = 0;
 			keyIndex = 0;
@@ -53,6 +57,9 @@ namespace Assets.Scripts.Map {
 				Debug.Log ("KEY LEVEL UP");
 				currentKeyCode.Add (MapConfig.KEY_SET [keyIndex++]);
 				keyLevelDifficulty = maxDifficulty + MapConfig.KEY_LEVEL_DIFFICULTY_INC;
+
+				keyRooms.Add (maxDifficultyCurrentLevel);
+				difficultyThresh = keyLevelDifficulty;
 			}
 		}
 
@@ -62,13 +69,20 @@ namespace Assets.Scripts.Map {
 			Position chosenPosition = availablePositions [Random.Range (0, availablePositions.Count - 1)];
 
 			float difficulty;
-			if (chosenRoom.keyCode == currentKeyCode) {
+			if (chosenRoom.keyCode.Count == currentKeyCode.Count) {
+				Debug.Log ("keycodes match");
 				difficulty = chosenRoom.GetRawDifficulty () + MapConfig.STD_DIFFICULTY_INC;
+
 			} else {
+				Debug.Log ("keycodes dont match");
 				difficulty = keyLevelDifficulty;
 			}
 
 			AddRoom (chosenPosition.x, chosenPosition.y, difficulty, currentKeyCode, chosenRoom);
+
+			if (rooms [chosenPosition.x, chosenPosition.y].GetRawDifficulty () >= difficultyThresh) {
+				maxDifficultyCurrentLevel = rooms [chosenPosition.x, chosenPosition.y];
+			}
 		}
 
         private List<Position> FindAvailableAdjPositions(int x, int y) {
@@ -93,6 +107,10 @@ namespace Assets.Scripts.Map {
 
 		private void PlaceKeys() {
 			//TODO implement this method
+			for (int i = 0; i < currentKeyCode.Count; i++) {
+				Debug.Log ("ADDING KEY AT " + keyRooms [i].x + ", " + keyRooms [i].y);
+				keyRooms [i].AddKey (currentKeyCode [i]);
+			}
 		}
 
         private void AddRoom(int x, int y, float difficulty, List<Key> keyCode, Room parent) {

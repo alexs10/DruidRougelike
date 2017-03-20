@@ -14,9 +14,12 @@ public class AreaFactory : MonoBehaviour {
 
     private Transform board;
 	private LockFactory lockFactory;
+	private PickupFactory pickupFactory;
+
     void Awake() {
         board = GameObject.Find("Board").transform;
 		lockFactory = new LockFactory ();
+		pickupFactory = new PickupFactory ();
     }
 
     public void ClearBoard() {
@@ -49,6 +52,11 @@ public class AreaFactory : MonoBehaviour {
 		GameObject instance = lockFactory.CreateLock (name);
 		DoInstantiate (instance, pos);
     }
+
+	public void createKey(string name, Position pos) {
+		GameObject instance = pickupFactory.CreateKey (name);
+		DoInstantiate (instance, pos);
+	}
 
     public void createDoor(Assets.Scripts.Map.Room room, Direction dir, Position pos) {
         GameObject door = doorTiles[0];

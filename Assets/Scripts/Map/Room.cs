@@ -157,6 +157,10 @@ namespace Assets.Scripts.Map {
             layout.AddEnemies(GetDifficulty());
         }
 
+		public void AddKey(Key key) {
+			layout.AddKey (key);
+		}
+
 		public Position GetPlayerPosition(Direction fromDirection) {
 			switch (fromDirection) {
 			case Direction.NORTH:

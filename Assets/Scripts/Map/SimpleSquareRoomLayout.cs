@@ -66,6 +66,11 @@ namespace Assets.Scripts.Map {
             return returnIndex;
         }
 
+		public override void AddKey(Key key) {
+			keyPositions.Add (RandomUnusedPosition ());
+			keys.Add (key);
+		}
+
 		#region PLAYER POSITION
 		public override Position GetPlayerPositionNorth ()
 		{
@@ -123,24 +128,28 @@ namespace Assets.Scripts.Map {
 
         public override void AddDoorNorth(Room destination, Key key) {
             AddDoorNorth(destination);
+			playerPositionNorth.x += 1;
             lockPositions.Add(new Position(columns / 2, rows - 1));
             lockKeys.Add(key);
         }
 
         public override void AddDoorSouth(Room destination, Key key) {
             AddDoorSouth(destination);
+			playerPositionSouth.x -= 1;
             lockPositions.Add(new Position(columns / 2, 0));
             lockKeys.Add(key);
         }
 
         public override void AddDoorEast(Room destination, Key key) {
             AddDoorEast(destination);
+			playerPositionEast.y += 1;
             lockPositions.Add(new Position(columns - 1, rows / 2));
             lockKeys.Add(key);
         }
 
         public override void AddDoorWest(Room destination, Key key) {
             AddDoorWest(destination);
+			playerPositionWest.y += 1;
             lockPositions.Add(new Position(0, rows / 2));
             lockKeys.Add(key);
         }
