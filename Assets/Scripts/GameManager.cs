@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour {
             enemyList = new List<Enemy>();
 
             map = new Map();
-            Debug.Log("GameManager");
 
         } else if (instance != this)
         {
@@ -81,11 +80,9 @@ public class GameManager : MonoBehaviour {
         enemyList.Clear();
 
         if (currentRoom == null) {
-            Debug.Log("going to room 0");
             map.currentRoom.layout.BuildRoom();
             currentRoom = map.currentRoom;
         } else {
-            Debug.Log("some other room");
             currentRoom.layout.BuildRoom();
         }
 		GameObject.Find ("Player").transform.position = new Vector2(playerSpawn.x, playerSpawn.y);
@@ -122,7 +119,6 @@ public class GameManager : MonoBehaviour {
 
     //Coroutine to move enemies in sequence.
     IEnumerator MoveEnemies() {
-        Debug.Log("EnemyTurn");
         enemiesMoving = true;
 
         yield return new WaitForSeconds(turnDelay);

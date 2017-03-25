@@ -46,9 +46,7 @@ namespace Assets.Scripts.Map {
 
             Hallway hallway = new Hallway(this, otherRoom);
 			bool createLock = hallway.HasKey ();
-			if (createLock) {
-				Debug.Log("CREATING A " + hallway.key.keyString + " LOCK AT: " + otherRoom.x + ", " + otherRoom.y);
-			}
+
             if (IsNorth(otherRoom)) {
                 this.north = hallway;
                 otherRoom.south = hallway;

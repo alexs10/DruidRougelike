@@ -32,8 +32,6 @@ public class AreaFactory : MonoBehaviour {
     }
 
     public void createWall(int index, Position pos) {
-        Debug.Log(index);
-        Debug.Log(index % wallTiles.Length);
         GameObject toInstantiate = wallTiles[index % wallTiles.Length];
         DoInstantiate(toInstantiate, pos);
     }

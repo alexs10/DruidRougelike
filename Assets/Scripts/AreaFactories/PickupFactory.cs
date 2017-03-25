@@ -22,6 +22,7 @@ public class PickupFactory {
 			GameObject prefab = Resources.Load ("Key") as GameObject;
 			prefab.GetComponent<Pickup> ().item = ActionCommandFactory.GetInstance ().CreateKeyAction (color);
 			prefab.GetComponent<SpriteRenderer>().color = color;
+			Debug.Log("key item: " + prefab.GetComponent<Pickup>().item);
 			return prefab;
 		};
 	}

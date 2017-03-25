@@ -14,7 +14,9 @@ public class Pickup : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		Debug.Log ("Pickup");
+		if (item == null) {
+			Debug.Log ("Item on pickup is null");
+		}
 		if (hasItem && other.GetComponent<Player> () != null) {
 			Debug.Log ("Picking up");
 			hasItem = false;

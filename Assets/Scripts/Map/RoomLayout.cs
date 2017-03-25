@@ -56,7 +56,6 @@ namespace Assets.Scripts.Map {
             foreach (Position pos in outerWallPositions) {
                 areaFactory.createOuterWall(Random.Range(0, 1000), pos);
             }
-            Debug.Log("ECount: " + enemyPositions.Count);
             foreach (Position pos in enemyPositions) {
                 areaFactory.createEnemy(Random.Range(0, 1000), pos);
             }

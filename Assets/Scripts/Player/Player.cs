@@ -60,6 +60,7 @@ public class Player : MovingObject,  Observer, Controllable   {
     }
 
 	public void EquipAction(ActionCommand action, string key) {
+		Debug.Log ("Action set");
 		actions [key] = action;
 	}
 
