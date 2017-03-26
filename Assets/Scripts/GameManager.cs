@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour {
 	private bool enemiesMoving;
 	private bool doingSetup = true;
 
+    private PlayerState playerState;
+
     public Map map;
 
     // Use this for initialization
@@ -70,6 +72,10 @@ public class GameManager : MonoBehaviour {
 		return currentRoom;
 	}
 
+    public void Save() {
+        this.playerState = GameObject.Find("Player").GetComponent<Player>().SnapshotState();
+    }
+
     void InitGame() {
         doingSetup = true;
 
@@ -85,7 +91,14 @@ public class GameManager : MonoBehaviour {
         } else {
             currentRoom.layout.BuildRoom();
         }
+
+        
 		GameObject.Find ("Player").transform.position = new Vector2(playerSpawn.x, playerSpawn.y);
+        if (playerState == null) {
+            playerState = GameObject.Find("Player").GetComponent<Player>().DefaultState();
+        }
+        GameObject.Find("Player").GetComponent<Player>().LoadState(playerState);
+
         currentRoom.isRevealed = true;
     }
 

@@ -22,6 +22,7 @@ public class Door : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Player") {
+            GameManager.instance.Save();
             Invoke("Restart", restartLevelDelay);
 			GameManager.instance.ChangeRoom(destination, direction);
             other.GetComponent<PlayerController>().enabled = false  ;

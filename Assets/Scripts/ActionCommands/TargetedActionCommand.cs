@@ -16,7 +16,11 @@ public abstract class TargetedActionCommand: ActionCommand, Observer {
 	}
 
 	public void Execute() {
-		targetingController.DefineValidTargets (GetValidTargets ());
+        targetingController = GameObject.Find("TargetingUI").GetComponent<TargetingController>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        player = GameObject.Find("Player").GetComponent<Player>();
+
+        targetingController.DefineValidTargets (GetValidTargets ());
 		playerController.ChangeState (targetingController);
 		targetingController.Register (this);
 

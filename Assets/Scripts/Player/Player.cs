@@ -19,10 +19,9 @@ public class Player : MovingObject,  Observer, Controllable   {
         base.Start();
         animator = GetComponent<Animator>();
 
-        this.actionCommandFactory = ActionCommandFactory.GetInstance();
-        actions = new Dictionary<string, ActionCommand>();
-        actions.Add("1", actionCommandFactory.CreateMeleeAttack());
-		actions.Add ("2", actionCommandFactory.CreateKeyAction (Color.red));
+        //actions = new Dictionary<string, ActionCommand>();
+        //actions.Add("1", actionCommandFactory.CreateMeleeAttack());
+		//actions.Add ("2", actionCommandFactory.CreateKeyAction (Color.red));
 
         controller = GetComponent<PlayerController>();
 	}
@@ -57,6 +56,26 @@ public class Player : MovingObject,  Observer, Controllable   {
 		} else if (Input.GetKeyDown (KeyCode.Alpha2)) {
 			actions ["2"].Execute ();
 		}
+    }
+
+    public PlayerState SnapshotState() {
+        PlayerState output = new PlayerState(actions, health.currentHealth);
+        return output;
+    }
+
+    public void LoadState(PlayerState state) {
+        Debug.Log("Loading player state");
+        this.actions = state.actions;
+        this.health.currentHealth = state.currentHealth;
+    }
+
+    public PlayerState DefaultState() {
+        this.actionCommandFactory = ActionCommandFactory.GetInstance();
+        Dictionary<string, ActionCommand> actions = new Dictionary<string, ActionCommand>();
+        actions.Add("1", actionCommandFactory.CreateMeleeAttack());
+        actions.Add("2", actionCommandFactory.CreateKeyAction(Color.red));
+
+        return new PlayerState(actions, health.maxHealth);
     }
 
 	public void EquipAction(ActionCommand action, string key) {
