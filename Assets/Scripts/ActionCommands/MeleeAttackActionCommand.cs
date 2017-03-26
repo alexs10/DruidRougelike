@@ -31,5 +31,9 @@ class MeleeAttackActionCommand: TargetedActionCommand {
 		return meleeTargetingStrategy.GetTargets (player.transform.position);
     }
 
+    public override string GetName() {
+        return "Smack";
+    }
+
 }
 

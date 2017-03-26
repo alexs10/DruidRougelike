@@ -29,6 +29,10 @@ public class KeyActionCommand: TargetedActionCommand {
 	protected override List<Vector2> GetValidTargets() {
 		return meleeTargetingStrategy.GetTargets (player.transform.position);
 	}
+
+    public override string GetName() {
+        return color.ToString();
+    }
 }
 
 

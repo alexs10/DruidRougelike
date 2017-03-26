@@ -16,7 +16,7 @@ namespace Assets.Scripts.Map {
 		private float maxDifficulty;
 
 		private Room maxDifficultyCurrentLevel;
-		private float difficultyThresh = 0;
+		private float difficultyThresh;
 		private List<Room> keyRooms;
 
         public Map() {
@@ -45,12 +45,15 @@ namespace Assets.Scripts.Map {
 			roomCount = 0;
 			keyLevelDifficulty = 0;
 			keyIndex = 0;
+            difficultyThresh = 0f;
 		}
 
 		private void CreateHomeRoom() {
 			AddRoom (MapConfig.HOME_X, MapConfig.HOME_Y, 0f, currentKeyCode);
             currentRoom = rooms[MapConfig.HOME_X, MapConfig.HOME_Y];
-		}
+
+            maxDifficultyCurrentLevel = rooms[MapConfig.HOME_X, MapConfig.HOME_Y];
+        }
 
 		private void AdjustKeyLevel(int roomCount) {
 			if (roomCount/MapConfig.KEY_LEVEL_COUNT != (roomCount - 1)/MapConfig.KEY_LEVEL_COUNT) {
@@ -58,6 +61,7 @@ namespace Assets.Scripts.Map {
 				currentKeyCode.Add (MapConfig.KEY_SET [keyIndex++]);
 				keyLevelDifficulty = maxDifficulty + MapConfig.KEY_LEVEL_DIFFICULTY_INC;
 
+                Debug.Log("Adding keyroom at: " + maxDifficultyCurrentLevel.x + ", " + maxDifficultyCurrentLevel.y);
 				keyRooms.Add (maxDifficultyCurrentLevel);
 				difficultyThresh = keyLevelDifficulty;
 			}
@@ -81,6 +85,7 @@ namespace Assets.Scripts.Map {
 			AddRoom (chosenPosition.x, chosenPosition.y, difficulty, currentKeyCode, chosenRoom);
 
 			if (rooms [chosenPosition.x, chosenPosition.y].GetRawDifficulty () >= difficultyThresh) {
+                Debug.Log("New max difficulty current level: " + rooms[chosenPosition.x, chosenPosition.y].GetRawDifficulty());
 				maxDifficultyCurrentLevel = rooms [chosenPosition.x, chosenPosition.y];
 			}
 		}
@@ -106,7 +111,8 @@ namespace Assets.Scripts.Map {
         }
 
 		private void PlaceKeys() {
-			//TODO implement this method
+            //TODO implement this method
+            Debug.Log("KeyRoom.length: " + keyRooms.Count);
 			for (int i = 0; i < currentKeyCode.Count; i++) {
 				Debug.Log ("ADDING KEY AT " + keyRooms [i].x + ", " + keyRooms [i].y);
 				keyRooms [i].AddKey (currentKeyCode [i]);

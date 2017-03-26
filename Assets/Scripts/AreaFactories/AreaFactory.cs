@@ -53,8 +53,11 @@ public class AreaFactory : MonoBehaviour {
 
 	public void createKey(string name, Position pos) {
 		GameObject instance = pickupFactory.CreateKey (name);
-		DoInstantiate (instance, pos);
-	}
+		GameObject test = DoInstantiate (instance, pos) as GameObject;
+        pickupFactory.SetKey(test, name);
+        Debug.Log("AREAFACTOR CHECK: " + test.GetComponent<Pickup>().GetItem().GetName());
+
+    }
 
     public void createDoor(Assets.Scripts.Map.Room room, Direction dir, Position pos) {
         GameObject door = doorTiles[0];

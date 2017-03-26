@@ -3,26 +3,40 @@ using UnityEngine;
 
 public class PickupFactory {
 	private Dictionary<string, createPickupDelagate> pickupDictionary;
-
+    private Dictionary<string, Color> colorDictionary;
 	public PickupFactory () {
-		pickupDictionary = new Dictionary<string, createPickupDelagate> ();
-		pickupDictionary.Add("red", ColoredKey(Color.red));
-		pickupDictionary.Add("green", ColoredKey(Color.green));
-		pickupDictionary.Add("blue", ColoredKey(Color.blue));
-		pickupDictionary.Add("magenta", ColoredKey(Color.magenta));
+
+        colorDictionary = new Dictionary<string, Color> ();
+        colorDictionary.Add("red", (Color.red));
+        colorDictionary.Add("green", (Color.green));
+        colorDictionary.Add("blue", (Color.blue));
+        colorDictionary.Add("magenta", (Color.magenta));
 			
 	}
 
 	public GameObject CreateKey(string color) {
-		return pickupDictionary [color] ();
+		return GenericKey();
 	}
 
-	private createPickupDelagate ColoredKey(Color color) {
+    public GameObject SetKey(GameObject obj, string color) {
+
+        obj.GetComponent<Pickup>().SetItem(ActionCommandFactory.GetInstance().CreateKeyAction(colorDictionary[color]));
+        obj.GetComponent<SpriteRenderer>().color = colorDictionary[color];
+        return obj;
+    }
+
+    private GameObject GenericKey() {
+        GameObject prefab = Resources.Load("Key") as GameObject;
+        return prefab;
+
+    }
+
+    private createPickupDelagate ColoredKey(Color color) {
 		return () => {
 			GameObject prefab = Resources.Load ("Key") as GameObject;
-			prefab.GetComponent<Pickup> ().item = ActionCommandFactory.GetInstance ().CreateKeyAction (color);
-			prefab.GetComponent<SpriteRenderer>().color = color;
-			Debug.Log("key item: " + prefab.GetComponent<Pickup>().item);
+			//prefab.GetComponent<Pickup> ().SetItem(ActionCommandFactory.GetInstance ().CreateKeyAction (color));
+			//prefab.GetComponent<SpriteRenderer>().color = color;
+			//Debug.Log("key item: " + prefab.GetComponent<Pickup>().GetItem().GetName());
 			return prefab;
 		};
 	}

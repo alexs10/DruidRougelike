@@ -5,5 +5,6 @@ using System.Text;
 
 public interface ActionCommand {
     void Execute();
+    string GetName();
 }
 

@@ -28,6 +28,8 @@ public abstract class TargetedActionCommand: ActionCommand, Observer {
 		}
 	}
 
+    public abstract string GetName();
+
 	protected abstract void DoExecute (Transform target);
 
 	protected abstract List<Vector2> GetValidTargets ();
