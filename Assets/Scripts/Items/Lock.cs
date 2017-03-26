@@ -14,7 +14,7 @@ public class Lock : MonoBehaviour {
 	}
 
 	public void Unlock(Color key) {
-		Debug.Log (key);
+		Debug.Log ("KeyColor: " + key + " LockColor: " + color);
 		if (key == this.color) {
 			Debug.Log ("Wooo unlocked");
 			boxCollider.enabled = false;

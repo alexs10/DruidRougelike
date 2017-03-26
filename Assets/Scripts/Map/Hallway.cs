@@ -11,21 +11,28 @@ namespace Assets.Scripts.Map {
         public Key key;
 
         public Hallway(Room roomA, Room roomB) {
-            if (!IsValidHallway(roomA, roomB))
-                throw new ArgumentException();
+            //if (!IsValidHallway(roomA, roomB))
+            //    throw new ArgumentException();
 
             this.roomA = roomA;
             this.roomB = roomB;
 
+            
+            if (roomA.keyCode.Count > roomB.keyCode.Count) {
+                this.key = roomA.keyCode.Last();
+            } else if (roomB.keyCode.Count > roomA.keyCode.Count()) {
+                this.key = roomB.keyCode.Last();
+            }
+
             foreach (Key key in roomA.keyCode) {
                 if (!roomB.keyCode.Contains(key)) {
-                    this.key = key;
+                    //this.key = key;
                 }
             }
 
             foreach (Key key in roomB.keyCode) {
                 if (!roomA.keyCode.Contains(key)) {
-                    this.key = key;
+                    //this.key = key;
                 }
             }
         }
@@ -47,13 +54,16 @@ namespace Assets.Scripts.Map {
 
         public static bool IsValidHallway(Room roomA, Room roomB) {
             int differences = 0;
+            Debug.Log("IsValidHallway?");
             foreach (Key key in roomA.keyCode) {
                 if (!roomB.keyCode.Contains(key)) {
+                    Debug.Log("difference: " + key.keyString);
                     ++differences;
                 }
             }
             foreach (Key key in roomB.keyCode) {
                 if (!roomA.keyCode.Contains(key)) {
+                    Debug.Log("difference: " + key.keyString);
                     ++differences;
                 }
             }

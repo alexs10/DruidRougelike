@@ -37,10 +37,10 @@ namespace Assets.Scripts.Map {
         }
 
         public void Attach(Room otherRoom) {
-            if (!Hallway.IsValidHallway(this, otherRoom)) {
-                Debug.Log("Hallway cannot be created between two rooms");
-                return;
-            }
+            //if (!Hallway.IsValidHallway(this, otherRoom)) {
+            //    Debug.Log("Hallway cannot be created between two rooms");
+            //    return;
+            //}
 
 
 

@@ -49,7 +49,7 @@ namespace Assets.Scripts.Map {
 		}
 
 		private void CreateHomeRoom() {
-			AddRoom (MapConfig.HOME_X, MapConfig.HOME_Y, 0f, currentKeyCode);
+			AddRoom (MapConfig.HOME_X, MapConfig.HOME_Y, 0f, CopyKeyCode());
             currentRoom = rooms[MapConfig.HOME_X, MapConfig.HOME_Y];
 
             maxDifficultyCurrentLevel = rooms[MapConfig.HOME_X, MapConfig.HOME_Y];

@@ -8,7 +8,7 @@ public class LockFactory {
 	public LockFactory () {
 		lockDictionary = new Dictionary<string, createLockDelegate> ();
 		lockDictionary.Add ("red", coloredLock(Color.red));
-		lockDictionary.Add ("blue", coloredLock (Color.cyan));
+		lockDictionary.Add ("blue", coloredLock (Color.blue));
 		lockDictionary.Add ("green", coloredLock (Color.green));
 		lockDictionary.Add ("magenta", coloredLock (Color.magenta));
 	}
