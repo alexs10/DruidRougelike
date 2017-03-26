@@ -19,6 +19,9 @@ namespace Assets.Scripts.Map {
         protected List<Position> lockPositions = new List<Position>();
         protected List<Key> lockKeys = new List<Key>();
 
+		protected List<Position> keyPositions = new List<Position> ();
+		protected List<Key> keys = new List<Key> ();
+
         public RoomLayout(AreaFactory factory) {
             this.areaFactory = factory;
         }
@@ -38,9 +41,11 @@ namespace Assets.Scripts.Map {
 		public abstract Position GetPlayerPositionEast ();
 		public abstract Position GetPlayerPositionWest ();
 
+		public abstract void AddKey (Key key);
+
         public void BuildRoom() {
             areaFactory.ClearBoard();
-
+			Debug.Log ("Key count: " + keyPositions.Count);
             //Random.InitState(GetHashCode());
             foreach(Position pos in wallPositions) {
                 areaFactory.createWall(Random.Range(0, 1000), pos);
@@ -51,7 +56,6 @@ namespace Assets.Scripts.Map {
             foreach (Position pos in outerWallPositions) {
                 areaFactory.createOuterWall(Random.Range(0, 1000), pos);
             }
-            Debug.Log("ECount: " + enemyPositions.Count);
             foreach (Position pos in enemyPositions) {
                 areaFactory.createEnemy(Random.Range(0, 1000), pos);
             }
@@ -61,6 +65,10 @@ namespace Assets.Scripts.Map {
             for (int i = 0; i < lockPositions.Count; i++) {
                 areaFactory.createLock(lockKeys[i].keyString, lockPositions[i]);
             }
+			for (int i = 0; i < keyPositions.Count; i++) {
+				areaFactory.createKey (keys [i].keyString, keyPositions [i]);
+			}
+
         }
 	}
 

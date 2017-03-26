@@ -17,8 +17,10 @@ public class PickupDictionary {
 	private PickupDictionary ()	{
 		acf = ActionCommandFactory.GetInstance ();
 		dict = new Dictionary<string, ActionCommand> ();
-		dict.Add("MagentaKey", acf.CreateKeyAction(Color.magenta));
-		dict.Add ("RedKey", acf.CreateKeyAction (Color.red));
+		dict.Add("Red", acf.CreateKeyAction(Color.red));
+		dict.Add ("Blue", acf.CreateKeyAction (Color.blue));
+		dict.Add ("Green", acf.CreateKeyAction (Color.green));
+		dict.Add ("Magenta", acf.CreateKeyAction (Color.magenta));
 			
 	}
 	public ActionCommand Get(string actionName) {
