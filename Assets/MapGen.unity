@@ -371,6 +371,10 @@ MonoBehaviour:
   lockTiles: []
   doorTiles:
   - {fileID: 1794063211626502, guid: fda53b2105d2a9049b9003f272985689, type: 2}
+  items:
+  - {fileID: 1000011386160236, guid: 7f42485ecfc1065499c040b836864990, type: 2}
+  - {fileID: 1000011382639660, guid: 8b65cff170d50334f9407e9f0c517228, type: 2}
+  - {fileID: 1385127498334610, guid: 6b567977a588ef746815342fd229d3fd, type: 2}
 --- !u!1 &382837340
 GameObject:
   m_ObjectHideFlags: 0

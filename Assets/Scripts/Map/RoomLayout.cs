@@ -35,8 +35,7 @@ namespace Assets.Scripts.Map {
         public abstract void AddDoorSouth(Room destination);
         public abstract void AddDoorEast(Room destination);
         public abstract void AddDoorWest(Room destination);
-        public abstract void AddEnemies(float difficulty); //0 <= difficulty <= 1
-		public abstract void AddItems (float difficulty); //added for items 
+        public abstract void AddEnemies(float difficulty); //0 <= difficulty <= 1 
 
 		public abstract Position GetPlayerPositionNorth ();
 		public abstract Position GetPlayerPositionSouth ();
