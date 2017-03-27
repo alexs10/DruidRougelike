@@ -33,6 +33,7 @@ namespace Assets.Scripts.Map {
 			}
             PlaceEnemies();
 			PlaceKeys ();
+
         }
 
 
@@ -118,6 +119,10 @@ namespace Assets.Scripts.Map {
 				keyRooms [i].AddKey (currentKeyCode [i]);
 			}
 		}
+        
+        private void Graphify() {
+
+        }
 
         private void AddRoom(int x, int y, float difficulty, List<Key> keyCode, Room parent) {
 			AddRoom (x, y, difficulty, keyCode);
