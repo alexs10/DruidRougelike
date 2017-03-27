@@ -36,6 +36,11 @@ public class Player : MovingObject,  Observer, Controllable   {
 
         if (!GameManager.instance.IsPlayersTurn()) return;
 
+		if (Input.GetKeyDown (KeyCode.I)) {
+			controller.OpenInventory ();
+			return;
+		}
+
         int horizontal = 0;
         int vertical = 0;
 
@@ -132,6 +137,14 @@ public class Player : MovingObject,  Observer, Controllable   {
 		if (health.currentHealth <= 0) {
 			GameManager.instance.GameOver ();
 		}
+	}
+
+	public void Setup() {
+
+	}
+
+	public void TearDown() {
+
 	}
 		
 }

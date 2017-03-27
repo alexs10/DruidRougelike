@@ -120,6 +120,14 @@ public class TargetingController : MonoBehaviour, Controllable, Observable {
         return tempTarget;
     }
 
+	public void Setup() {
+
+	}
+
+	public void TearDown() {
+
+	}
+
 
     public void Register(Observer o) {
         observers.Add(o);
