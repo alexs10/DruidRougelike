@@ -11,6 +11,7 @@ namespace Assets.Scripts.Map {
         protected List<Position> floorPositions = new List<Position>();
         protected List<Position> outerWallPositions = new List<Position>();
         protected List<Position> enemyPositions = new List<Position>();
+		protected List<Position> itemPositions = new List<Position>();
 
         protected List<Position> doorPositions = new List<Position>();
         protected List<Room> doorDesinations = new List<Room>();
@@ -59,6 +60,10 @@ namespace Assets.Scripts.Map {
             foreach (Position pos in enemyPositions) {
                 areaFactory.createEnemy(Random.Range(0, 1000), pos);
             }
+			foreach (Position pos in itemPositions ) {
+				areaFactory.createItem(Random.Range(0, 1000), pos);
+			}
+
             for (int i = 0; i < doorPositions.Count; i++) {
                 areaFactory.createDoor(doorDesinations[i], doorDirections[i], doorPositions[i]);
             }

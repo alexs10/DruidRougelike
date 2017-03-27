@@ -8,6 +8,8 @@ namespace Assets.Scripts.Map {
 
         private int wallMin = 5;
         private int wallMax = 9;
+		private int itemMin = 2; 
+		private int itemMax = 4; 
         private int columns;
         private int rows;
 
@@ -22,12 +24,15 @@ namespace Assets.Scripts.Map {
             InitialiseGrid();
             BoardSetup();
             LayoutAtRandom(wallPositions, wallMin, wallMax);
+			LayoutAtRandom (itemPositions, itemMin, itemMax); 
         }
 
         public override void AddEnemies(float difficulty) {
             //LayoutAtRandom(enemyPositions, (int)Mathf.Floor(difficulty * 3f), (int)Mathf.Floor(difficulty * 5f));
 			LayoutAtRandom(enemyPositions, 2, 3);
 		}
+			
+
 
 
         void InitialiseGrid() {
@@ -58,6 +63,7 @@ namespace Assets.Scripts.Map {
             }
             
         }
+			
 
         Position RandomUnusedPosition() {
             int index = Random.Range(0, gridPositions.Count);

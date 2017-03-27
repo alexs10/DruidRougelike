@@ -33,6 +33,7 @@ namespace Assets.Scripts.Map {
 			}
             PlaceEnemies();
 			PlaceKeys ();
+			//PlaceItems (); //added for items 
 
         }
 
@@ -110,6 +111,14 @@ namespace Assets.Scripts.Map {
                     room.SpawnEnemies();
             }
         }
+
+		/*private void PlaceItems() {
+			foreach (Room room in rooms) {
+				if (room != null)
+					room.SpawnItems();
+			}
+		} //added for items */
+
 
 		private void PlaceKeys() {
             //TODO implement this method

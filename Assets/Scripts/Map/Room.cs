@@ -155,6 +155,11 @@ namespace Assets.Scripts.Map {
             layout.AddEnemies(GetDifficulty());
         }
 
+		/*public void SpawnItems() {
+			layout.AddItems(GetDifficulty());
+		} 
+		//added for items */
+
 		public void AddKey(Key key) {
 			layout.AddKey (key);
 		}

@@ -11,6 +11,7 @@ public class AreaFactory : MonoBehaviour {
 
     public GameObject[] lockTiles;
     public GameObject[] doorTiles;
+	public GameObject[] items; 
 
     private Transform board;
 	private LockFactory lockFactory;
@@ -45,6 +46,11 @@ public class AreaFactory : MonoBehaviour {
         GameObject toInstantiate = floorTiles[index % floorTiles.Length];
         DoInstantiate(toInstantiate, pos);
     }
+
+	public void createItem(int index, Position pos) {
+		GameObject toInstantiate = items[index % items.Length];
+		DoInstantiate(toInstantiate, pos);
+	}
 
     public void createLock(string name, Position pos) {
 		GameObject instance = lockFactory.CreateLock (name);
