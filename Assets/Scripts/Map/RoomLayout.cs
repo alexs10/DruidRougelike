@@ -11,7 +11,7 @@ namespace Assets.Scripts.Map {
         protected List<Position> floorPositions = new List<Position>();
         protected List<Position> outerWallPositions = new List<Position>();
         protected List<Position> enemyPositions = new List<Position>();
-		protected List<Position> itemPositions = new List<Position>();
+		protected List<Position> itemPositions = new List<Position>(); //added for items 
 
         protected List<Position> doorPositions = new List<Position>();
         protected List<Room> doorDesinations = new List<Room>();
@@ -36,6 +36,7 @@ namespace Assets.Scripts.Map {
         public abstract void AddDoorEast(Room destination);
         public abstract void AddDoorWest(Room destination);
         public abstract void AddEnemies(float difficulty); //0 <= difficulty <= 1
+		public abstract void AddItems (float difficulty); //added for items 
 
 		public abstract Position GetPlayerPositionNorth ();
 		public abstract Position GetPlayerPositionSouth ();
@@ -62,7 +63,7 @@ namespace Assets.Scripts.Map {
             }
 			foreach (Position pos in itemPositions ) {
 				areaFactory.createItem(Random.Range(0, 1000), pos);
-			}
+			} //added for item 
 
             for (int i = 0; i < doorPositions.Count; i++) {
                 areaFactory.createDoor(doorDesinations[i], doorDirections[i], doorPositions[i]);

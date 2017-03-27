@@ -6,6 +6,7 @@ namespace Assets.Scripts.Map {
     public class Map {
         public Room[,] rooms;
 		public Room currentRoom;
+		public Room room; 
 
 		//Used for generating the map
 		private List<Room> roomsWithOpenAdjacencies;
@@ -33,7 +34,6 @@ namespace Assets.Scripts.Map {
 			}
             PlaceEnemies();
 			PlaceKeys ();
-			//PlaceItems (); //added for items 
 
         }
 
@@ -111,13 +111,7 @@ namespace Assets.Scripts.Map {
                     room.SpawnEnemies();
             }
         }
-
-		/*private void PlaceItems() {
-			foreach (Room room in rooms) {
-				if (room != null)
-					room.SpawnItems();
-			}
-		} //added for items */
+			
 
 
 		private void PlaceKeys() {
