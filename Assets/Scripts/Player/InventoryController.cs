@@ -18,7 +18,7 @@ public class InventoryController: MonoBehaviour, Controllable {
 		selector = GameObject.Find ("Selector");
 		selectorOffset = selector.transform.position;
 
-		inventory = GameObject.Find ("Inventory2");
+		inventory = GameObject.Find ("Inventory");
 		playerController = GetComponent<PlayerController> ();
 
 		items = new List<ActionCommand> ();
