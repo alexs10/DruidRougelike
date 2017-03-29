@@ -33,6 +33,14 @@ public class KeyActionCommand: TargetedActionCommand {
     public override string GetName() {
         return color.ToString();
     }
+
+	public override string GetDescription() {
+		return "This probably opens a door or something. But which one?";
+	}
+
+	public override Sprite GetSprite(){
+		return Resources.Load<Sprite> ("KeySprite");
+	}
 }
 
 

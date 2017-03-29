@@ -34,6 +34,10 @@ public abstract class TargetedActionCommand: ActionCommand, Observer {
 
     public abstract string GetName();
 
+	public abstract Sprite GetSprite();
+
+	public abstract string GetDescription ();
+
 	protected abstract void DoExecute (Transform target);
 
 	protected abstract List<Vector2> GetValidTargets ();

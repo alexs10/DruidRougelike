@@ -1,4 +1,4 @@
-﻿using System;
+﻿using UnityEngine;
 
 public class NullActionCommand: ActionCommand {
 	public void Execute() {
@@ -6,8 +6,17 @@ public class NullActionCommand: ActionCommand {
 	}
 
     public string GetName() {
-        return "Null";
+        return "";
     }
+
+	public string GetDescription() {
+		return "";
+	}
+
+	public Sprite GetSprite(){
+		//return Resources.Load<Sprite> ("KeySprite");
+		return null;
+	}
 }
 
 

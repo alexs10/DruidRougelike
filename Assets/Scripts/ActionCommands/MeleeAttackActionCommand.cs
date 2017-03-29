@@ -27,6 +27,15 @@ class MeleeAttackActionCommand: TargetedActionCommand {
         GameManager.instance.playersTurn = false;
 	}
 
+	public override Sprite GetSprite(){
+		return Resources.Load<Sprite> ("KeySprite");
+	}
+
+	public override string GetDescription ()
+	{
+		return "Whack your foes with your staff";
+	}
+
 	protected override List<Vector2> GetValidTargets() {
 		return meleeTargetingStrategy.GetTargets (player.transform.position);
     }

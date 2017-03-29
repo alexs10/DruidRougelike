@@ -33,7 +33,8 @@ public class Pickup : MonoBehaviour {
 		if (hasItem && other.GetComponent<Player> () != null) {
 			Debug.Log ("Picking up");
 			hasItem = false;
-			other.GetComponent<Player> ().EquipAction (item, "2");
+			other.GetComponent<InventoryController> ().AddItem (item);
+			//other.GetComponent<Player> ().EquipAction (item, "2");
 			sprite.color = Color.clear;
 		}
 	}

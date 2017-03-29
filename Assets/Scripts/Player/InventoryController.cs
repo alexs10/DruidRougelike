@@ -1,14 +1,19 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryController: MonoBehaviour, Controllable {
 
 	private GameObject inventory;
 	private PlayerController playerController;
 	private GameObject selector;
+	private Transform slots;
+	private Text selectedDescription;
+	private Text selectedName;
+	private Image selectedImage;
 
 	private List<ActionCommand> items;
-	private int inventoryMax = 9;
+	private const int INVENTORY_SIZE = 9;
 
 	private int currentIndex = 0;
 
@@ -19,9 +24,18 @@ public class InventoryController: MonoBehaviour, Controllable {
 		selectorOffset = selector.transform.position;
 
 		inventory = GameObject.Find ("Inventory");
+		slots = inventory.transform.GetChild (2).transform;
+		selectedImage = inventory.transform.GetChild (3).GetComponent<Image> ();
+		selectedName = inventory.transform.GetChild (4).GetComponent<Text> ();
+		selectedDescription = inventory.transform.GetChild (5).GetComponent<Text>();
+	
+
 		playerController = GetComponent<PlayerController> ();
 
 		items = new List<ActionCommand> ();
+		for (int i = 0; i < INVENTORY_SIZE; i++) {
+			items.Add (new NullActionCommand ());
+		}
 
 		inventory.SetActive (false);
 	}
@@ -39,22 +53,40 @@ public class InventoryController: MonoBehaviour, Controllable {
 		horizontal = (int)(Input.GetAxisRaw("Horizontal"));
 		vertical = (int)(Input.GetAxisRaw("Vertical"));
 		if (Input.GetKeyDown(KeyCode.RightArrow) && currentIndex < 6) {
-			currentIndex += 3;
+			ChangeIndex(3);
 		} else if (Input.GetKeyDown(KeyCode.LeftArrow) && currentIndex > 2) {
-			currentIndex -= 3;
+			ChangeIndex(-3);
 		} else if (Input.GetKeyDown(KeyCode.DownArrow) && currentIndex % 3 != 2) {
-			currentIndex++;
+			ChangeIndex(1);
 		} else if (Input.GetKeyDown(KeyCode.UpArrow) && currentIndex % 3 != 0) {
-			currentIndex--;
+			ChangeIndex(-1);
 		}
+
+
+	}
+
+	private void ChangeIndex(int diff) {
+		currentIndex = currentIndex + diff;
+
+		ActionCommand item = items [currentIndex];
+		selectedImage.sprite = item.GetSprite ();
+		selectedName.text = item.GetName ();
+		selectedDescription.text = item.GetDescription ();
 
 		selector.transform.position = GetIndexCoordinates ();
 
 	}
 
 	public void AddItem(ActionCommand item) {
-		if (items.Count < inventoryMax) {
-			items.Add (item);
+		Debug.Log ("Trying to add item");
+		for (int i = 0; i < INVENTORY_SIZE; i++) {
+			if (items [i].GetName () == "") {
+				Debug.Log ("Adding item at: " + i);
+				items [i] = item;
+				slots.GetChild (i).GetComponent<Image> ().sprite = item.GetSprite ();
+				ChangeIndex (0);
+				return;
+			}
 		}
 	}
 
