@@ -58,6 +58,7 @@ public class Player : MovingObject,  Observer, Controllable   {
         //ACTIONS
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {
 			actions ["1"].Execute ();
+			animator.SetTrigger("CharacterBasicAttack");
 		} else if (Input.GetKeyDown (KeyCode.Alpha2)) {
 			actions ["2"].Execute ();
 		}
@@ -121,7 +122,7 @@ public class Player : MovingObject,  Observer, Controllable   {
         hitWall.DamageWall(wallDamage);
 
         //Set the attack trigger of the player's animation controller in order to play the player's attack animation.
-        animator.SetTrigger("playerChop");
+        animator.SetTrigger("CharacterBasicAttack");
     }
 
     public bool IsActive() {
