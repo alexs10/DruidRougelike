@@ -26,14 +26,14 @@ public class PickupFactory {
     }
 
     private GameObject GenericKey() {
-        GameObject prefab = Resources.Load("Key") as GameObject;
+        GameObject prefab = Resources.Load("KeyArt") as GameObject;
         return prefab;
 
     }
 
     private createPickupDelagate ColoredKey(Color color) {
 		return () => {
-			GameObject prefab = Resources.Load ("Key") as GameObject;
+			GameObject prefab = Resources.Load ("KeyArt") as GameObject;
 			//prefab.GetComponent<Pickup> ().SetItem(ActionCommandFactory.GetInstance ().CreateKeyAction (color));
 			//prefab.GetComponent<SpriteRenderer>().color = color;
 			//Debug.Log("key item: " + prefab.GetComponent<Pickup>().GetItem().GetName());

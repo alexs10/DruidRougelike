@@ -8,6 +8,15 @@ public class PauseMenu : MonoBehaviour {
 
 	bool paused = false;
 
+	void Update()
+	{
+		if (Input.GetKeyDown (KeyCode.P)) {
+			Time.timeScale = 0.0f; 
+			paused = true; 
+		}
+		    
+	}
+
 	public void PauseGame() {
 		Time.timeScale = 0.0f; 
 		paused = true; 
