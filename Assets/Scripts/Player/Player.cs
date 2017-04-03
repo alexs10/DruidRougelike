@@ -59,6 +59,7 @@ public class Player : MovingObject,  Observer, Controllable   {
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {
 			actions ["1"].Execute ();
 			animator.SetTrigger("CharacterBasicAttack");
+			//animator.SetTrigger("CharacterBlueAttack");
 		} else if (Input.GetKeyDown (KeyCode.Alpha2)) {
 			actions ["2"].Execute ();
 		}
