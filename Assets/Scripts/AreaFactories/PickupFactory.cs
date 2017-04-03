@@ -8,7 +8,7 @@ public class PickupFactory {
 
         colorDictionary = new Dictionary<string, Color> ();
         colorDictionary.Add("red", (Color.red));
-        colorDictionary.Add("green", (Color.green));
+        colorDictionary.Add("yellow", (Color.yellow));
         colorDictionary.Add("blue", (Color.blue));
         colorDictionary.Add("magenta", (Color.magenta));
 			
