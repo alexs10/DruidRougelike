@@ -58,10 +58,12 @@ public class Player : MovingObject,  Observer, Controllable   {
         //ACTIONS
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {
 			actions ["1"].Execute ();
-			animator.SetTrigger("CharacterBasicAttack");
+			animator.SetTrigger ("CharacterBasicAttack");
 			//animator.SetTrigger("CharacterBlueAttack");
 		} else if (Input.GetKeyDown (KeyCode.Alpha2)) {
 			actions ["2"].Execute ();
+		} else if (Input.GetKeyDown (KeyCode.Alpha3)) {
+			actions ["3"].Execute ();
 		}
     }
 
@@ -81,6 +83,7 @@ public class Player : MovingObject,  Observer, Controllable   {
         Dictionary<string, ActionCommand> actions = new Dictionary<string, ActionCommand>();
         actions.Add("1", actionCommandFactory.CreateMeleeAttack());
         actions.Add("2", actionCommandFactory.CreateKeyAction(Color.red));
+		actions.Add ("3", actionCommandFactory.CreateRangedAttack ());
 
         return new PlayerState(actions, health.maxHealth);
     }
