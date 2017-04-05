@@ -64,6 +64,8 @@ public class Player : MovingObject,  Observer, Controllable   {
 			actions ["2"].Execute ();
 		} else if (Input.GetKeyDown (KeyCode.Alpha3)) {
 			actions ["3"].Execute ();
+		} else if (Input.GetKeyDown (KeyCode.Alpha4)) {
+			actions ["4"].Execute ();
 		}
     }
 
@@ -84,6 +86,7 @@ public class Player : MovingObject,  Observer, Controllable   {
         actions.Add("1", actionCommandFactory.CreateMeleeAttack());
         actions.Add("2", actionCommandFactory.CreateKeyAction(Color.red));
 		actions.Add ("3", actionCommandFactory.CreateRangedAttack ());
+		actions.Add ("4", actionCommandFactory.CreatePushAttack ());
 
         return new PlayerState(actions, health.maxHealth);
     }

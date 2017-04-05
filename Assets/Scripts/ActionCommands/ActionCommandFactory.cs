@@ -13,7 +13,7 @@ class ActionCommandFactory {
     //End signleton bs
 
     public MeleeAttackActionCommand CreateMeleeAttack() {
-        return new MeleeAttackActionCommand(2, 
+        return new MeleeAttackActionCommand(5, 
             GameObject.Find("TargetingUI").GetComponent<TargetingController>(),
             GameObject.Find("Player").GetComponent<PlayerController>(),
             GameObject.Find("Player").GetComponent<Player>());
@@ -33,6 +33,14 @@ class ActionCommandFactory {
 			GameObject.Find ("TargetingUI").GetComponent<TargetingController> (),
 			GameObject.Find ("Player").GetComponent<PlayerController> (),
             GameObject.Find("Player").GetComponent<Player>());
+	}
+
+	public PushAttackActionCommand CreatePushAttack() {
+		return new PushAttackActionCommand( 1,
+			2,
+			GameObject.Find ("TargetingUI").GetComponent<TargetingController> (),
+			GameObject.Find ("Player").GetComponent<PlayerController> (),
+			GameObject.Find("Player").GetComponent<Player>());
 	}
 
 	public NullActionCommand CreateNullAction() {
