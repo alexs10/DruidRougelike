@@ -175,8 +175,8 @@ namespace Assets.Scripts.Map {
 		public static class MapConfig {
 			public static int WIDTH = 10;
 			public static int HEIGHT = 10;
-			public static int ROOM_COUNT = 5;
-			public static int KEY_LEVEL_COUNT = 1;
+			public static int ROOM_COUNT = 20;
+			public static int KEY_LEVEL_COUNT = 4;
 			public static int HOME_X = 0;
 			public static int HOME_Y = 0;
 

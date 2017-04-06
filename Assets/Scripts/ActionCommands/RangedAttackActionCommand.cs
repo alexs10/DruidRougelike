@@ -20,7 +20,7 @@ class RangedAttackActionCommand: TargetedActionCommand {
 		RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f, damagingLayer);
 
 		if (hit && hit.collider.GetComponent<Enemy>() != null) {
-			hit.collider.GetComponent<Enemy>().TakeDamage(2);
+			hit.collider.GetComponent<Enemy>().TakeDamage(damage);
 			Debug.Log("Ranged ATTACK: " + damage);
 		}
 
