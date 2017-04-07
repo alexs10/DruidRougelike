@@ -32,6 +32,7 @@ namespace Assets.Scripts.Map {
 				AdjustKeyLevel (i);
 				CreateRoomInOpenAdjacency ();
 			}
+			PlaceBoss ();
             PlaceEnemies();
 			PlaceKeys ();
 
@@ -51,7 +52,7 @@ namespace Assets.Scripts.Map {
 		}
 
 		private void CreateHomeRoom() {
-			AddRoom (MapConfig.HOME_X, MapConfig.HOME_Y, 0f, CopyKeyCode());
+			AddRoom (MapConfig.HOME_X, MapConfig.HOME_Y, 0f, CopyKeyCode(currentKeyCode));
             currentRoom = rooms[MapConfig.HOME_X, MapConfig.HOME_Y];
 
             maxDifficultyCurrentLevel = rooms[MapConfig.HOME_X, MapConfig.HOME_Y];
@@ -115,17 +116,61 @@ namespace Assets.Scripts.Map {
 
 
 		private void PlaceKeys() {
-            //TODO implement this method
-            Debug.Log("KeyRoom.length: " + keyRooms.Count);
+			//First spawn all keyLevel keys
+			Debug.Log("KeyRoom.length: " + keyRooms.Count);
 			for (int i = 0; i < currentKeyCode.Count; i++) {
 				Debug.Log ("ADDING KEY AT " + keyRooms [i].x + ", " + keyRooms [i].y);
 				keyRooms [i].AddKey (currentKeyCode [i]);
+			}
+			//Then spawn boss key
+			maxDifficultyCurrentLevel.AddKey(new Key("boss"));
+
+		}
+
+		private void PlaceBoss() {
+			bool validBoss = false;
+			while(!validBoss) {
+				Room chosenAttempt = roomsWithOpenAdjacencies [Random.Range (0, roomsWithOpenAdjacencies.Count - 1)];
+				List<Position> availablePositionsEntrance = FindAvailableAdjPositions (chosenAttempt.x, chosenAttempt.y);
+				foreach  (Position pos in availablePositionsEntrance) {
+					List<Position> availablePositionsBoss = FindAvailableAdjPositions (pos.x, pos.y); 
+					if (availablePositionsBoss.Count > 0) {
+						Debug.Log ("Boss ENtrance at: " + pos.x + ", " + pos.y);
+
+						Debug.Log ("entrance keys");
+						foreach (Key key in chosenAttempt.keyCode) {
+							Debug.Log ("\tKey: " + key.keyString);
+						}
+
+						//We found a valid boss entrance room
+						//add entrance
+						Debug.Log("Attaching entrance to " + chosenAttempt.x + ", " + chosenAttempt.y);
+						AddRoom(pos.x, pos.y, chosenAttempt.GetRawDifficulty(), chosenAttempt.keyCode, chosenAttempt);
+
+						Room entrance = rooms [pos.x, pos.y];
+						Position bossPos = availablePositionsBoss [Random.Range (0, availablePositionsBoss.Count - 1)];
+
+						List<Key> bossKeyCode = CopyKeyCode (currentKeyCode);
+						bossKeyCode.Add (new Key ("boss"));
+						AddRoom (bossPos.x, bossPos.y, maxDifficulty, bossKeyCode, entrance, new BossLayoutFactory ("Forrest", 12, 8));
+						Debug.Log ("Boss Room at: " + bossPos.x + ", " + bossPos.y);
+						validBoss = true;
+						break;
+
+					}
+				}
+		
 			}
 		}
         
         private void Graphify() {
 
         }
+
+		private void AddRoom(int x, int y, float difficulty, List<Key> keyCode, Room parent, ILayoutFactory layout) {
+			AddRoom (x, y, difficulty, keyCode, layout);
+			parent.Attach (rooms [x, y]);
+		}
 
         private void AddRoom(int x, int y, float difficulty, List<Key> keyCode, Room parent) {
 			AddRoom (x, y, difficulty, keyCode);
@@ -135,8 +180,16 @@ namespace Assets.Scripts.Map {
         }
 
 		private void AddRoom(int x, int y, float difficulty, List<Key> keyCode) {
+			AddRoom(x, y, difficulty, keyCode, new SimpleLayoutFactory("Forrest", 12, 8));
+		}
+
+		private void AddRoom(int x, int y, float difficulty, List<Key> keyCode, ILayoutFactory layout) {
             Debug.Log("Adding room at: " + x + ", " + y);
-			rooms [x, y] = new Room (x, y, difficulty, CopyKeyCode(), new SimpleLayoutFactory("Forrest", 12, 8));
+			rooms [x, y] = new Room (x, y, difficulty, CopyKeyCode(keyCode), layout);
+			Debug.Log ("Keys: ");
+			foreach (Key key in keyCode) {
+				Debug.Log ("\tKey: " + key.keyString);
+			}
 
 			UpdateOpenRooms (x, y);
 			UpdateOpenRooms (x+1, y);
@@ -164,9 +217,9 @@ namespace Assets.Scripts.Map {
 			}
 		}
 
-		private List<Key> CopyKeyCode() {
+		private List<Key> CopyKeyCode(List<Key> keyCode) {
 			List<Key> output = new List<Key> ();
-			foreach (Key key in currentKeyCode) {
+			foreach (Key key in keyCode) {
 				output.Add (key);
 			}
 			return output;
@@ -175,8 +228,8 @@ namespace Assets.Scripts.Map {
 		public static class MapConfig {
 			public static int WIDTH = 10;
 			public static int HEIGHT = 10;
-			public static int ROOM_COUNT = 5;
-			public static int KEY_LEVEL_COUNT = 1;
+			public static int ROOM_COUNT = 3;
+			public static int KEY_LEVEL_COUNT = 2;
 			public static int HOME_X = 0;
 			public static int HOME_Y = 0;
 

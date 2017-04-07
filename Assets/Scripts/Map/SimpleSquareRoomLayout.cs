@@ -53,7 +53,7 @@ namespace Assets.Scripts.Map {
             }
         }
 
-        void LayoutAtRandom(List<Position> targetList, int min, int max) {
+        protected void LayoutAtRandom(List<Position> targetList, int min, int max) {
             int count = Random.Range(min, max);
             
             for (int i = 0; i < count; i++) {

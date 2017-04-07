@@ -11,6 +11,7 @@ public class PickupFactory {
         colorDictionary.Add("yellow", (Color.yellow));
         colorDictionary.Add("blue", (Color.blue));
         colorDictionary.Add("magenta", (Color.magenta));
+		colorDictionary.Add ("boss", (Color.black));
 			
 	}
 
