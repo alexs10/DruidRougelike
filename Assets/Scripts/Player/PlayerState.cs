@@ -5,11 +5,11 @@ using System.Text;
 
 
 public class PlayerState {
-    public Dictionary<string, ActionCommand> actions;
+    public List<ActionCommand> actions;
 
     public int currentHealth;
 
-    public PlayerState(Dictionary<string, ActionCommand> actions, int currentHealth) {
+    public PlayerState(List<ActionCommand> actions, int currentHealth) {
         this.actions = actions;
         this.currentHealth = currentHealth;
     }

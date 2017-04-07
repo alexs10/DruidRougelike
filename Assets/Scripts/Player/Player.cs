@@ -9,16 +9,19 @@ public class Player : MovingObject,  Observer, Controllable   {
 	private Health health;
     private Animator animator;
 
-    private ActionCommandFactory actionCommandFactory; 
-    private Dictionary<string, ActionCommand> actions;
+    private ActionCommandFactory actionCommandFactory;
+    //private Dictionary<string, ActionCommand> actions;
+
+    private ActionBar actionBar;
 
     private PlayerController controller;
+
+
 
 	// Use this for initialization
 	protected override void Start () {
         base.Start();
         animator = GetComponent<Animator>();
-
         //actions = new Dictionary<string, ActionCommand>();
         //actions.Add("1", actionCommandFactory.CreateMeleeAttack());
 		//actions.Add ("2", actionCommandFactory.CreateKeyAction (Color.red));
@@ -28,7 +31,9 @@ public class Player : MovingObject,  Observer, Controllable   {
 
 	public void Awake() {
 		health = GetComponent<Health> ();
-		health.Register (this);
+        actionBar = GameObject.Find("ActionBar").GetComponent<ActionBar>();
+
+        health.Register (this);
 	}
 
 	// Update is called once per frame
@@ -57,36 +62,38 @@ public class Player : MovingObject,  Observer, Controllable   {
 
         //ACTIONS
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {
-			actions ["1"].Execute ();
+            actionBar.Use(0);
 			animator.SetTrigger("CharacterBasicAttack");
 		} else if (Input.GetKeyDown (KeyCode.Alpha2)) {
-			actions ["2"].Execute ();
+            actionBar.Use(1);
 		}
     }
 
     public PlayerState SnapshotState() {
-        PlayerState output = new PlayerState(actions, health.currentHealth);
+        PlayerState output = new PlayerState(actionBar.GetActions(), health.currentHealth);
         return output;
     }
 
     public void LoadState(PlayerState state) {
         Debug.Log("Loading player state");
-        this.actions = state.actions;
+        actionBar.SetActions(state.actions);
         this.health.currentHealth = state.currentHealth;
     }
 
     public PlayerState DefaultState() {
         this.actionCommandFactory = ActionCommandFactory.GetInstance();
-        Dictionary<string, ActionCommand> actions = new Dictionary<string, ActionCommand>();
-        actions.Add("1", actionCommandFactory.CreateMeleeAttack());
-        actions.Add("2", actionCommandFactory.CreateKeyAction(Color.red));
+        List<ActionCommand> actions = new List<ActionCommand>();
+        actions.Add(actionCommandFactory.CreateMeleeAttack());
+        actions.Add(actionCommandFactory.CreateKeyAction(Color.red));
+        actions.Add(new NullActionCommand());
+        actions.Add(new NullActionCommand());
 
         return new PlayerState(actions, health.maxHealth);
     }
 
 	public void EquipAction(ActionCommand action, string key) {
 		Debug.Log ("Action set");
-		actions [key] = action;
+		//actions [key] = action;
 	}
 
     private void OnTriggerEnter2D(Collider2D other) {

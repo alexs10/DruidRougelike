@@ -19,6 +19,8 @@ public class InventoryController: MonoBehaviour, Controllable {
 
 	private Vector2 selectorOffset;
 
+    private ActionBar actionBar;
+
 	public void Start() {
 		selector = GameObject.Find ("Selector");
 		selectorOffset = selector.transform.position;
@@ -31,6 +33,7 @@ public class InventoryController: MonoBehaviour, Controllable {
 	
 
 		playerController = GetComponent<PlayerController> ();
+        actionBar = GameObject.Find("ActionBar").GetComponent<ActionBar> ();
 
 		items = new List<ActionCommand> ();
 		for (int i = 0; i < INVENTORY_SIZE; i++) {
@@ -41,9 +44,7 @@ public class InventoryController: MonoBehaviour, Controllable {
 	}
 
 	public void ControlUpdate() {
-		Debug.Log ("Here");
 		if (Input.GetKeyDown (KeyCode.I) || Input.GetKeyDown(KeyCode.Escape)) {
-			Debug.Log ("Returning to playerstate");	
 			playerController.ReturnState ();
 		}
 
@@ -60,10 +61,26 @@ public class InventoryController: MonoBehaviour, Controllable {
 			ChangeIndex(1);
 		} else if (Input.GetKeyDown(KeyCode.UpArrow) && currentIndex % 3 != 0) {
 			ChangeIndex(-1);
-		}
+		} else if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            ActionCommand command = actionBar.Equip(items[currentIndex], 0);
+            items[currentIndex] = new NullActionCommand();
+            AddItem(command);
+        } else if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            ActionCommand command = actionBar.Equip(items[currentIndex], 1);
+            items[currentIndex] = new NullActionCommand();
+            AddItem(command);
+        } else if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            ActionCommand command = actionBar.Equip(items[currentIndex], 2);
+            items[currentIndex] = new NullActionCommand();
+            AddItem(command);
+        } else if (Input.GetKeyDown(KeyCode.Alpha4)) {
+            ActionCommand command = actionBar.Equip(items[currentIndex], 3);
+            items[currentIndex] = new NullActionCommand();
+            AddItem(command);
+        }
 
 
-	}
+    }
 
 	private void ChangeIndex(int diff) {
 		currentIndex = currentIndex + diff;
@@ -89,6 +106,10 @@ public class InventoryController: MonoBehaviour, Controllable {
 			}
 		}
 	}
+
+    private bool HasItem(int index) {
+        return items[index].GetName() == "";
+    }
 
 	public Vector2 GetIndexCoordinates() {
 		return selectorOffset + new Vector2 (
