@@ -11,6 +11,7 @@ public class Player : MovingObject,  Observer, Controllable   {
     public int wallDamage = 1;
 	private Health health;
     private Animator animator;
+	private bool increasingHealth = false; 
 
     private ActionCommandFactory actionCommandFactory; 
     private Dictionary<string, ActionCommand> actions;
@@ -97,25 +98,27 @@ public class Player : MovingObject,  Observer, Controllable   {
 	}
 
     private void OnTriggerEnter2D(Collider2D other) {
+		increasingHealth = false; 
         if (other.tag == "Exit") {
             enabled = false;
         }
 
         else if (other.tag == "Food") {
 			health.Heal(2);
+			increasingHealth = true; 
             other.gameObject.SetActive(false);
         }
 
         else if (other.tag == "Soda") {
 			health.Heal(5);
+			increasingHealth = true; 
             other.gameObject.SetActive(false);
         }
 
 		else if (other.tag == "Flower") {
 			//Add pointsPerFlower to players food points total
 			health.Heal(5);
-
-
+			increasingHealth = true; 
 			//Disable the flower object the player collided with.
 			other.gameObject.SetActive(false);
 		}
@@ -141,7 +144,9 @@ public class Player : MovingObject,  Observer, Controllable   {
     }
 
 	public void Notify() {
-		animator.SetTrigger ("playerHit");
+		if (increasingHealth = true) {
+			animator.SetTrigger ("playerHit");
+		}
 		if (health.currentHealth <= 0) {
 			GameManager.instance.GameOver ();
 		}
