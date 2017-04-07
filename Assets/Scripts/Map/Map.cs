@@ -152,7 +152,7 @@ namespace Assets.Scripts.Map {
 
 						List<Key> bossKeyCode = CopyKeyCode (currentKeyCode);
 						bossKeyCode.Add (new Key ("boss"));
-						AddRoom (bossPos.x, bossPos.y, maxDifficulty, bossKeyCode, entrance, new BossLayoutFactory ("Forrest", 12, 8));
+						AddRoom (bossPos.x, bossPos.y, maxDifficulty, bossKeyCode, entrance, new BossLayoutFactory ("Boss", 12, 8));
 						Debug.Log ("Boss Room at: " + bossPos.x + ", " + bossPos.y);
 						validBoss = true;
 						break;
