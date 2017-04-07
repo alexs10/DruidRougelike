@@ -60,6 +60,7 @@ namespace Assets.Scripts.Map {
             foreach (Position pos in enemyPositions) {
                 areaFactory.createEnemy(Random.Range(0, 1000), pos);
             }
+	
 			foreach (Position pos in itemPositions ) {
 				areaFactory.createItem(Random.Range(0, 1000), pos);
 			} //added for item 
