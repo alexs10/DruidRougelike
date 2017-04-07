@@ -33,8 +33,6 @@ namespace Assets.Scripts.Map {
 		}
 			
 
-
-
         void InitialiseGrid() {
             gridPositions = new List<Position>();
             for (int x = 1; x < columns - 1; x++) {
