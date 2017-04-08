@@ -33,8 +33,6 @@ namespace Assets.Scripts.Map {
 		}
 			
 
-
-
         void InitialiseGrid() {
             gridPositions = new List<Position>();
             for (int x = 1; x < columns - 1; x++) {
@@ -55,7 +53,7 @@ namespace Assets.Scripts.Map {
             }
         }
 
-        void LayoutAtRandom(List<Position> targetList, int min, int max) {
+        protected void LayoutAtRandom(List<Position> targetList, int min, int max) {
             int count = Random.Range(min, max);
             
             for (int i = 0; i < count; i++) {

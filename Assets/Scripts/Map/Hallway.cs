@@ -14,13 +14,19 @@ namespace Assets.Scripts.Map {
             //if (!IsValidHallway(roomA, roomB))
             //    throw new ArgumentException();
 
+
+
             this.roomA = roomA;
             this.roomB = roomB;
 
-            
+
             if (roomA.keyCode.Count > roomB.keyCode.Count) {
+				Debug.Log ("RoomA key" + roomA.keyCode.Last ().keyString);
+
                 this.key = roomA.keyCode.Last();
             } else if (roomB.keyCode.Count > roomA.keyCode.Count()) {
+				Debug.Log ("RoomB key" + roomB.keyCode.Last ().keyString);
+
                 this.key = roomB.keyCode.Last();
             }
 

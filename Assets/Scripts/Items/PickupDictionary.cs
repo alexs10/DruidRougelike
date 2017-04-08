@@ -19,7 +19,7 @@ public class PickupDictionary {
 		dict = new Dictionary<string, ActionCommand> ();
 		dict.Add ("Red", acf.CreateKeyAction(Color.red));
 		dict.Add ("Blue", acf.CreateKeyAction (Color.blue));
-		dict.Add ("Green", acf.CreateKeyAction (Color.green));
+		dict.Add ("Yellow", acf.CreateKeyAction (Color.yellow));
 		dict.Add ("Magenta", acf.CreateKeyAction (Color.magenta));
 			
 	}

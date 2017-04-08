@@ -8,7 +8,7 @@ class ActionBar : MonoBehaviour {
 
     void Awake() {
         actions = new List<ActionCommand>();
-        slots = transform.GetChild(2).transform;
+        slots = transform.GetChild(1).transform;
         for (int i = 0; i < 4; i++) {
             actions.Add(new NullActionCommand());
         }
@@ -22,6 +22,7 @@ class ActionBar : MonoBehaviour {
     }
     public void SetActions(List<ActionCommand> actions) {
         this.actions = actions;
+        UpdateImages();
     }
 
     public List<ActionCommand> GetActions() {

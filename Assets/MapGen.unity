@@ -1412,6 +1412,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 361341186}
+  - {fileID: 1152536604}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1518,6 +1519,67 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1152536603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1152536604}
+  - component: {fileID: 1152536605}
+  m_Layer: 0
+  m_Name: Boss
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1152536604
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1152536603}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1140806959}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1152536605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1152536603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a4181ba7ec2df94fad5691d3175c953, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorTiles:
+  - {fileID: 1000013509440618, guid: 57d78a479e0cb2244b3070d083a35af3, type: 2}
+  wallTiles:
+  - {fileID: 1000010379939228, guid: 96cf671ec8fe4a14aa70dd9643dfd4be, type: 2}
+  - {fileID: 1000013010110340, guid: 887b2557813a0824f837e2faa4c600c0, type: 2}
+  enemyTiles:
+  - {fileID: 1652240649333956, guid: 84a934739708db848b366d70de4f3f6d, type: 2}
+  outerWallTiles:
+  - {fileID: 1000014278670098, guid: 54047b7fbaa28ed4681f6ea401baff21, type: 2}
+  lockTiles: []
+  doorTiles:
+  - {fileID: 1794063211626502, guid: fda53b2105d2a9049b9003f272985689, type: 2}
+  items:
+  - {fileID: 1000011386160236, guid: 7f42485ecfc1065499c040b836864990, type: 2}
+  - {fileID: 1000011382639660, guid: 8b65cff170d50334f9407e9f0c517228, type: 2}
+  - {fileID: 1385127498334610, guid: 6b567977a588ef746815342fd229d3fd, type: 2}
 --- !u!1 &1320654536
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using Assets.Scripts.Map;
+using UnityEngine.UI;
+using UnityEditor.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -59,8 +61,10 @@ public class GameManager : MonoBehaviour {
     }
 
     public void GameOver() {
+		
 		Debug.Log ("GAME OVER **%*%*%*%*%*%*%*%*%*%*%*%*%*");
         enabled = false;
+		SceneManager.LoadScene("Dead"); 
     }
 
 	public void ChangeRoom(Room room, Direction direction) {
@@ -115,7 +119,7 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        if (playersTurn || enemiesMoving || doingSetup) {
+        if (playersTurn || enemiesMoving || doingSetup ) {
             return;
         }
 
@@ -129,6 +133,7 @@ public class GameManager : MonoBehaviour {
 	public void RemoveEnemy(Enemy enemy) {
 		enemyList.Remove (enemy);
 	}
+		
 
     //Coroutine to move enemies in sequence.
     IEnumerator MoveEnemies() {
@@ -147,4 +152,5 @@ public class GameManager : MonoBehaviour {
         playersTurn = true;
         enemiesMoving = false;
     }
+		
 }

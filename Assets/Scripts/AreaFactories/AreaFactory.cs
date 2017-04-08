@@ -31,6 +31,7 @@ public class AreaFactory : MonoBehaviour {
         GameObject toInstantiate = enemyTiles[index % enemyTiles.Length];
         DoInstantiate(toInstantiate, pos);
     }
+		
 
     public void createWall(int index, Position pos) {
         GameObject toInstantiate = wallTiles[index % wallTiles.Length];

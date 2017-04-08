@@ -53,30 +53,30 @@ public class InventoryController: MonoBehaviour, Controllable {
 
 		horizontal = (int)(Input.GetAxisRaw("Horizontal"));
 		vertical = (int)(Input.GetAxisRaw("Vertical"));
-		if (Input.GetKeyDown(KeyCode.RightArrow) && currentIndex < 6) {
+		if (Input.GetKeyDown(KeyCode.DownArrow) && currentIndex < 6) {
 			ChangeIndex(3);
-		} else if (Input.GetKeyDown(KeyCode.LeftArrow) && currentIndex > 2) {
+		} else if (Input.GetKeyDown(KeyCode.UpArrow) && currentIndex > 2) {
 			ChangeIndex(-3);
-		} else if (Input.GetKeyDown(KeyCode.DownArrow) && currentIndex % 3 != 2) {
+		} else if (Input.GetKeyDown(KeyCode.RightArrow) && currentIndex % 3 != 2) {
 			ChangeIndex(1);
-		} else if (Input.GetKeyDown(KeyCode.UpArrow) && currentIndex % 3 != 0) {
+		} else if (Input.GetKeyDown(KeyCode.LeftArrow) && currentIndex % 3 != 0) {
 			ChangeIndex(-1);
 		} else if (Input.GetKeyDown(KeyCode.Alpha1)) {
             ActionCommand command = actionBar.Equip(items[currentIndex], 0);
-            items[currentIndex] = new NullActionCommand();
-            AddItem(command);
+            RemoveItem(currentIndex);
+            AddItem(command, currentIndex);
         } else if (Input.GetKeyDown(KeyCode.Alpha2)) {
             ActionCommand command = actionBar.Equip(items[currentIndex], 1);
-            items[currentIndex] = new NullActionCommand();
-            AddItem(command);
+            RemoveItem(currentIndex);
+            AddItem(command, currentIndex);
         } else if (Input.GetKeyDown(KeyCode.Alpha3)) {
             ActionCommand command = actionBar.Equip(items[currentIndex], 2);
-            items[currentIndex] = new NullActionCommand();
-            AddItem(command);
+            RemoveItem(currentIndex);
+            AddItem(command, currentIndex);
         } else if (Input.GetKeyDown(KeyCode.Alpha4)) {
             ActionCommand command = actionBar.Equip(items[currentIndex], 3);
-            items[currentIndex] = new NullActionCommand();
-            AddItem(command);
+            RemoveItem(currentIndex);
+            AddItem(command, currentIndex);
         }
 
 
@@ -86,35 +86,52 @@ public class InventoryController: MonoBehaviour, Controllable {
 		currentIndex = currentIndex + diff;
 
 		ActionCommand item = items [currentIndex];
-		selectedImage.sprite = item.GetSprite ();
-		selectedName.text = item.GetName ();
-		selectedDescription.text = item.GetDescription ();
+        UpdateUI(item);
 
 		selector.transform.position = GetIndexCoordinates ();
 
 	}
 
-	public void AddItem(ActionCommand item) {
-		Debug.Log ("Trying to add item");
-		for (int i = 0; i < INVENTORY_SIZE; i++) {
-			if (items [i].GetName () == "") {
-				Debug.Log ("Adding item at: " + i);
-				items [i] = item;
-				slots.GetChild (i).GetComponent<Image> ().sprite = item.GetSprite ();
-				ChangeIndex (0);
-				return;
-			}
-		}
-	}
+    public void PickupItem(ActionCommand item) {
+        for (int i = 0; i < items.Count; i++) {
+            if (!HasItem(i)) {
+                AddItem(item, i);
+                return;
+            }
+        }
+
+    }
+
+    private void UpdateUI(ActionCommand item) {
+        selectedImage.sprite = item.GetSprite();
+        selectedName.text = item.GetName();
+        selectedDescription.text = item.GetDescription();
+    }
+
+    private void RemoveItem(int index) {
+        items[index] = new NullActionCommand();
+        Debug.Log(index);
+        slots.GetChild(index).GetComponent<Image>().sprite = items[index].GetSprite();
+        UpdateUI(items[index]);
+
+    }
+
+    private void AddItem(ActionCommand item, int index) {
+
+		items [index] = item;
+		slots.GetChild (index).GetComponent<Image> ().sprite = item.GetSprite ();
+        UpdateUI(items[index]);
+
+    }
 
     private bool HasItem(int index) {
-        return items[index].GetName() == "";
+        return items[index].GetName() != "";
     }
 
 	public Vector2 GetIndexCoordinates() {
 		return selectorOffset + new Vector2 (
-			(currentIndex / 3) * 75f,
-			(currentIndex % 3) * -75f);
+            (currentIndex % 3) * 75f,
+            (currentIndex / 3) * -75f );
 	}
 
 	public void Setup() {
