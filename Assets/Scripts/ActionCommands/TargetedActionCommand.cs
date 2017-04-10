@@ -29,6 +29,7 @@ public abstract class TargetedActionCommand: ActionCommand, Observer {
 	public void Notify() {
 		if (targetingController.HasTarget ()) {
 			DoExecute (targetingController.TakeTarget ());
+			targetingController.Deregister (this);
 		}
 	}
 

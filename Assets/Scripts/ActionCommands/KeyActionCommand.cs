@@ -18,6 +18,7 @@ public class KeyActionCommand: TargetedActionCommand {
 	protected override void DoExecute(Transform target) {
 		Vector2 rayPos = target.position;
 		RaycastHit2D hit = Physics2D.Raycast (rayPos, Vector2.zero, 0f, keyLayer);
+		Debug.Log (color);
 		if (hit && hit.collider.GetComponent<Lock> () != null) {
 			hit.collider.GetComponent<Lock> ().Unlock (color);
 			Debug.Log ("Just tried to unlock");

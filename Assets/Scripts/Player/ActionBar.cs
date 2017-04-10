@@ -20,7 +20,12 @@ class ActionBar : MonoBehaviour {
         }
     }
     public void SetActions(List<ActionCommand> actions) {
+		Debug.Log ("SETTING ACTIONS to ");
+
         this.actions = actions;
+		for (int i = 0; i < 4; i++) {
+			Debug.Log ("\t" + actions [i].GetName ());
+		}
         UpdateImages();
     }
 
@@ -29,7 +34,10 @@ class ActionBar : MonoBehaviour {
     }
 
     public void Use(int index) {
-		Debug.Log (index);
+		Debug.Log ("Index: " + index);
+		for (int i = 0; i < 4; i++) {
+			Debug.Log ("\t" + actions [i].GetName ());
+		}
         actions[index].Execute();
     }
 
