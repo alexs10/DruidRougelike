@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 95526221059057410}
   - component: {fileID: 50388811660588478}
   - component: {fileID: 61140188813658558}
-  - component: {fileID: 114082664588012132}
+  - component: {fileID: 114013902986227260}
   m_Layer: 8
   m_Name: Boss
   m_TagString: Enemy
@@ -95,7 +95,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114082664588012132
+--- !u!114 &114013902986227260
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -103,13 +103,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1652240649333956}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 482094f931090c54eb13eb1c40a7aeea, type: 3}
+  m_Script: {fileID: 11500000, guid: c8a04089ef576a64387d8e9c86451ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveTime: 0.1
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
+  playerDamage: 2
+  maxHealth: 10
+  minion: {fileID: 1000011991955660, guid: 4942b1cd02ae0924da4f9ee5859227e9, type: 2}
 --- !u!212 &212326607280141112
 SpriteRenderer:
   m_ObjectHideFlags: 1

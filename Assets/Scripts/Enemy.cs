@@ -3,21 +3,23 @@ using System.Collections;
 
 //Enemy inherits from MovingObject, our base class for objects that can move, Player also inherits from this.
 public class Enemy : MovingObject {
-    private int playerDamage = 1;                            //The amount of food points to subtract from the player when attacking.
+    public int playerDamage = 2;                            //The amount of food points to subtract from the player when attacking.
 
 
     private Animator animator;                          //Variable of type Animator to store a reference to the enemy's Animator component.
     private Transform target;                           //Transform to attempt to move toward each turn.
     private bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
 
-    private int maxHealth = 10;
-    private int health = 10;
+    public int maxHealth = 10;
+    private int health;
 
 
     protected override void Start() {
         //TurnKeeper.instance.Register(this,5);
         GameManager.instance.AddEnemyToList(this);
         animator = GetComponent<Animator>();
+
+		this.health = maxHealth;
 
         target = GameObject.FindGameObjectWithTag("Player").transform;
         base.Start();
@@ -36,7 +38,7 @@ public class Enemy : MovingObject {
     }
 
 
-    public void MoveEnemy() {
+    public virtual void MoveEnemy() {
         int xDir = 0;
         int yDir = 0;
 
