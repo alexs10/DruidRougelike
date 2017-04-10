@@ -131,7 +131,6 @@ public class InventoryController: MonoBehaviour, Controllable {
 
     private void RemoveItem(int index) {
         items[index] = new NullActionCommand();
-        Debug.Log(index);
         slots.GetChild(index).GetComponent<Image>().sprite = items[index].GetSprite();
         UpdateUI(items[index]);
 

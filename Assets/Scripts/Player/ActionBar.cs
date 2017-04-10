@@ -16,7 +16,6 @@ class ActionBar : MonoBehaviour {
     
     void UpdateImages() {
         for (int i = 0; i < 4; i++) {
-            Debug.Log(i);
             slots.GetChild(i).GetComponent<Image>().sprite = actions[i].GetSprite();
         }
     }
@@ -30,6 +29,7 @@ class ActionBar : MonoBehaviour {
     }
 
     public void Use(int index) {
+		Debug.Log (index);
         actions[index].Execute();
     }
 
