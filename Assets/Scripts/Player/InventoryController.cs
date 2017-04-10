@@ -21,7 +21,7 @@ public class InventoryController: MonoBehaviour, Controllable {
 
     private ActionBar actionBar;
 
-	public void Start() {
+	public void Awake() {
 		selector = GameObject.Find ("Selector");
 		selectorOffset = selector.transform.position;
 
@@ -42,6 +42,27 @@ public class InventoryController: MonoBehaviour, Controllable {
 
 		inventory.SetActive (false);
 	}
+
+    public InventoryState SnapshotState() {
+        return new InventoryState(items);
+    }
+
+    public InventoryState DefaultState() {
+        List<ActionCommand> blankItems = new List<ActionCommand>();
+
+        for (int i = 0; i < INVENTORY_SIZE; i++) {
+            blankItems.Add(new NullActionCommand());
+        }
+        return new InventoryState(blankItems);
+    }
+
+    public void LoadState(InventoryState state) {
+        this.items = state.items;
+
+        for (int i = 0; i < INVENTORY_SIZE; i++) {
+            slots.GetChild(i).GetComponent<Image>().sprite = items[i].GetSprite();
+        }
+    }
 
 	public void ControlUpdate() {
 		if (Input.GetKeyDown (KeyCode.I) || Input.GetKeyDown(KeyCode.Escape)) {

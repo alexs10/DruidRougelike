@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour {
 	private bool doingSetup = true;
 
     private PlayerState playerState;
+    private InventoryState inventoryState;
 
     public Map map;
 
@@ -78,6 +79,7 @@ public class GameManager : MonoBehaviour {
 
     public void Save() {
         this.playerState = GameObject.Find("Player").GetComponent<Player>().SnapshotState();
+        this.inventoryState = GameObject.Find("Player").GetComponent<InventoryController>().SnapshotState();
     }
 
     void InitGame() {
@@ -100,8 +102,10 @@ public class GameManager : MonoBehaviour {
 		GameObject.Find ("Player").transform.position = new Vector2(playerSpawn.x, playerSpawn.y);
         if (playerState == null) {
             playerState = GameObject.Find("Player").GetComponent<Player>().DefaultState();
+            inventoryState = GameObject.Find("Player").GetComponent<InventoryController>().DefaultState();
         }
         GameObject.Find("Player").GetComponent<Player>().LoadState(playerState);
+        GameObject.Find("Player").GetComponent<InventoryController>().LoadState(inventoryState);
 
         currentRoom.isRevealed = true;
     }
