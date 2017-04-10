@@ -110,6 +110,8 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
+  playerDamage: 3
+  maxHealth: 4
 --- !u!212 &212000011027570716
 SpriteRenderer:
   m_ObjectHideFlags: 1

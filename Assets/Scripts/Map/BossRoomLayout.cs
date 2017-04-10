@@ -9,7 +9,7 @@ namespace Assets.Scripts.Map {
 
 		public override void AddEnemies(float difficulty) {
 			//LayoutAtRandom(enemyPositions, (int)Mathf.Floor(difficulty * 3f), (int)Mathf.Floor(difficulty * 5f));
-			LayoutAtRandom(enemyPositions, 6, 8);
+			LayoutAtRandom(enemyPositions, 1, 1);
 		}
 	}
 }
