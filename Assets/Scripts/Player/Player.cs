@@ -152,9 +152,12 @@ public class Player : MovingObject,  Observer, Controllable   {
     }
 
 	public void Notify() {
-		if (increasingHealth = true) {
+		/*if (increasingHealth = true) {
 			animator.SetTrigger ("playerHit");
-		}
+		}*/ 
+		if (health.tempHealth > health.currentHealth) {
+			animator.SetTrigger ("playerHit");
+		} 
 		if (health.currentHealth <= 0) {
 			GameManager.instance.GameOver ();
 		}

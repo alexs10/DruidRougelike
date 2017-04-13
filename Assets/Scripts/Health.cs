@@ -6,19 +6,24 @@ public class Health : MonoBehaviour, Observable {
 	public int maxHealth = 10;
 	public int currentHealth;
 	private List<Observer> observers = new List<Observer>();
+	public int tempHealth; 
 
 	// Use this for initialization
 	void Awake () {
 		currentHealth = maxHealth;
+		tempHealth = currentHealth; 
 	}
 	public void Heal(int heal) {
 		currentHealth += heal;
 		if (currentHealth > maxHealth)
 			currentHealth = maxHealth;
+		tempHealth = currentHealth; 
 		alert (); 
 	}
 	public void TakeDamage(int damage) {
 		currentHealth -= damage;
+		print(tempHealth + "temp"); 
+		print (currentHealth + "current"); 
 		Debug.Log (currentHealth);
 		alert ();
 	}

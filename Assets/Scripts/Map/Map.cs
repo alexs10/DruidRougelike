@@ -236,7 +236,7 @@ namespace Assets.Scripts.Map {
 			public static float STD_DIFFICULTY_INC = 1f;
 			public static float KEY_LEVEL_DIFFICULTY_INC = -2f;
 
-			public static Key[] KEY_SET = {new Key("red"), new Key("blue"), new Key("green"), new Key("magenta") };
+			public static Key[] KEY_SET = {new Key("red"), new Key("blue"), new Key("yellow"), new Key("magenta") };
 		}
     }
 }

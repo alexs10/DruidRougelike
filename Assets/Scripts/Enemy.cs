@@ -69,6 +69,7 @@ public class Enemy : MovingObject {
 
     public void TakeDamage(int damage) {
         health -= damage;
+		animator.SetTrigger ("enemyHit"); 
         if (health <= 0) {
             Die();
         }
