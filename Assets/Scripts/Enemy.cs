@@ -15,9 +15,6 @@ public class Enemy : MovingObject {
 
     public int maxHealth = 10;
     private int health;
-	private Text damageText; 
-	bool showText = false; 
-	Rect textArea = new Rect(200,200,200, 200); 
 
 
     protected override void Start() {
@@ -30,14 +27,6 @@ public class Enemy : MovingObject {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         base.Start();
     }
-
-	void onGUI()
-	{
-		GUI.Label (textArea, "test"); 
-		if (showText) {
-			GUI.Label (textArea, "test2"); 
-		}
-	}
 
 
     protected override void AttemptMove<T>(int xDir, int yDir) {
@@ -83,7 +72,6 @@ public class Enemy : MovingObject {
 
     public void TakeDamage(int damage) {
         health -= damage;
-		showText = true; 
 		animator.SetTrigger ("enemyHit"); 
         if (health <= 0) {
             Die();
