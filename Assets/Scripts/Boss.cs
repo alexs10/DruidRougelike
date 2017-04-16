@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Boss : Enemy {
 	public GameObject minion;
@@ -42,5 +43,14 @@ public class Boss : Enemy {
 		}
 
 		base.MoveEnemy ();
+	}
+
+	public override void Die() {
+		base.Die (); 
+		//Debug.Log("Enemy is dead");
+		//GameManager.instance.RemoveEnemy (this);
+		//Destroy(gameObject);
+		SceneManager.LoadScene("Win"); 
+
 	}
 }
