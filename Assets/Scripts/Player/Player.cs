@@ -93,9 +93,9 @@ public class Player : MovingObject,  Observer, Controllable   {
 
         List<ActionCommand> actions = new List<ActionCommand>();
         actions.Add(actionCommandFactory.CreateMeleeAttack());
-        actions.Add(actionCommandFactory.CreateKeyAction(Color.red));
-		actions.Add (actionCommandFactory.CreateKeyAction (Color.black));
-		actions.Add (actionCommandFactory.CreateKeyAction (Color.yellow));
+        actions.Add(actionCommandFactory.CreateKeyAction(Color.blue, "Blue"));
+		actions.Add (actionCommandFactory.CreateKeyAction (Color.magenta, "Magenta"));
+		actions.Add (actionCommandFactory.CreateKeyAction (Color.yellow, "Yellow"));
 
         return new PlayerState(actions, health.maxHealth);
     }

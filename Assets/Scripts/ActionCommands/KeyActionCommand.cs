@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 public class KeyActionCommand: TargetedActionCommand {
 	private Color color;
+	private string colorName;
 	private int keyLayer;
 	private TargetingStrategy meleeTargetingStrategy;
 	public KeyActionCommand (Color color,
+		string colorName,
 		TargetingController targetingController,
 		PlayerController playerController,
 		Player player)
 		: base(targetingController, playerController, player) {
 
 		this.color = color;
+		Debug.Log ("############################ " + colorName);
+		this.colorName = colorName;
 		keyLayer = LayerMask.GetMask ("BlockingLayer");
 		meleeTargetingStrategy = new MeleeTargetStrategy ();
 	}
@@ -32,7 +36,7 @@ public class KeyActionCommand: TargetedActionCommand {
 	}
 
     public override string GetName() {
-        return color.ToString();
+		return colorName + " Key";
     }
 
 	public override string GetDescription() {
@@ -40,7 +44,9 @@ public class KeyActionCommand: TargetedActionCommand {
 	}
 
 	public override Sprite GetSprite(){
-		return Resources.Load<Sprite> ("KeySprite");
+		Debug.Log (GetName ());
+		Debug.Log (colorName + " Key");
+		return Resources.Load<Sprite> (GetName());
 	}
 }
 
