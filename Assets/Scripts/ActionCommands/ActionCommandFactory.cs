@@ -12,6 +12,19 @@ class ActionCommandFactory {
     private ActionCommandFactory() {}
     //End signleton bs
 
+	public ActionCommand CreateFromName(string name) {
+		switch (name) {
+		case "Smack":
+			return CreateMeleeAttack ();
+		case "Push":
+			return CreatePushAttack ();
+		case "Shoot":
+			return CreateRangedAttack ();
+		default:
+			return new NullActionCommand ();
+		}
+	}
+
     public MeleeAttackActionCommand CreateMeleeAttack() {
         return new MeleeAttackActionCommand(5, 
             GameObject.Find("TargetingUI").GetComponent<TargetingController>(),

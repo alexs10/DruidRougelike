@@ -30,7 +30,7 @@ namespace Assets.Scripts.Map {
 			CreateHomeRoom ();
 			for (int i = 1; i < MapConfig.ROOM_COUNT; i++) {
 				AdjustKeyLevel (i);
-				CreateRoomInOpenAdjacency ();
+				CreateRoomInOpenAdjacency (i);
 			}
 			PlaceBoss ();
             PlaceEnemies();
@@ -70,7 +70,7 @@ namespace Assets.Scripts.Map {
 			}
 		}
 
-		private void CreateRoomInOpenAdjacency() {
+		private void CreateRoomInOpenAdjacency(int roomCount) {
             Room chosenRoom = roomsWithOpenAdjacencies [Random.Range (0, roomsWithOpenAdjacencies.Count - 1)];
             List<Position> availablePositions = FindAvailableAdjPositions(chosenRoom.x, chosenRoom.y);
 			Position chosenPosition = availablePositions [Random.Range (0, availablePositions.Count - 1)];
@@ -86,6 +86,13 @@ namespace Assets.Scripts.Map {
 			}
 
 			AddRoom (chosenPosition.x, chosenPosition.y, difficulty, currentKeyCode, chosenRoom);
+
+			//if this room should have a pickup, add it
+			if (ShouldHavePickup(roomCount)) {
+				Debug.Log ("*********************************************");
+				Debug.Log ("Creating pickup at index: " + roomCount);
+				rooms [chosenPosition.x, chosenPosition.y].AddPickup (NextPickup());
+			}
 
 			if (rooms [chosenPosition.x, chosenPosition.y].GetRawDifficulty () >= difficultyThresh) {
                 Debug.Log("New max difficulty current level: " + rooms[chosenPosition.x, chosenPosition.y].GetRawDifficulty());
@@ -201,6 +208,16 @@ namespace Assets.Scripts.Map {
 			}
 		}
 
+		private bool ShouldHavePickup(int index) {
+			return index % MapConfig.ROOM_COUNT / MapConfig.PICKUP_SET.Length == (MapConfig.ROOM_COUNT/ MapConfig.PICKUP_SET.Length) - 1;
+		}
+
+		int pickupIndex = 0;
+		private string NextPickup() {
+			return MapConfig.PICKUP_SET [pickupIndex++];
+		}
+					
+
 		private void UpdateOpenRooms(int x, int y) {
 			if (x < 0 || x >= MapConfig.WIDTH || y < 0 || y >= MapConfig.HEIGHT)
 				return;
@@ -228,15 +245,16 @@ namespace Assets.Scripts.Map {
 		public static class MapConfig {
 			public static int WIDTH = 10;
 			public static int HEIGHT = 10;
-			public static int ROOM_COUNT = 3;
-			public static int KEY_LEVEL_COUNT = 2;
+			public static int ROOM_COUNT = 8;
+			public static int KEY_LEVEL_COUNT = 3;
 			public static int HOME_X = 0;
 			public static int HOME_Y = 0;
 
 			public static float STD_DIFFICULTY_INC = 1f;
 			public static float KEY_LEVEL_DIFFICULTY_INC = -2f;
 
-			public static Key[] KEY_SET = {new Key("red"), new Key("blue"), new Key("yellow"), new Key("magenta") };
+			public static Key[] KEY_SET = {new Key("blue"), new Key("magenta"), new Key("yellow"), new Key("red") };
+			public static string[] PICKUP_SET = { "Push", "Shoot" };
 		}
     }
 }

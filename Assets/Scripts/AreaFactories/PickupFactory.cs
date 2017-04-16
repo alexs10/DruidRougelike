@@ -26,6 +26,16 @@ public class PickupFactory {
         return obj;
     }
 
+	public GameObject CreatePickup(string name) {
+		GameObject pickup = Resources.Load (name) as GameObject;
+		return pickup;
+	}
+
+	public GameObject SetPickup(GameObject obj, string name) {
+		obj.GetComponent<Pickup> ().SetItem (ActionCommandFactory.GetInstance ().CreateFromName (name));
+		return obj;
+	}
+
     private GameObject GenericKey() {
         GameObject prefab = Resources.Load("KeyArt") as GameObject;
         return prefab;

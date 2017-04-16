@@ -23,6 +23,9 @@ namespace Assets.Scripts.Map {
 		protected List<Position> keyPositions = new List<Position> ();
 		protected List<Key> keys = new List<Key> ();
 
+		protected List<Position> pickupPositions = new List<Position> ();
+		protected List<string> pickupNames = new List<string> ();
+
         public RoomLayout(AreaFactory factory) {
             this.areaFactory = factory;
         }
@@ -43,6 +46,7 @@ namespace Assets.Scripts.Map {
 		public abstract Position GetPlayerPositionWest ();
 
 		public abstract void AddKey (Key key);
+		public abstract void AddPickup (string name);
 
         public void BuildRoom() {
             areaFactory.ClearBoard();
@@ -73,6 +77,9 @@ namespace Assets.Scripts.Map {
             }
 			for (int i = 0; i < keyPositions.Count; i++) {
 				areaFactory.createKey (keys [i].keyString, keyPositions [i]);
+			}
+			for (int i = 0; i < pickupPositions.Count; i++) {
+				areaFactory.createPickup (pickupNames [i], pickupPositions[i]);
 			}
 
         }

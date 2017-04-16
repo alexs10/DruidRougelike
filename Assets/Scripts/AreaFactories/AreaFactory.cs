@@ -53,6 +53,12 @@ public class AreaFactory : MonoBehaviour {
 		DoInstantiate(toInstantiate, pos);
 	} //added for items 
 
+	public void createPickup(string name, Position pos) {
+		GameObject instance = pickupFactory.CreatePickup (name);
+		GameObject test = DoInstantiate (instance, pos);
+		pickupFactory.SetPickup (test, name);
+	}
+
     public void createLock(string name, Position pos) {
 		GameObject instance = lockFactory.CreateLock (name);
 		DoInstantiate (instance, pos);

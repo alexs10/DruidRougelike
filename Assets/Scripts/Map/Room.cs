@@ -160,6 +160,10 @@ namespace Assets.Scripts.Map {
 			layout.AddKey (key);
 		}
 
+		public void AddPickup(string name) {
+			layout.AddPickup (name);
+		}
+
 		public Position GetPlayerPosition(Direction fromDirection) {
 			switch (fromDirection) {
 			case Direction.NORTH:

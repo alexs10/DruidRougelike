@@ -75,6 +75,11 @@ namespace Assets.Scripts.Map {
 			keys.Add (key);
 		}
 
+		public override void AddPickup(string name) {
+			pickupPositions.Add (RandomUnusedPosition ());
+			pickupNames.Add (name);
+		}
+
 		#region PLAYER POSITION
 		public override Position GetPlayerPositionNorth ()
 		{
