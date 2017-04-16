@@ -116,6 +116,7 @@ namespace Assets.Scripts.Map {
         private void PlaceEnemies() {
             foreach (Room room in rooms) {
                 if (room != null)
+					//Debug.Log("Room (" + room.x + ", " + room.y + ") difficulty: " + room.GetDifficulty());
                     room.SpawnEnemies();
             }
         }
@@ -250,8 +251,8 @@ namespace Assets.Scripts.Map {
 			public static int HOME_X = 0;
 			public static int HOME_Y = 0;
 
-			public static float STD_DIFFICULTY_INC = 1f;
-			public static float KEY_LEVEL_DIFFICULTY_INC = -2f;
+			public static float STD_DIFFICULTY_INC = 3f;
+			public static float KEY_LEVEL_DIFFICULTY_INC = 0f;
 
 			public static Key[] KEY_SET = {new Key("blue"), new Key("magenta"), new Key("yellow"), new Key("red") };
 			public static string[] PICKUP_SET = { "Push", "Shoot" };
