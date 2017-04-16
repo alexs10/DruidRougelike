@@ -7,11 +7,11 @@ public class PickupFactory {
 	public PickupFactory () {
 
         colorDictionary = new Dictionary<string, Color> ();
-        colorDictionary.Add("red", (Color.red));
-        colorDictionary.Add("yellow", (Color.yellow));
-        colorDictionary.Add("blue", (Color.blue));
-        colorDictionary.Add("magenta", (Color.magenta));
-		colorDictionary.Add ("boss", (Color.black));
+		colorDictionary.Add("White", (Color.white));
+        colorDictionary.Add("Yellow", (Color.yellow));
+        colorDictionary.Add("Blue", (Color.blue));
+        colorDictionary.Add("Magenta", (Color.magenta));
+		colorDictionary.Add ("Boss", (Color.red));
 			
 	}
 
@@ -21,7 +21,7 @@ public class PickupFactory {
 
     public GameObject SetKey(GameObject obj, string color) {
 
-        obj.GetComponent<Pickup>().SetItem(ActionCommandFactory.GetInstance().CreateKeyAction(colorDictionary[color]));
+        obj.GetComponent<Pickup>().SetItem(ActionCommandFactory.GetInstance().CreateKeyAction(colorDictionary[color], color));
         obj.GetComponent<SpriteRenderer>().color = colorDictionary[color];
         return obj;
     }

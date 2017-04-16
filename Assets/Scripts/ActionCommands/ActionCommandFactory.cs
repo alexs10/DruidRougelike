@@ -41,8 +41,10 @@ class ActionCommandFactory {
 			GameObject.Find("Player").GetComponent<Player>());
 	}
 
-	public KeyActionCommand CreateKeyAction(Color color) {
+	public KeyActionCommand CreateKeyAction(Color color, string colorName) {
+		Debug.Log ("&&&&&&&&& " + colorName);
 		return new KeyActionCommand (color,
+			colorName,
 			GameObject.Find ("TargetingUI").GetComponent<TargetingController> (),
 			GameObject.Find ("Player").GetComponent<PlayerController> (),
             GameObject.Find("Player").GetComponent<Player>());
