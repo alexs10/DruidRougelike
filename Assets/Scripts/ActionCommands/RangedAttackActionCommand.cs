@@ -41,7 +41,7 @@ class RangedAttackActionCommand: TargetedActionCommand {
 	}
 
 	public override string GetName() {
-		return "Wrath";
+		return "Shoot";
 	}
 
 }

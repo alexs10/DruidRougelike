@@ -136,7 +136,7 @@ namespace Assets.Scripts.Map {
 				keyRooms [i].AddKey (currentKeyCode [i]);
 			}
 			//Then spawn boss key
-			maxDifficultyCurrentLevel.AddKey(new Key("boss"));
+			maxDifficultyCurrentLevel.AddKey(new Key("Boss"));
 
 		}
 

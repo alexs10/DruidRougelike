@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Start() {
-        InitGame();
+        //InitGame();
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
