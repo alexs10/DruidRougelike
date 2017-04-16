@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEditor.SceneManagement;
 
 //Enemy inherits from MovingObject, our base class for objects that can move, Player also inherits from this.
 public class Enemy : MovingObject {
@@ -73,6 +76,7 @@ public class Enemy : MovingObject {
         if (health <= 0) {
             Die();
         }
+		//showText = false; 
     }
 
     public void Die() {
