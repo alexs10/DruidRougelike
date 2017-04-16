@@ -28,7 +28,7 @@ class RangedAttackActionCommand: TargetedActionCommand {
 	}
 
 	public override Sprite GetSprite(){
-		return Resources.Load<Sprite> ("KeySprite");
+		return Resources.Load<Sprite> ("RangeInv");
 	}
 
 	public override string GetDescription ()
