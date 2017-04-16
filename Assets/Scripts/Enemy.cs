@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEditor.SceneManagement;
 
 //Enemy inherits from MovingObject, our base class for objects that can move, Player also inherits from this.
 public class Enemy : MovingObject {
@@ -12,6 +15,9 @@ public class Enemy : MovingObject {
 
     public int maxHealth = 10;
     private int health;
+	private Text damageText; 
+	bool showText = false; 
+	Rect textArea = new Rect(200,200,200, 200); 
 
 
     protected override void Start() {
@@ -24,6 +30,14 @@ public class Enemy : MovingObject {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         base.Start();
     }
+
+	void onGUI()
+	{
+		GUI.Label (textArea, "test"); 
+		if (showText) {
+			GUI.Label (textArea, "test2"); 
+		}
+	}
 
 
     protected override void AttemptMove<T>(int xDir, int yDir) {
@@ -69,10 +83,12 @@ public class Enemy : MovingObject {
 
     public void TakeDamage(int damage) {
         health -= damage;
+		showText = true; 
 		animator.SetTrigger ("enemyHit"); 
         if (health <= 0) {
             Die();
         }
+		//showText = false; 
     }
 
     public void Die() {
