@@ -39,7 +39,7 @@ class PushAttackActionCommand: TargetedActionCommand {
 	}
 
 	public override Sprite GetSprite(){
-		return Resources.Load<Sprite> ("KeySprite");
+		return Resources.Load<Sprite> ("PushInv");
 	}
 
 	public override string GetDescription ()

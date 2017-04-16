@@ -19,6 +19,7 @@ namespace Assets.Scripts.Map {
 		private Room maxDifficultyCurrentLevel;
 		private float difficultyThresh;
 		private List<Room> keyRooms;
+		private List<int> pickupRooms;
 
         public Map() {
             rooms = new Room[MapConfig.WIDTH, MapConfig.HEIGHT];
@@ -49,6 +50,10 @@ namespace Assets.Scripts.Map {
 			keyLevelDifficulty = 0;
 			keyIndex = 0;
             difficultyThresh = 0f;
+			pickupRooms = new List<int> ();
+			for (int i = 0; i < MapConfig.PICKUP_SET.Length; i++) {
+				pickupRooms.Add (Random.Range (1, MapConfig.ROOM_COUNT));
+			}
 		}
 
 		private void CreateHomeRoom() {
@@ -159,7 +164,7 @@ namespace Assets.Scripts.Map {
 						Position bossPos = availablePositionsBoss [Random.Range (0, availablePositionsBoss.Count - 1)];
 
 						List<Key> bossKeyCode = CopyKeyCode (currentKeyCode);
-						bossKeyCode.Add (new Key ("boss"));
+						bossKeyCode.Add (new Key ("Boss"));
 						AddRoom (bossPos.x, bossPos.y, maxDifficulty, bossKeyCode, entrance, new BossLayoutFactory ("Boss", 12, 8));
 						Debug.Log ("Boss Room at: " + bossPos.x + ", " + bossPos.y);
 						validBoss = true;
@@ -210,7 +215,7 @@ namespace Assets.Scripts.Map {
 		}
 
 		private bool ShouldHavePickup(int index) {
-			return index % MapConfig.ROOM_COUNT / MapConfig.PICKUP_SET.Length == (MapConfig.ROOM_COUNT/ MapConfig.PICKUP_SET.Length) - 1;
+			return pickupRooms.Contains (index);
 		}
 
 		int pickupIndex = 0;
