@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using Assets.Scripts.Map;
 using UnityEngine.UI;
-using UnityEditor.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 

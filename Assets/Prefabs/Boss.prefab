@@ -110,8 +110,8 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
-  playerDamage: 2
-  maxHealth: 10
+  playerDamage: 4
+  maxHealth: 20
   minion: {fileID: 1051241416139322, guid: e1fd7f9952d7e9c46b95396eacf2f226, type: 2}
   spawnChance: 0.4
 --- !u!212 &212326607280141112
