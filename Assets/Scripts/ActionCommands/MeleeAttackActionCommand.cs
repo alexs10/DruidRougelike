@@ -28,7 +28,7 @@ class MeleeAttackActionCommand: TargetedActionCommand {
 	}
 
 	public override Sprite GetSprite(){
-		return Resources.Load<Sprite> ("KeySprite");
+		return Resources.Load<Sprite> ("SmackInv");
 	}
 
 	public override string GetDescription ()

@@ -15,3 +15,5 @@ EditorBuildSettings:
     path: Assets/MapGen.unity
   - enabled: 1
     path: Assets/Dead.unity
+  - enabled: 1
+    path: Assets/Win.unity
