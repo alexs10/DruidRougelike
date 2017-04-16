@@ -7,11 +7,11 @@ public class LockFactory {
 
 	public LockFactory () {
 		lockDictionary = new Dictionary<string, createLockDelegate> ();
-		lockDictionary.Add ("red", coloredLock(Color.red));
-		lockDictionary.Add ("blue", coloredLock (Color.blue));
-		lockDictionary.Add ("yellow", coloredLock (Color.yellow));
-		lockDictionary.Add ("magenta", coloredLock (Color.magenta));
-		lockDictionary.Add ("boss", bossLock ());
+		lockDictionary.Add ("White", coloredLock(Color.white));
+		lockDictionary.Add ("Yellow", coloredLock (Color.yellow));
+		lockDictionary.Add ("Magenta", coloredLock (Color.magenta));
+		lockDictionary.Add ("Blue", coloredLock (Color.blue));
+		lockDictionary.Add ("Boss", bossLock ());
 	}
 
 	private createLockDelegate coloredLock(Color color) {
@@ -26,7 +26,7 @@ public class LockFactory {
 		return () => {
 			Debug.Log("Instantiating boss lock");
 			GameObject prefab = Resources.Load ("LockArt") as GameObject;
-			prefab.GetComponent<Lock> ().color = Color.black;
+			prefab.GetComponent<Lock> ().color = Color.red;
 			return prefab;
 		};
 	}

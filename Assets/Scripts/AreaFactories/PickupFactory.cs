@@ -22,7 +22,7 @@ public class PickupFactory {
     public GameObject SetKey(GameObject obj, string color) {
 
         obj.GetComponent<Pickup>().SetItem(ActionCommandFactory.GetInstance().CreateKeyAction(colorDictionary[color], color));
-        obj.GetComponent<SpriteRenderer>().color = colorDictionary[color];
+		obj.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(color + " Key");
         return obj;
     }
 

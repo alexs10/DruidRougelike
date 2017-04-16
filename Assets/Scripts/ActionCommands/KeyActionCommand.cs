@@ -13,7 +13,6 @@ public class KeyActionCommand: TargetedActionCommand {
 		: base(targetingController, playerController, player) {
 
 		this.color = color;
-		Debug.Log ("############################ " + colorName);
 		this.colorName = colorName;
 		keyLayer = LayerMask.GetMask ("BlockingLayer");
 		meleeTargetingStrategy = new MeleeTargetStrategy ();
@@ -44,8 +43,6 @@ public class KeyActionCommand: TargetedActionCommand {
 	}
 
 	public override Sprite GetSprite(){
-		Debug.Log (GetName ());
-		Debug.Log (colorName + " Key");
 		return Resources.Load<Sprite> (GetName());
 	}
 }
