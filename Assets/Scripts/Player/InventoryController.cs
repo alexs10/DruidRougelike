@@ -62,6 +62,8 @@ public class InventoryController: MonoBehaviour, Controllable {
         for (int i = 0; i < INVENTORY_SIZE; i++) {
             slots.GetChild(i).GetComponent<Image>().sprite = items[i].GetSprite();
         }
+
+		UpdateUI (items [currentIndex]);
     }
 
 	public void ControlUpdate() {
