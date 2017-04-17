@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour {
 
     public void Start() {
         //InitGame();
+		//SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		//SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -81,7 +83,7 @@ public class GameManager : MonoBehaviour {
         this.inventoryState = GameObject.Find("Player").GetComponent<InventoryController>().SnapshotState();
     }
 
-    void InitGame() {
+	 void InitGame() {
         doingSetup = true;
 
         levelImage = GameObject.Find("TransitionImage");

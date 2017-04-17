@@ -9,7 +9,11 @@ public class SwitchScene : MonoBehaviour
 	public void loadGame()
 	{
 		//Application.LoadLevel ("MapGen"); 
-		SceneManager.LoadScene("MapGen"); 
+		SceneManager.LoadScene("MapGen");
+		GameManager.instance = null; 
+		//SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex+1);
+		//GameManager.CallbackInitialization(); 
+		//SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
 		//EditorSceneManager.LoadSceneAsync("MapGen");  
 	}
 
