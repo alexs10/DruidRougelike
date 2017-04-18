@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
     private GameObject levelImage;
     private List<Enemy> enemyList;
 	private bool enemiesMoving;
-	private bool doingSetup = true;
+	public bool doingSetup = true;
 
     private PlayerState playerState;
     private InventoryState inventoryState;
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Start() {
-        //InitGame();
+        InitGame();
 		//SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		//SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }

@@ -638,6 +638,7 @@ MonoBehaviour:
   turnDelay: 0.1
   levelStartDelay: 1.5
   playersTurn: 0
+  doingSetup: 1
 --- !u!224 &307204904
 RectTransform:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class Enemy : MovingObject {
     private bool skipMove;                              //Boolean to determine whether or not enemy should skip a turn or move this turn.
 
     public int maxHealth = 10;
-    private int health;
+    public int health;
 
 
     protected override void Start() {
