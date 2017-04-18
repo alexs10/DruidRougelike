@@ -76,13 +76,13 @@ public class InventoryController: MonoBehaviour, Controllable {
 
 		horizontal = (int)(Input.GetAxisRaw("Horizontal"));
 		vertical = (int)(Input.GetAxisRaw("Vertical"));
-		if (Input.GetKeyDown(KeyCode.DownArrow) && currentIndex < 6) {
+		if ((Input.GetKeyDown(KeyCode.DownArrow)||Input.GetKeyDown(KeyCode.S)) && currentIndex < 6) {
 			ChangeIndex(3);
-		} else if (Input.GetKeyDown(KeyCode.UpArrow) && currentIndex > 2) {
+		} else if ((Input.GetKeyDown(KeyCode.UpArrow)||Input.GetKeyDown(KeyCode.W)) && currentIndex > 2) {
 			ChangeIndex(-3);
-		} else if (Input.GetKeyDown(KeyCode.RightArrow) && currentIndex % 3 != 2) {
+		} else if ((Input.GetKeyDown(KeyCode.RightArrow)||Input.GetKeyDown(KeyCode.D)) && currentIndex % 3 != 2) {
 			ChangeIndex(1);
-		} else if (Input.GetKeyDown(KeyCode.LeftArrow) && currentIndex % 3 != 0) {
+		} else if ((Input.GetKeyDown(KeyCode.LeftArrow)||Input.GetKeyDown(KeyCode.A)) && currentIndex % 3 != 0) {
 			ChangeIndex(-1);
 		} else if (Input.GetKeyDown(KeyCode.Alpha1)) {
             ActionCommand command = actionBar.Equip(items[currentIndex], 0);
