@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour {
             instance = this;
             DontDestroyOnLoad(gameObject);
             enemyList = new List<Enemy>();
-
+			Random.InitState (1337);
             map = new Map();
 
         } else if (instance != this)

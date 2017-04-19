@@ -18,7 +18,7 @@ public class FollowEnemy : MonoBehaviour {
     void Start () {
         enemyTarget = GetComponentInParent<Enemy>();
         followTarget = transform.parent.transform;
-        transform.parent = GameObject.Find("HUD").transform;
+        transform.parent = GameObject.Find("HealthBars").transform;
 
         rt = GetComponent<RectTransform>();
         canvasRt = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
